@@ -1,2 +1,2 @@
 # api-fit
-Automated API testing for FitNesse
+## Start securing your API through an automated user friendly test suite in less than 5 minutes, really !
