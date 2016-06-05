@@ -1,5 +1,6 @@
 *.class
 target/
+<<<<<<< HEAD
 .settings
 .classpath
 .project
@@ -66,3 +67,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+=======
+>>>>>>> be99a8c192a13de03297e630cddd146dabdcd01e
