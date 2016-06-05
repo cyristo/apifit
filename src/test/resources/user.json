@@ -1,0 +1,16 @@
+{
+  "id" : 99,
+  "name" : "Stock",
+  "username" : "Cyril",
+  "email" : "a.c@d.c",
+  "address" : {
+    "street" : "42, Java Street",
+    "suite" : "",
+    "city" : "San Francisco",
+    "zipcode" : "123456",
+    "geo" : {
+      "lat" : "-12.34",
+      "lng" : "-56.78"
+    }
+  }
+}

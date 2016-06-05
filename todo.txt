@@ -1,0 +1,21 @@
+Gérer age of children
+GIT
+manage charset as content type
+//TOTEST Manage HTPP Proxy
+Manage better HTTP header fields (https://en.wikipedia.org/wiki/List_of_HTTP_header_fields)
+http://static.javadoc.io/com.jayway.restassured/rest-assured/2.9.0/com/jayway/restassured/config/HeaderConfig.html
+Voir problème des redirections 303
+Test GZIP & DEFLATE together, if KO manage config through ApiFit config (GZIP,DEFLATE)
+Update Json without any DTO 
+fitnesse ressources organisation
+remove unused libraries
+packaging jar
+integration Jenkins
+Admin
+XML management
+Insérer les sous DTO dans BookingDTO ou Supprimer les DTO
+Intégration Sonar
+Documentation & Demo dans FitNesse
+JavaDoc, lien dans FitNesse
+PPT
+

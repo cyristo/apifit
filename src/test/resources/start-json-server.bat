@@ -1,0 +1,1 @@
+json-server --watch C:\Users\cstock\workspace\apifit\target\test-classes\db.json

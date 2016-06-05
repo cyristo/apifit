@@ -1,0 +1,28 @@
+{
+  "hotelCode": "",
+  "room": [
+    {
+      "period": {
+        "dateIn": "",
+        "nights": 0
+      },
+      "adults": 0,
+      "childrenAges": [
+        0
+      ],
+      "productCode": "",
+      "offerCode": "",
+      "option": [
+        {
+          "code": "",
+          "quantity": 0
+        }
+      ]
+    }
+  ],
+  "applicationInfo": {
+    "userAgent": "",
+    "accorApps": "",
+    "accorInfos": ""
+  }
+}
