@@ -9,9 +9,13 @@ import static apifit.common.ApiFitConstants.PUT;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HeaderIterator;
 import org.apache.http.HttpEntity;
@@ -30,6 +34,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+import com.google.common.collect.ArrayListMultimap;
+
 import apifit.common.ApiFitException;
 import apifit.contract.IAPIClient;
 import apifit.json.JsonToolBox;
@@ -40,31 +46,48 @@ public class APIClient implements IAPIClient {
 	private Integer statusCode = null;
 	private String responseBody = null;
 	private long requestTime;
-	private Map<String, String> responseHeaders = null;
-	private Map<String, String> requestHeaders = null;
+	private ArrayListMultimap<String, String> responseHeaders = null;
+	private ArrayListMultimap<String, String> requestHeaders = null;
 	private StringBuffer requestFlow;
+	private ArrayListMultimap<String, String> cookiesToSet = null;
 
 	public APIClient(String requestType) {
 		this.requestType = requestType;
 	}
 
-	public void setRequestHeaders(Map<String, String> requestHeaders) {
+	public void setRequestHeaders(ArrayListMultimap<String, String> requestHeaders) {
 		this.requestHeaders = requestHeaders;
 	}
 
 	public void addRequestHeader(String name, String value) {
-		if (requestHeaders == null) requestHeaders = new Hashtable<String, String>();
+		if (requestHeaders == null) requestHeaders = ArrayListMultimap.create();
 		requestHeaders.put(name, value);
 	}
 	
-	public Map<String, String> getResponseHeaders() {
+	public ArrayListMultimap<String, String> getResponseHeaders() {
 		return responseHeaders;
 	}
 	
-	public String getResponseHeader(String name) {
+	public List<String> getResponseHeader(String name) {
 		return responseHeaders.get(name);
 	}
-/*
+
+	public Map<String, String> getCookiesToSet() {
+		Map<String, String> cookiesInResponse = null;
+		List<String> cookies = getResponseHeader("Set-Cookie");
+		if (cookies != null && !cookies.isEmpty()) {
+			cookiesInResponse = new Hashtable<String, String>();
+			Iterator iter = cookies.iterator();
+			while (iter.hasNext()) {
+				String cookie = (String) iter.next();
+				String name = StringUtils.substringBefore(cookie, "=");
+				String value = StringUtils.substringBetween(cookie, "=", ";");
+				cookiesInResponse.put(name, value);
+			}
+		}
+		return cookiesInResponse;
+	}
+	/*
 	public void setContentEncoder(ContentDecoder decoder1, ContentDecoder decoder2) {
 		if (decoder2 != null) {
 			RestAssured.config = config().decoderConfig(decoderConfig().contentDecoders(decoder1, decoder2));
@@ -120,7 +143,7 @@ public class APIClient implements IAPIClient {
 		requestFlow.append(LINE_SEPARATOR).append("RESPONSE HEADERS :");
 		
 		HeaderIterator it = response.headerIterator();
-		responseHeaders = new Hashtable<String, String>();
+		responseHeaders = ArrayListMultimap.create();
 		while (it.hasNext()) {
 		    Header header = it.nextHeader(); 
 		    requestFlow.append(LINE_SEPARATOR).append(header);

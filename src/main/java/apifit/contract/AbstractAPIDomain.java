@@ -8,6 +8,8 @@ import static apifit.common.ApiFitConstants.STATUS_UNKNOWN;
 
 import java.util.Map;
 
+import com.google.common.collect.ArrayListMultimap;
+
 import apifit.api.APIClient;
 import apifit.common.ApiFitException;
 import apifit.common.ApiFitLogger;
@@ -31,7 +33,7 @@ public abstract class AbstractAPIDomain implements IDomain {
 
 		Object cookies = TestSessionCache.getInstance().getObjectInTestSession(testSessionId+COOKIES); 
 		if (cookies != null) {
-			request.setRequestHeaders((Map<String, String>) cookies);
+			request.setRequestHeaders((ArrayListMultimap<String, String>) cookies);
 		}
 		
 		Object proxy = TestSessionCache.getInstance().getObjectInTestSession(PROXY);
