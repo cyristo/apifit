@@ -67,6 +67,7 @@ public class TestAPIFixture {
 			String dbFileName = dbFile.getParent()+"\\start-json-server.bat";
 			String cmd = "cmd /c start ";
 			process = Runtime.getRuntime().exec(cmd + dbFileName);
+			Thread.sleep(3000);
 		}  
 
 	}

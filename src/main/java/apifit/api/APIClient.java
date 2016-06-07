@@ -8,12 +8,20 @@ import static apifit.common.ApiFitConstants.POST;
 import static apifit.common.ApiFitConstants.PUT;
 
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javax.net.ssl.SSLContext;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
@@ -21,6 +29,8 @@ import org.apache.http.HeaderIterator;
 import org.apache.http.HttpEntity;
 import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.CookieStore;
+import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
@@ -28,10 +38,20 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.LaxRedirectStrategy;
+import org.apache.http.impl.cookie.BasicClientCookie;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+import org.apache.http.ssl.SSLContexts;
+import org.apache.http.ssl.TrustStrategy;
 import org.apache.http.util.EntityUtils;
 
 import com.google.common.collect.ArrayListMultimap;
@@ -49,12 +69,25 @@ public class APIClient implements IAPIClient {
 	private ArrayListMultimap<String, String> responseHeaders = null;
 	private ArrayListMultimap<String, String> requestHeaders = null;
 	private StringBuffer requestFlow;
-	private ArrayListMultimap<String, String> cookiesToSet = null;
+	//private Map<String, String> cookies = null;
+	private CookieStore cookieStore = null;
+	//private ArrayListMultimap<String, String> cookiesToSet = null;
 
 	public APIClient(String requestType) {
 		this.requestType = requestType;
 	}
 
+	public void setRequestHeaders(Hashtable<String, String> requestHeaderTable) {
+		if (requestHeaderTable == null) return;
+		Enumeration enumer = requestHeaderTable.keys();
+		requestHeaders = ArrayListMultimap.create();
+		while (enumer.hasMoreElements()) {
+			String key = (String) enumer.nextElement();
+			String value = requestHeaderTable.get(key);
+			requestHeaders.put(key, value);
+		}
+	}
+	
 	public void setRequestHeaders(ArrayListMultimap<String, String> requestHeaders) {
 		this.requestHeaders = requestHeaders;
 	}
@@ -87,6 +120,25 @@ public class APIClient implements IAPIClient {
 		}
 		return cookiesInResponse;
 	}
+	public void setCookies(Hashtable<String, String> cookies) {
+		if (cookies != null) {
+			cookieStore = new BasicCookieStore();
+			// Populate cookies if needed
+			Enumeration<String> enumer = cookies.keys();
+			BasicClientCookie cookie = null;
+			StringBuffer cookieString = new StringBuffer();
+			while (enumer.hasMoreElements()) {
+				String name = (String) enumer.nextElement();
+				String value = cookies.get(name);
+				cookie = new BasicClientCookie(name, value);
+				cookie.setDomain(".accorhotels.ws");
+				cookie.setPath("/");
+				cookieStore.addCookie(cookie);
+				cookieString.append(name).append("=").append(value).append("; ");
+			}
+			addRequestHeader("Cookie", cookieString.toString());
+		}
+	}
 	/*
 	public void setContentEncoder(ContentDecoder decoder1, ContentDecoder decoder2) {
 		if (decoder2 != null) {
@@ -107,18 +159,37 @@ public class APIClient implements IAPIClient {
 	public boolean execute(String contentType, String URL, int checkStatus, String payload) throws ApiFitException {
 
 		boolean wellDone = false;
-		requestFlow = new StringBuffer().append("=================> API EXECUTION FLOW AT ").append(LocalDateTime.now()).append(" <=================");
-		requestFlow.append(LINE_SEPARATOR).append("REQUEST ACTION   : ").append(requestType).append(" ").append(URL);
-		if (requestHeaders != null) requestFlow.append(LINE_SEPARATOR).append("REQUEST HEADERS  : ").append(requestHeaders);
-		
-		CloseableHttpClient httpclient = HttpClients.createDefault();
 		HttpUriRequest httpRequest = getProperRequest(URL, contentType, payload);
+		
+		CloseableHttpClient httpclient;
+		if (cookieStore != null) {
+			httpclient = HttpClients.custom()
+					.setSSLSocketFactory(getSSLConnectionSocketFactory())
+					.setRedirectStrategy(new LaxRedirectStrategy())
+					.setDefaultCookieStore(cookieStore)
+					.build();
+		} else {
+			httpclient = HttpClients.custom()
+					.setSSLSocketFactory(getSSLConnectionSocketFactory())
+					.setRedirectStrategy(new LaxRedirectStrategy())
+					.build();
+		}
+
 		CloseableHttpResponse response = null; 
 		requestTime = -1;
 		
 		try {
-			long before = System.currentTimeMillis();
-			response = httpclient.execute(httpRequest);
+			parseRequestEntity(httpRequest, payload);
+			long before;
+			if (cookieStore != null) {
+				HttpContext localContext = new BasicHttpContext();
+				localContext.setAttribute(HttpClientContext.COOKIE_STORE, cookieStore);
+				before = System.currentTimeMillis();
+				response = httpclient.execute(httpRequest, localContext);
+			} else {
+				before = System.currentTimeMillis();
+				response = httpclient.execute(httpRequest);
+			}
 			long after = System.currentTimeMillis();
 			requestTime = after - before;
 			parseResponseEntity(response, payload);
@@ -130,13 +201,13 @@ public class APIClient implements IAPIClient {
 			throw new ApiFitException(e);
 		} finally {
 		    try {
-				response.close();
+				if (response != null) response.close();
 			} catch (IOException e) {
 				requestFlow.append(LINE_SEPARATOR).append("REQUEST ERROR    : ").append("IOException  -> ").append(e.getMessage());
 				throw new ApiFitException(e);
 			}
 		}
-
+		
 		statusCode = response.getStatusLine().getStatusCode();
 		requestFlow.append(LINE_SEPARATOR).append("RESPONSE STATUS  : ").append(statusCode);
 		requestFlow.append(LINE_SEPARATOR).append("RESPONSE TIME    : ").append(requestTime);
@@ -158,6 +229,8 @@ public class APIClient implements IAPIClient {
 		
 		return wellDone;
 	}
+
+
 
 	public Integer getStatusCode() {
 		return statusCode;
@@ -182,38 +255,75 @@ public class APIClient implements IAPIClient {
 	private HttpUriRequest getProperRequest(String URL, String contentType, String payload) {
 		
 		RequestConfig requestConfig = RequestConfig.custom()
+				.setCookieSpec(CookieSpecs.DEFAULT)
 				.setRedirectsEnabled(true)
 				.setMaxRedirects(10)
-				.setAuthenticationEnabled(true)
-				.setCircularRedirectsAllowed(true)
+				//.setAuthenticationEnabled(true)
+				//.setCircularRedirectsAllowed(true)
 				.setContentCompressionEnabled(true)
+                .setConnectTimeout(20 * 1000)
+                .setConnectionRequestTimeout(20 * 1000)
+                .setSocketTimeout(20 * 1000)
 				.build();
 		
 		if (requestType.equals(GET)) {
 			HttpGet req = new HttpGet(URL);
 			req.setConfig(requestConfig);
+			addHeadersToRequest(req);
 			return req;
 		}
 		if (requestType.equals(POST)) {
 			HttpPost req = new HttpPost(URL);
 			req.setConfig(requestConfig);
 			req.setEntity(new StringEntity(payload, ContentType.create(contentType, "UTF-8")));
+			addHeadersToRequest(req);
 			return req;
 		}
 		if (requestType.equals(PUT)) {
 			HttpPut req = new HttpPut(URL);
 			req.setConfig(requestConfig);
 			req.setEntity(new StringEntity(payload, ContentType.create(contentType, "UTF-8")));
+			addHeadersToRequest(req);
 			return req;
 		}
 		if (requestType.equals(DELETE)) {
 			HttpDelete req = new HttpDelete(URL);
 			req.setConfig(requestConfig);
+			addHeadersToRequest(req);
 			return req;
 		}
 		return null;
 		
 	}
+	private HttpUriRequest addHeadersToRequest(HttpUriRequest request) {
+		if (requestHeaders != null) {
+			Collection<Map.Entry<String, String>> coll = requestHeaders.entries();
+			Iterator iter = coll.iterator();
+			while (iter.hasNext()) {
+				Map.Entry<String, String> entry = (Map.Entry<String, String>) iter.next();
+				request.addHeader(entry.getKey(), entry.getValue());
+			}
+		}
+		return request;
+	}
+	private void parseRequestEntity(HttpUriRequest httpRequest, String payload) {
+		requestFlow = new StringBuffer().append("=================> API EXECUTION FLOW AT ").append(LocalDateTime.now()).append(" <=================");
+		requestFlow.append(LINE_SEPARATOR).append("REQUEST ACTION   : ").append(requestType).append(" ").append(httpRequest.getURI());
+		if (requestHeaders != null) {
+			Header[] headers = httpRequest.getAllHeaders();
+			requestFlow.append(LINE_SEPARATOR).append("REQUEST HEADERS  : ");
+			for (int i = 0; i < headers.length; i++) {
+				Header header = headers[i];
+				requestFlow.append(LINE_SEPARATOR).append(header.getName()).append(": ").append(header.getValue());
+			}
+		}
+		if (payload != null) {
+			requestFlow.append(LINE_SEPARATOR).append("REQUEST BODY   : ");
+			requestFlow.append(LINE_SEPARATOR).append(payload);
+		}
+		
+	}
+
 	private void parseResponseEntity(CloseableHttpResponse response, String payload) throws ApiFitException {
 		HttpEntity entity = response.getEntity();
 		if (entity.getContentType().equals(JSON_CONTENT_TYPE)) {
@@ -240,50 +350,29 @@ public class APIClient implements IAPIClient {
 			}
 		}
 	}
-/*
-	private RequestSpecification initRequestSpecification(String contentType, String payload) {
-		RequestSpecification reqSpec;
-		*
-		Specify the cookies that'll be sent with the request as Map e.g:
-		 Map<String, String> cookies = new HashMap<String, String>();
-		 cookies.put("username", "John");
-		 cookies.put("token", "1234");
-		 given().cookies(cookies).then().expect().body(equalTo("username, token")).when().get("/cookie");
-		 * 
-		if (cookies != null) {
-			if (payload != null) {
-				reqSpec = given()
-						.config(RestAssured.config().redirect(redirectConfig().followRedirects(true)))
-						.contentType(contentType)
-						.cookies(cookies)
-						//.sessionId(sessionId)
-						.body(payload)
-						.when();				
-			} else {
-				reqSpec = given()
-						.config(RestAssured.config().redirect(redirectConfig().followRedirects(true)))
-						.contentType(contentType)
-						.cookies(cookies)
-						//.sessionId(sessionId)
-						.when();
-			}
-
-		} else {
-			if (payload != null) {
-				reqSpec = given()
-						.config(RestAssured.config().redirect(redirectConfig().followRedirects(true)))
-						.contentType(contentType)
-						.body(payload)
-						.when();
-			} else {
-				reqSpec = given()
-						.config(RestAssured.config().redirect(redirectConfig().followRedirects(true)))
-						.contentType(contentType)
-						.when();	
-			}
+	
+	private SSLConnectionSocketFactory getSSLConnectionSocketFactory() throws ApiFitException {
+	    SSLContext sslContext = null;
+		try {
+			sslContext = SSLContexts.custom()
+			        .loadTrustMaterial(null, new TrustStrategy() {
+						public boolean isTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+			                return true;
+						}
+			        })
+			        .build();
+		} catch (KeyManagementException e) {
+			throw new ApiFitException(e);
+		} catch (NoSuchAlgorithmException e) {
+			throw new ApiFitException(e);
+		} catch (KeyStoreException e) {
+			throw new ApiFitException(e);
 		}
-		return reqSpec;
+
+	    SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
+	            sslContext, NoopHostnameVerifier.INSTANCE);
+	    
+	    return sslsf;
 	}
-*/
 
 }

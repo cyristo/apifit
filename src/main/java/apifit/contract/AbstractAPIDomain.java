@@ -6,6 +6,7 @@ import static apifit.common.ApiFitConstants.STATUS_KO;
 import static apifit.common.ApiFitConstants.STATUS_OK;
 import static apifit.common.ApiFitConstants.STATUS_UNKNOWN;
 
+import java.util.Hashtable;
 import java.util.Map;
 
 import com.google.common.collect.ArrayListMultimap;
@@ -33,7 +34,7 @@ public abstract class AbstractAPIDomain implements IDomain {
 
 		Object cookies = TestSessionCache.getInstance().getObjectInTestSession(testSessionId+COOKIES); 
 		if (cookies != null) {
-			request.setRequestHeaders((ArrayListMultimap<String, String>) cookies);
+			request.setCookies((Hashtable<String, String>) cookies);
 		}
 		
 		Object proxy = TestSessionCache.getInstance().getObjectInTestSession(PROXY);
