@@ -134,7 +134,8 @@ public class APIClient implements IAPIClient {
 				cookie.setDomain(".accorhotels.ws");
 				cookie.setPath("/");
 				cookieStore.addCookie(cookie);
-				cookieString.append(name).append("=").append(value).append("; ");
+				cookieString.append(name).append("=").append(value);
+				if (enumer.hasMoreElements()) cookieString.append("; ");
 			}
 			addRequestHeader("Cookie", cookieString.toString());
 		}

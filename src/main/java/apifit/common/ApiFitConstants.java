@@ -37,6 +37,7 @@ public class ApiFitConstants {
 	
 	public static final String CONTENT_TYPE = "CONTENT_TYPE";
 	public static final String JSON_CONTENT_TYPE = "application/json";
+	public static final String FORM_CONTENT_TYPE = "application/x-www-form-urlencoded";
 	
 	public static final String STATUS_CODE = "STATUS_CODE";
 	public static final String CHECK_STATUS = "CHECK_STATUS";
