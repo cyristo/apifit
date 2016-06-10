@@ -1,15 +1,13 @@
 package apifit.contract;
 
 import static apifit.common.ApiFitConstants.COOKIES;
-import static apifit.common.ApiFitConstants.PROXY;
+//import static apifit.common.ApiFitConstants.PROXY_HOST;
+//import static apifit.common.ApiFitConstants.PROXY_PORT;
 import static apifit.common.ApiFitConstants.STATUS_KO;
 import static apifit.common.ApiFitConstants.STATUS_OK;
 import static apifit.common.ApiFitConstants.STATUS_UNKNOWN;
 
 import java.util.Hashtable;
-import java.util.Map;
-
-import com.google.common.collect.ArrayListMultimap;
 
 import apifit.api.APIClient;
 import apifit.common.ApiFitException;
@@ -25,35 +23,37 @@ public abstract class AbstractAPIDomain implements IDomain {
 	protected Integer statusCode = null;
 	protected Long executionTime = (long) -1;
 	protected IDTO dto;
-	protected APIClient request;
+	protected APIClient apiClient;
 	
 	protected void initStandardExecution(String requestType, String testSessionId) {
 		executionStatus = STATUS_UNKNOWN;
-		request = new APIClient(requestType);
-		//request.setContentEncoder(GZIP, null);
+		apiClient = new APIClient(requestType);
 
 		Object cookies = TestSessionCache.getInstance().getObjectInTestSession(testSessionId+COOKIES); 
 		if (cookies != null) {
-			request.setCookies((Hashtable<String, String>) cookies);
+			apiClient.setCookies((Hashtable<String, String>) cookies);
 		}
-		
-		Object proxy = TestSessionCache.getInstance().getObjectInTestSession(PROXY);
-		if (proxy != null) {
-			request.setProxy((String) proxy);
+		/*
+		Object proxyHost = TestSessionCache.getInstance().getObjectInTestSession(PROXY_HOST);
+		Object proxyPort = TestSessionCache.getInstance().getObjectInTestSession(PROXY_PORT);
+		if (proxyHost != null) {
+			if (proxyPort == null) proxyPort = new Integer(80);
+			apiClient.setProxy((String) proxyHost, (Integer) proxyPort);
 		}
+		*/
 	}
 	
 	protected void standardExecution(String contentType, String URL, int checkStatus, String payload) throws ApiFitException {
-		if (request.execute(contentType, URL, checkStatus, payload)) {
+		if (apiClient.execute(contentType, URL, checkStatus, payload)) {
 			executionStatus = STATUS_OK;
-			executionBody = request.getResponseBody();
+			executionBody = apiClient.getResponseBody();
 		} else {
 			executionStatus = STATUS_KO;
-			executionErrorMessage = request.getResponseBody();
+			executionErrorMessage = apiClient.getResponseBody();
 		}
-		statusCode = request.getStatusCode();
-		executionTime = request.getRequestTime();
-		ApiFitLogger.log(request.getRequestFlow().toString());
+		statusCode = apiClient.getStatusCode();
+		executionTime = apiClient.getRequestTime();
+		ApiFitLogger.log(apiClient.getRequestFlow().toString());
 	}
 
 	
@@ -77,7 +77,7 @@ public abstract class AbstractAPIDomain implements IDomain {
 		return executionTime;
 	}
 	
-	protected String extractValueFromPayload(String payload, String param) {
+	protected String extractValueFromJsonPayload(String payload, String param) {
 		JsonToolBox jsonToolBox = new JsonToolBox();
 		return (String) jsonToolBox.getJsonParamValue(payload, param);
 	}

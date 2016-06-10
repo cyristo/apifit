@@ -27,6 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HeaderIterator;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.CookieStore;
@@ -45,8 +46,10 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.client.LaxRedirectStrategy;
+import org.apache.http.impl.conn.DefaultProxyRoutePlanner;
 import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
@@ -56,6 +59,7 @@ import org.apache.http.util.EntityUtils;
 
 import com.google.common.collect.ArrayListMultimap;
 
+import apifit.common.ApiFitCache;
 import apifit.common.ApiFitException;
 import apifit.contract.IAPIClient;
 import apifit.json.JsonToolBox;
@@ -69,9 +73,8 @@ public class APIClient implements IAPIClient {
 	private ArrayListMultimap<String, String> responseHeaders = null;
 	private ArrayListMultimap<String, String> requestHeaders = null;
 	private StringBuffer requestFlow;
-	//private Map<String, String> cookies = null;
 	private CookieStore cookieStore = null;
-	//private ArrayListMultimap<String, String> cookiesToSet = null;
+	//private HttpHost proxy = null;
 
 	public APIClient(String requestType) {
 		this.requestType = requestType;
@@ -149,10 +152,11 @@ public class APIClient implements IAPIClient {
 		}
 	}
 */
-	public void setProxy(String proxy) {
-		
+	/*
+	public void setProxy(APIHost apiProxy) {
+		this.proxy = new HttpHost(apiProxy.getHost(), apiProxy.getPort());
 	}
-
+*/
 	public boolean execute(String contentType, String URL, int checkStatus) throws ApiFitException {
 		return execute(contentType, URL, checkStatus, null);
 	}
@@ -161,20 +165,7 @@ public class APIClient implements IAPIClient {
 
 		boolean wellDone = false;
 		HttpUriRequest httpRequest = getProperRequest(URL, contentType, payload);
-		
-		CloseableHttpClient httpclient;
-		if (cookieStore != null) {
-			httpclient = HttpClients.custom()
-					.setSSLSocketFactory(getSSLConnectionSocketFactory())
-					.setRedirectStrategy(new LaxRedirectStrategy())
-					.setDefaultCookieStore(cookieStore)
-					.build();
-		} else {
-			httpclient = HttpClients.custom()
-					.setSSLSocketFactory(getSSLConnectionSocketFactory())
-					.setRedirectStrategy(new LaxRedirectStrategy())
-					.build();
-		}
+		CloseableHttpClient httpclient = getProperClient();
 
 		CloseableHttpResponse response = null; 
 		requestTime = -1;
@@ -231,8 +222,6 @@ public class APIClient implements IAPIClient {
 		return wellDone;
 	}
 
-
-
 	public Integer getStatusCode() {
 		return statusCode;
 	}
@@ -259,8 +248,8 @@ public class APIClient implements IAPIClient {
 				.setCookieSpec(CookieSpecs.DEFAULT)
 				.setRedirectsEnabled(true)
 				.setMaxRedirects(10)
-				//.setAuthenticationEnabled(true)
-				//.setCircularRedirectsAllowed(true)
+				.setAuthenticationEnabled(true)
+				.setCircularRedirectsAllowed(true)
 				.setContentCompressionEnabled(true)
                 .setConnectTimeout(20 * 1000)
                 .setConnectionRequestTimeout(20 * 1000)
@@ -296,6 +285,41 @@ public class APIClient implements IAPIClient {
 		return null;
 		
 	}
+	
+	private CloseableHttpClient getProperClient() throws ApiFitException {
+		
+		HttpClientBuilder builder = HttpClients.custom()
+				.setSSLSocketFactory(getSSLConnectionSocketFactory())
+				.setRedirectStrategy(new LaxRedirectStrategy());
+		
+		if (cookieStore != null) {
+			builder.setDefaultCookieStore(cookieStore);
+		}
+		
+		APIHost proxyHost = ApiFitCache.getInstance().getProxy();
+		if (proxyHost != null) {
+			HttpHost host = new HttpHost(proxyHost.getHost(), proxyHost.getPort(), "http");
+			DefaultProxyRoutePlanner routePlanner = new DefaultProxyRoutePlanner(host);
+			builder.setRoutePlanner(routePlanner);
+		}
+		
+		/*
+		if (cookieStore != null) {
+			httpclient = HttpClients.custom()
+					.setSSLSocketFactory(getSSLConnectionSocketFactory())
+					.setRedirectStrategy(new LaxRedirectStrategy())
+					.setDefaultCookieStore(cookieStore)
+					.build();
+		} else {
+			httpclient = HttpClients.custom()
+					.setSSLSocketFactory(getSSLConnectionSocketFactory())
+					.setRedirectStrategy(new LaxRedirectStrategy())
+					.build();
+		}
+		*/
+		return builder.build();
+	}
+	
 	private HttpUriRequest addHeadersToRequest(HttpUriRequest request) {
 		if (requestHeaders != null) {
 			Collection<Map.Entry<String, String>> coll = requestHeaders.entries();

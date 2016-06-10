@@ -17,6 +17,8 @@ public class ApiFitConstants {
 	public static final String APIFIT_CONTENT_TYPE = "APIFIT:CONTENT_TYPE";
 	public static final String APIFIT_HTTP_VERB = "APIFIT:HTTP_VERB";
 	public static final String APIFIT_CHECK_STATUS = "APIFIT:CHECK_STATUS";
+	public static final String APIFIT_PROXY_HOST = "APIFIT:PROXY_HOST";
+	public static final String APIFIT_PROXY_PORT = "APIFIT:PROXY_PORT";
 	
 	public static final String BASE_URL = "BASE_URL";
 	public static final String SCHEME = "SCHEME";
@@ -31,7 +33,6 @@ public class ApiFitConstants {
 	public static final String DELETE = "DELETE";
 	public static final String PUT = "PUT";
 	public static final String COOKIES = "COOKIES";
-	public static final String PROXY = "PROXY";
 	public static final String GZIP = "GZIP";
 	public static final String DEFLATE = "DEFLATE";
 	

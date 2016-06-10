@@ -2,9 +2,13 @@ package apifit.common;
 
 import java.util.Hashtable;
 
+import apifit.api.APIHost;
+
 public class ApiFitCache {
 
 	private Hashtable<String, String> config;
+	private String baseURL;
+	private APIHost proxy;
 	
 	private ApiFitCache() {
 	}
@@ -28,11 +32,7 @@ public class ApiFitCache {
 	private void initConfig() {
 		config = new Hashtable<String, String>();
 	}
-	/*
-	public Hashtable<String, String> getConfig() {
-		return config;
-	}
-	*/
+	
 	public String getConfigProperty(String key) {
 		return config.get(key);
 	}
@@ -53,4 +53,16 @@ public class ApiFitCache {
 		config.clear();
 	}
 
+	public void setBaseURL(String baseURL) {
+		this.baseURL = baseURL;
+	}
+	public String getBaseURL() {
+		return baseURL;
+	}
+	public void setProxy(APIHost proxy) {
+		this.proxy = proxy;
+	}
+	public APIHost getProxy() {
+		return proxy;
+	}
 }
