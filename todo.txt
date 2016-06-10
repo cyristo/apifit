@@ -1,5 +1,6 @@
 Gérer age of children
 GIT
+API client optim and parametre
 manage charset as content type
 //TOTEST Manage HTPP Proxy
 Manage better HTTP header fields (https://en.wikipedia.org/wiki/List_of_HTTP_header_fields)
