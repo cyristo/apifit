@@ -1,19 +1,16 @@
+Variable maven
+Booking authentifié
 Gérer age of children
-GIT
-API client optim and parametre
-manage charset as content type
-Manage HTPP Proxy
-Manage better HTTP header fields (https://en.wikipedia.org/wiki/List_of_HTTP_header_fields)
+API client optimization 
+API client full external configuration
 Update Json without any DTO 
 fitnesse ressources organisation
-remove unused libraries
 packaging jar
 integration Jenkins
-Admin
 XML management
-Insérer les sous DTO dans BookingDTO ou Supprimer les DTO
 Intégration Sonar
-Documentation & Demo dans FitNesse
-JavaDoc, lien dans FitNesse
+GITHub ReadMe
+Demo dans FitNesse
+JavaDoc
 PPT
 

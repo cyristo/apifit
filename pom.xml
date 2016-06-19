@@ -76,6 +76,7 @@
 		</dependency>
 	</dependencies>
 
+
 	<build>
 		<plugins>
 			<plugin>
@@ -87,7 +88,7 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>C:\Users\cstock\Mes Apps\FitNesseRoot\lib</outputDirectory>
+							<outputDirectory>${apifit.deployDir}</outputDirectory>
 							<includeArtifactIds>
 
 							</includeArtifactIds>
@@ -97,4 +98,5 @@
 			</plugin>
 		</plugins>
 	</build>
+
 </project>
