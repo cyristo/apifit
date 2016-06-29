@@ -1,6 +1,8 @@
 package apifit.domain;
-
+import static apifit.common.ApiFitConstants.POST;
+import static apifit.common.ApiFitConstants.PUT;
 import apifit.common.ApiFitException;
+import apifit.common.TestSessionCache;
 import apifit.contract.AbstractAPIDomain;
 
 public class APIDomain extends AbstractAPIDomain {
@@ -31,34 +33,7 @@ public class APIDomain extends AbstractAPIDomain {
 		//************* standard execution
 		initStandardExecution(httpVerb, testSessionId);		
 		standardExecution(contentType, URL, statusToCheck, payload);
-
-		/*
-		executionStatus = ApiFitConstants.STATUS_UNKNOWN;
-
-		HttpRequest req = new HttpRequest(httpVerb);
-		Map<String, String> cookies = (Map<String, String>) 
-				TestExecutionCache.getInstance().getObjectInTestExecutionContext(testSessionId+ApiFitConstants.COOKIES); 
-		if (cookies != null) request.addCookies(cookies);
-		
-		boolean execStatus = req.execute(contentType, URL, statusToCheck, payload);
-		
-		if (checkStatus) {
-			if (execStatus) {
-				executionStatus = ApiFitConstants.STATUS_OK;
-				executionBody = req.getResponseBody();
-			} else {
-				executionStatus = ApiFitConstants.STATUS_KO;
-				executionErrorMessage = req.getResponseBody();
-			}
-		} else {
-			executionBody = req.getResponseBody();
-		}
-		
-		statusCode = req.getStatusCode();
-		executionTime = req.getRequestTime();
-		
-		ApiFitLogger.log(req.getRequestTrace());
-		*/
+	
 	}
 
 	public void setStatusToCheck(Integer statusToCheck) {

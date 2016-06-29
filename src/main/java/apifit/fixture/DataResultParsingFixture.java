@@ -17,14 +17,15 @@ public class DataResultParsingFixture extends AbstractFixture implements IDynami
 	}
 	public DataResultParsingFixture(String testSessionId, String dataParsingType) {
 		super(testSessionId, false);
-		this.data = (String) TestSessionCache.getInstance().getObjectInTestSession(testSessionId.trim()+dataParsingType.trim());	
+		this.data = (String) TestSessionCache.getInstance().getObjectInTestSession(testSessionId+dataParsingType);	
 		jsonToolBox = new JsonToolBox();
 		
 	}
 
 	public String get(String requestedValue) {		
-		String value = jsonToolBox.getJsonParamValue(data, requestedValue).toString();
-		return value;
+		Object obj = jsonToolBox.getJsonParamValue(data, requestedValue);
+		if (obj != null) return obj.toString();
+		return null;
 	}
 	
 	public void set(String header, String value) {

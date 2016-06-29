@@ -21,12 +21,13 @@ public class JsonToDTOConverter {
 		JsonToDTOConverter.convert(fileName);
 		System.out.println(fileName+"--------------------------------------");
 		
-		fileName = "hotels.txt";
+		fileName = "identification.txt";
 		System.out.println(fileName+"++++++++++++++++++++++++++++++++++++++");
 		JsonToDTOConverter.convert(fileName);
 		System.out.println(fileName+"--------------------------------------");
-		
-		fileName = "identification.txt";
+	
+
+		fileName = "user.txt";
 		System.out.println(fileName+"++++++++++++++++++++++++++++++++++++++");
 		JsonToDTOConverter.convert(fileName);
 		System.out.println(fileName+"--------------------------------------");
@@ -34,7 +35,7 @@ public class JsonToDTOConverter {
 	
 	private static void convert(String fileNAme) {
 		
-		File file = FileUtils.getFile("C:\\Users\\cstock\\workspace\\roomapidomain\\src\\main\\resources\\", fileNAme);
+		File file = FileUtils.getFile("C:\\Users\\cstock\\workspace\\ahapidomain\\src\\main\\resources\\", fileNAme);
 		List<String> lines = null;
 		try {
 			lines = FileUtils.readLines(file, "utf-8");

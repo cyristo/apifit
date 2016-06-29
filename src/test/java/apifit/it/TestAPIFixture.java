@@ -92,7 +92,6 @@ public class TestAPIFixture {
 	}
 
 	@Test
-	@Ignore
 	public void get() throws InterruptedException {
 
 		//act
@@ -114,7 +113,7 @@ public class TestAPIFixture {
 
 	}
 
-	@Test 	@Ignore
+	@Test 	
 	public void delete() throws InterruptedException {
 
 		//act
@@ -146,7 +145,7 @@ public class TestAPIFixture {
 
 	}
 
-	@Test 	@Ignore
+	@Test 	
 	public void put() throws IOException, InterruptedException {
 
 		//arrange
@@ -183,7 +182,7 @@ public class TestAPIFixture {
 
 	}
 
-	@Test 	@Ignore
+	@Test 	
 	public void post() throws IOException, InterruptedException {
 
 		//arrange

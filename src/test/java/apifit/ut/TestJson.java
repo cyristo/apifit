@@ -16,7 +16,7 @@ import apifit.json.JsonToolBox;
 public class TestJson {
 
 	@Test
-	public void getJsonNode() {
+	public void updateJsonNode() {
 		JsonToolBox jsonToolBox = new JsonToolBox();
 		String updatedPayload = null;
 		try {
@@ -74,6 +74,20 @@ public class TestJson {
 
 	}
 
+	@Test
+	public void addFieldToPayload() {
+		JsonToolBox jsonToolBox = new JsonToolBox();
+		String updatedPayload = null;
+		try {
+			updatedPayload = jsonToolBox.addNodeToPayload(payload, "myNewField", "myNewValue");
+		} catch (ApiFitException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertEquals("", "myNewValue", jsonToolBox.getJsonParamValue(updatedPayload, "myNewField"));
+		System.out.println(updatedPayload);
+	}
+	
 	@Test
 	public void populateJsonPayloadFromDTO() {
 		//arrange

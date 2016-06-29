@@ -1,13 +1,15 @@
-Variable maven
+User/Profile
+XML management
+fitnesse ressources organisation
+packaging jar
+SQL management
 Booking authentifié
 Gérer age of children
 API client optimization 
 API client full external configuration
+Maven Test without IT Test
 Update Json without any DTO 
-fitnesse ressources organisation
-packaging jar
 integration Jenkins
-XML management
 Intégration Sonar
 GITHub ReadMe
 Demo dans FitNesse

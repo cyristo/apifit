@@ -10,10 +10,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.jayway.jsonpath.PathNotFoundException;
 import com.jayway.restassured.path.json.JsonPath;
 //import com.jayway.jsonpath.*;
 
 import apifit.common.ApiFitException;
+import apifit.common.ApiFitLogger;
 
 public class JsonToolBox {
 
@@ -24,13 +26,21 @@ public class JsonToolBox {
 
 	public Object getJsonParamValue(String jsonPayload, String name) {
 		Object obj = null;
-		if (name.startsWith("$")) {
-			obj = com.jayway.jsonpath.JsonPath.read(jsonPayload, name);
-		} else {
-			JsonPath jsonPath = new JsonPath(jsonPayload);
-			obj = jsonPath.get(name);			
-		}
+		try {
+			if (name.startsWith("$")) {
+				obj = com.jayway.jsonpath.JsonPath.read(jsonPayload, name);
+			} else {
+				JsonPath jsonPath = new JsonPath(jsonPayload);
+				obj = jsonPath.get(name);			
+			}
 
+		} catch (IllegalArgumentException e) {
+			ApiFitLogger.log("JSON PARSING ERROR : " + e.getMessage());
+			throw e;
+		} catch (PathNotFoundException e1) {
+			ApiFitLogger.log("JSON PARSING ERROR : " + e1.getMessage());
+			throw e1;
+		}
 		return obj;
 	}
 
@@ -87,6 +97,23 @@ public class JsonToolBox {
 		}
 
 		remove(rootNode, fieldName);
+
+		return rootNode.toString();
+	}
+	public String addNodeToPayload(String jsonPayload, String fieldName, String fieldValue) throws ApiFitException {
+
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode rootNode = null;
+
+		try {
+			rootNode = mapper.readTree(jsonPayload);
+		} catch (Exception e) {
+			throw new ApiFitException(e);
+		}
+
+		ObjectNode node = (ObjectNode) rootNode;
+		node.putObject(fieldName);
+		node.put(fieldName, fieldValue);
 
 		return rootNode.toString();
 	}
