@@ -30,7 +30,7 @@ To do so, we need to create a FitNesse test page.
 
 
 
-![GitHub Logo](/images/logo.png)
+![simple test Logo](/images/apifit very simple test.png)
 
 
 Available features
