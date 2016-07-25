@@ -13,20 +13,25 @@ Installation
 * You are ready to use Apifit !
 
 
-Getting Started - your first test
----------------------------------
+Getting Started - your first *very simple* test
+-----------------------------------------------
 
-We will use the JSONPlaceholder API at jsonplaceholder.typicode.com (Fake Online REST API for Testing and Prototyping).
+We are using here the JSONPlaceholder API at jsonplaceholder.typicode.com (Fake Online REST API for Testing and Prototyping).
 
-We will test the 'users' resource.
+We want to test the 'users' resource.
 
-For this resource, we will check that : 
-* the http status code is * *200* *
-* 'ten' users are returned
-* the name of the first user is 'Leanne Graham'
-* the address street name of the second user is 'Victor Plains'
+For this resource, let's check that : 
+* the http status code is *200*
+* *ten* users are returned
+* the name of the first user is *Leanne Graham*
+* the address street name of the second user is *Victor Plains*
 
-First, we create 2 
+To do so, we need to create a FitNesse test page.
+
+
+
+![GitHub Logo](/images/logo.png)
+
 
 Available features
 ------------------
