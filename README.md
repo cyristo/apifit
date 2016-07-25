@@ -4,6 +4,7 @@
 Installation
 ------------
 Download and install Java 8
+
 Download and install FitNesse (www.fitnesse.org)
 Download apifit-dist.zip
 Create the /apifit/lib directory under FitNesseRoot
