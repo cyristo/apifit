@@ -21,7 +21,7 @@ We will use the JSONPlaceholder API at jsonplaceholder.typicode.com (Fake Online
 We will test the 'users' resource.
 
 For this resource, we will check that : 
-* the http status code is **200**
+* the http status code is * *200* *
 * 'ten' users are returned
 * the name of the first user is 'Leanne Graham'
 * the address street name of the second user is 'Victor Plains'
