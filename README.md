@@ -1,5 +1,5 @@
 # Apifit
-## Start securing your API through an automated user friendly test suite, in 5 minutes !
+## Start securing your API layer through an automated user friendly test suite, in 5 minutes !
 
 
 Installation
@@ -18,10 +18,15 @@ Getting Started - your first test
 
 We will use the JSONPlaceholder API at jsonplaceholder.typicode.com (Fake Online REST API for Testing and Prototyping).
 
-We will test the 'users' resources.
+We will test the 'users' resource.
 
-For this resources, we will check that : 
+For this resource, we will check that : 
+* the http status code is '200'
+* 'ten' users are returned
+* the name of the first user is 'Leanne Graham'
+* the address street name of the second user is 'Victor Plains'
 
+First, we create 2 
 
 Available features
 ------------------
