@@ -32,6 +32,7 @@ To do so, we need to create a FitNesse test page.
 
 ![very simple test](https://github.com/cyristo/apifit/blob/master/images/apifit%20very%20simple%20test.PNG)
 
+Congratulations ! You've just created your first Apifit test...
 
 Available features
 ------------------
