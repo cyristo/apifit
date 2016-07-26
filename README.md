@@ -20,7 +20,7 @@ You are ready to use Apifit !
 Getting Started - your first *very simple* test
 -----------------------------------------------
 
-We will test here the *users* resource of the JSONPlaceholder API at jsonplaceholder.typicode.com (Fake Online REST API for Testing and Prototyping).
+We will test here the *users* resource of the JSONPlaceholder API at www.jsonplaceholder.typicode.com (Fake Online REST API for Testing and Prototyping).
 
 For this resource, let's check that : 
 * the http status code is *200*
