@@ -34,11 +34,11 @@ The first row is the table header. We have here the fixture name, and its constr
 * the *host* (jsonplaceholder.typicode.com) 
 * the *path* (/users)
 
-The second row is the colonnes heders. This test doesn't requieres input data, only output assertions (colonnes with an ?). 
+The second row is the column headers. This test doesn't requieres input data, only output assertions (columns with an ?). 
 
 The third row contains the test data, which are only assertions for this simple test. Apitfit assertions are based on two patterns:
-* Apifit key word (like status code)
-* JSonpath expression language (http://goessner.net/articles/JsonPath/)
+* Apifit key words (like *status code*)
+* Jsonpath expression language (http://goessner.net/articles/JsonPath/)
 
 Here is the test table :
 ```
@@ -55,15 +55,14 @@ Congratulations ! You've just created your first Apifit test...
 Available features
 ------------------
 
-Functions can be invoked at the tail end of a path - the input to a function is the output of the path expression.
-The function output is dictated by the function itself.
+Apifit includes these capabilities. To go further with it, please refer to the user guide.
 
-| Function                  | Description                                                        | Output    |
-| :------------------------ | :----------------------------------------------------------------- |-----------|
-| min()                    | Provides the min value of an array of numbers                       | Double    |
-| max()                    | Provides the max value of an array of numbers                       | Double    |
-| avg()                    | Provides the average value of an array of numbers                   | Double    |
-| stddev()                 | Provides the standard deviation value of an array of numbers        | Double    |
-| length()                 | Provides the length of an array                                     | Integer   |
+| Capability              | Description                                                               | 
+| :----------------------- | :----------------------------------------------------------------------- |
+| min()                    | Provides the min value of an array of numbers                            | 
+| max()                    | Provides the max value of an array of numbers                            | 
+| avg()                    | Provides the average value of an array of numbers                        | 
+| stddev()                 | Provides the standard deviation value of an array of numbers             | 
+| length()                 | Provides the length of an array                                          | 
 
 
