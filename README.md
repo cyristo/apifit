@@ -52,6 +52,16 @@ Now let's run the test. Here is the result :
 
 Congratulations ! You've just created your first Apifit test...
 
+
+Data Driven test style
+----------------------
+
+
+BDD test style
+--------------
+
+
+
 Available features
 ------------------
 
