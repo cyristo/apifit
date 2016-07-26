@@ -55,7 +55,23 @@ Congratulations ! You've just created your first Apifit test...
 
 Data Driven test style
 ----------------------
+As Apifit is based on FitNesse, it embeds its data driven testing capabilities. A table can contains multiple rows, testing the same API with different inputs and outputs. 
 
+Let's 
+
+```
+!define API_HOST {jsonplaceholder.[host_var].com}
+!define API_PATH {/[path_var]}
+
+|ddt:API Fixture|${API_HOST}|${API_PATH}                     |
+|[host_var]     |[path_var] |id|status code?|$.[0].name?     |
+|typicode       |users      |1 |200         |Leanne Graham   |
+|typicode       |users      |2 |200         |Ervin Howell    |
+|typicode       |users      |3 |200         |Clementine Bauch|
+```
+
+Now let's run the test. Here is the result :
+![very simple test](https://github.com/cyristo/apifit/blob/master/images/apifit%20data%20driven%20test.PNG)
 
 BDD test style
 --------------
