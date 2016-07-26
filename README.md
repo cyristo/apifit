@@ -1,40 +1,42 @@
 # Apifit
-## Start securing your API layer through an automated user friendly test suite, in 5 minutes !
+## Start securing your REST API layer through an automated user friendly test suite, in 5 minutes !
 
 
 Installation
 ------------
-* Prerequisite : have Java 8 and FitNesse installed (www.fitnesse.org)
+Prerequisite : have Java 8 and FitNesse installed (www.fitnesse.org).
+
 * Download apifit-dist.zip
 * Extract apifit-dist.zip under FitNesseRoot
 * Start FitNesse
-* Set the FitNesse test engine to SLIM (!define TEST_SYSTEM {slim})
-* Set the FitNesse classpath with the Apifit distribution (!path <your_local_dir>/FitNesseRoot/apifit/lib/*.jar)
-* You are ready to use Apifit !
+* Set the FitNesse test engine to SLIM 
+```!define TEST_SYSTEM {slim}```
+* Set the FitNesse classpath with the Apifit distribution 
+```!path <your_local_dir>/FitNesseRoot/apifit/lib/*.jar```
+
+You are ready to use Apifit !
 
 
 Getting Started - your first *very simple* test
 -----------------------------------------------
 
-We are using here the JSONPlaceholder API at jsonplaceholder.typicode.com (Fake Online REST API for Testing and Prototyping).
-
-We want to test the *users* resource.
+We will test here the *users* resource of the JSONPlaceholder API at jsonplaceholder.typicode.com (Fake Online REST API for Testing and Prototyping).
 
 For this resource, let's check that : 
 * the http status code is *200*
-* *ten* users are returned
+* *ten* users are returned by the API call
 * the name of the first user is *Leanne Graham*
 * the address street name of the second user is *Victor Plains*
 
-To create the test, we add a FitNesse test page with an Apifit dynamic decision table.  This table is based on the API Fixture. 
+To create the test, we add a FitNesse test page with an Apifit dynamic decision table.  This table is based on the **API Fixture**. 
 
 The first row is the table header. We have here the fixture name, and its constructor parameters. This test needs two parameters:
 * the *host* (jsonplaceholder.typicode.com) 
 * the *path* (/users)
 
-The second row is the colonnes heders. This test doesn't requires input data, only output assertions (colonnes with an ?). 
+The second row is the colonnes heders. This test doesn't requieres input data, only output assertions (colonnes with an ?). 
 
-The third row contains the test data, as already mentionned, only assertions for this simple test. Apitfit assertions are based on two pattern:
+The third row contains the test data, which are only assertions for this simple test. Apitfit assertions are based on two patterns:
 * Apifit key word (like status code)
 * JSonpath expression language (http://goessner.net/articles/JsonPath/)
 
