@@ -55,7 +55,7 @@ Congratulations ! You've just created your first Apifit test...
 
 Data Driven test style
 ----------------------
-As Apifit is based on FitNesse, it embeds its data driven testing capabilities. A table can contains multiple rows, testing the same API with different inputs and outputs. 
+As Apifit is based on FitNesse, it inherits of its embeded data driven testing capabilities. A table can contains multiple rows, testing the same API with different inputs and outputs. 
 
 Let's 
 
