@@ -40,7 +40,7 @@ The third row contains the test data, which are only assertions for this simple 
 * Apifit key words (like *status code*)
 * Jsonpath expression language (http://goessner.net/articles/JsonPath/)
 
-Here is the test table :
+Here is the test table description in FitNesse wiki :
 ```
 |ddt:API Fixture|jsonplaceholder.typicode.com|/users                             |
 |status code?   |$.length()?                 |$.[0].name?  |$.[1].address.street?|
@@ -59,6 +59,7 @@ As Apifit is based on FitNesse, it embeds its data driven testing capabilities. 
 
 Let's 
 
+Here is the test table description in FitNesse wiki :
 ```
 !define API_HOST {jsonplaceholder.[host_var].com}
 !define API_PATH {/[path_var]}
