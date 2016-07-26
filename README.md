@@ -18,7 +18,7 @@ Getting Started - your first *very simple* test
 
 We are using here the JSONPlaceholder API at jsonplaceholder.typicode.com (Fake Online REST API for Testing and Prototyping).
 
-We want to test the 'users' resource.
+We want to test the *users* resource.
 
 For this resource, let's check that : 
 * the http status code is *200*
@@ -26,8 +26,14 @@ For this resource, let's check that :
 * the name of the first user is *Leanne Graham*
 * the address street name of the second user is *Victor Plains*
 
-To do so, we need to create a FitNesse test page.
+To create the test, we add a FitNesse test page with an Apifit dynamic decision table.  This table is based on the API Fixture. 
 
+This fixture requires two parameters in its contructor : the *host* and the *path*. There is no other parameter to feed the table, only assertions (meaning colonnes with a ? at the end. Asstertions are based on 
+,,,
+|ddt:API Fixture|jsonplaceholder.typicode.com|/users                             |
+|status code?   |$.length()?                 |$.[0].name?  |$.[1].address.street?|
+|200            |10                          |Leanne Graham|Victor Plains        |
+,,,
 
 
 ![very simple test](https://github.com/cyristo/apifit/blob/master/images/apifit%20very%20simple%20test.PNG)
