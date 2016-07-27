@@ -148,9 +148,9 @@ More to be introduced in the User Guide...
 Available features
 ------------------
 
-Apifit includes these capabilities. To go further with it, please refer to the user guide.
+Apifit includes these features:
 
-Capability|Description                                                                
+Feature   |Description                                                                
 ----------|-----------
 min()     | Provides the min value of an array of numbers                             
 max()     | Provides the max value of an array of numbers                             
