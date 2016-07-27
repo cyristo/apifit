@@ -51,7 +51,7 @@ Now let's run the test. Here is the result :
 
 Congratulations ! You've just run your first Apifit test...and it's green !
 
-If it takes you more than 5 minutes, please contact the 24/7 Apifit help desk :boom:
+If it takes you more than 5 minutes, please contact the 24/7 Apifit help desk :smile:
 
 Data Driven test style
 ----------------------
