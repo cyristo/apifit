@@ -1,6 +1,7 @@
 # Apifit
-## Start securing your REST API layer through an automated user friendly test suite, in 5 minutes !
+## Start securing your API layer through an automated user friendly test suite, in 5 minutes !
 
+Apifit is a framework that extends FitNesse with a full range of Rest API testing capabilities. 
 
 Installation
 ------------
