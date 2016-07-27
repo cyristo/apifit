@@ -80,7 +80,7 @@ Here is the test table description in FitNesse wiki :
 ```
 
 Now let's run the test. Here is the result :
-![very simple test](https://github.com/cyristo/apifit/blob/master/images/apifit%20data%20driven%20test.PNG)
+![data driven test](https://github.com/cyristo/apifit/blob/master/images/apifit%20data%20driven%20test.PNG)
 
 BDD test style
 --------------
@@ -91,7 +91,7 @@ To do so, you need to start your BDD scenario by opening an Apifit test session.
 
 This fixture generates a unique test session id. This id is used by Apifit to share objects in the background of a test scenario execution. 
 
-To share the session context between test steps, the test session id need to be put in a FitNesse variable and used as a contructor parameter of every Apifit fixtures involved in the test 
+To share the session context between test steps, the test session id need to be put in a FitNesse variable and used as a contructor parameter of every Apifit fixtures involved in the scenario. 
 
 At the end of the scenario, you need to close the session in order to clear out the session memory. 
 
@@ -111,9 +111,32 @@ Now let's consider this simple BDD scenario:
 
 **GIVEN** I am authentified
 
-**WHEN** I ask for the user descrtion of user number 1
+**WHEN** I ask for the description of user number 1
 
-**THEN** the name of the user is Leanne Graham 
+**THEN** the response time is less than 1 second
+
+**AND** the name of the user is Leanne Graham 
+
+**AND** the city of the user is an alphanumeric string
+
+Below the related scenario implementation with Apifit :
+```
+'''GIVEN I am authentified'''
+'''WHEN I ask for the description of user number 1'''
+'''THEN the response time is less than 1 second'''
+|ddt:API Fixture|${API_HOST}|${API_PATH}|$TEST_SESSION_ID                                     |
+|[host_var]     |[path_var] |id         |status code?|execution error message?|execution time?|
+|typicode       |users      |1          |200         |                        |< 1000         |
+'''AND the name of the user is Leanne Graham'''
+'''AND the city of the user is an alphanumeric string'''
+|ddt: Data Result Parsing Fixture|$TEST_SESSION_ID   |
+|$.[0].name?                     |$.[0].address.city?|
+|Leanne Graham                   |=~/^[a-zA-Z]*$/    |
+```
+
+And the test execution result : 
+![bdd test](https://github.com/cyristo/apifit/blob/master/images/apifit%20bdd%20test.PNG)
+
 
 Available features
 ------------------
