@@ -49,7 +49,7 @@ The third row contains the test data, which are only assertions for this simple 
 Now let's run the test. Here is the result :
 ![very simple test](https://github.com/cyristo/apifit/blob/master/images/apifit%20very%20simple%20test.PNG)
 
-Congratulations ! You've just created your first Apifit test...
+Congratulations ! You've just run your first Apifit test...and it's green !
 
 If it takes you more than 5 minutes, please contact the 24/7 Apifit help desk ;-)
 
