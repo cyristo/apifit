@@ -67,7 +67,10 @@ First we create two FitNesse variables (API_HOST, API_PATH) for the **host** and
 !define API_HOST {jsonplaceholder.[host_var].com}
 !define API_PATH {/[path_var]}
 ```
-These variables are now used in the test table. 
+These variables can now used any the test tables of any test pages. 
+
+We will test different **id** of the **users** resource, which is a GET parameter of this API.   
+Here is the test table description in FitNesse wiki :
 ```
 |ddt:API Fixture|${API_HOST}|${API_PATH}                     |
 |[host_var]     |[path_var] |id|status code?|$.[0].name?     |
@@ -82,6 +85,9 @@ Now let's run the test. Here is the result :
 BDD test style
 --------------
 
+Another interesting Apifit feature is that you can design a test scenario involving different API endpoints within the same test page. The result of a step can be used for input or assertions in the next test step. 
+
+This is possible through the Apifit Session Fixture. You first  
 
 
 Available features
