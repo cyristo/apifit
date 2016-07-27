@@ -120,12 +120,12 @@ Available features
 
 Apifit includes these capabilities. To go further with it, please refer to the user guide.
 
- Capability| Description                                                                
-:----------| :----------------------------------------------------------------------- 
-min()      | Provides the min value of an array of numbers                             
-max()      | Provides the max value of an array of numbers                             
-avg()      | Provides the average value of an array of numbers                         
-stddev()   | Provides the standard deviation value of an array of numbers              
-length()   | Provides the length of an array                                           
+Capability|Description                                                                
+----------|-----------
+min()     | Provides the min value of an array of numbers                             
+max()     | Provides the max value of an array of numbers                             
+avg()     | Provides the average value of an array of numbers                         
+stddev()  | Provides the standard deviation value of an array of numbers              
+length()  | Provides the length of an array                                           
 
 
