@@ -59,17 +59,17 @@ As Apifit is based on FitNesse, it inherits of its data driven testing capabilit
 
 An interesting Apifit feature is that test inputs data can be some parts of the host name or path to the API, as well as any GET parameters or POST payloads. For example, this capability enables you to check the same endpoint on different environments, or different version of the service within the same test table.
 
-To demonstrate this, let's consider that the **typicode** part of the **jsonplaceholder.typicode.com** host is variable. Let's consider that the full path is variable as well. 
+To demonstrate this, let's consider that the *typicode* part of the *jsonplaceholder.typicode.com* host is variable. Let's consider that the full path is variable as well. 
 
-First we create two FitNesse variables (API_HOST, API_PATH) for the **host** and the **path**. These FitNesse variables contains the Apitfit variable parts (named host_var and path_vat] into brackets [].
+First we create two FitNesse variables (API_HOST, API_PATH) for the *host* and the *path*. These FitNesse variables contains the Apitfit variable parts (named *host_var* and *path_var*] into brackets [].
 
 ```
 !define API_HOST {jsonplaceholder.[host_var].com}
 !define API_PATH {/[path_var]}
 ```
-These variables can now used any the test tables of any test pages. 
+These variables can now used in any test tables of any test pages. 
 
-We will test different **id** of the **users** resource, which is a GET parameter of this API.   
+We will test here different *id* of the *users* resource, which is a GET parameter of this API.   
 Here is the test table description in FitNesse wiki :
 ```
 |ddt:API Fixture|${API_HOST}|${API_PATH}                     |
@@ -87,8 +87,24 @@ BDD test style
 
 Another interesting Apifit feature is that you can design a test scenario involving different API endpoints within the same test page. The result of a step can be used for input or assertions in the next test step. 
 
-This is possible through the Apifit Session Fixture. You first  
+This is possible through the Apifit **Session Fixture**. 
 
+Start your test scenario by opening an Apifit test session, which generates a unique test session id. This id need to be put as a constructor in every Apifit fixture whithin the test page. 
+
+This id is used by Apifit to share objects in the background. So at the end of the scenario, you need to close the session in order to clear out the memory. 
+
+Typicaly, the test session management is done through the setup and teardown capability of FitNesse. 
+```
+|Session Fixture          |
+|set up?|test session id? |
+|OK     |$TEST_SESSION_ID=|
+
+...your BDD scenario...
+
+|Session Fixture|$TEST_SESSION_ID|
+|tear down?                      |
+|OK                              |
+```
 
 Available features
 ------------------
