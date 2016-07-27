@@ -109,8 +109,10 @@ Typicaly, this test session management is done through the setup and teardown ca
 ```
 Now let's consider this simple BDD scenario:
 
-**GIVEN** I am authentified 
+**GIVEN** I am authentified
+
 **WHEN** I ask for the user descrtion of user number 1
+
 **THEN** the name of the user is Leanne Graham 
 
 Available features
