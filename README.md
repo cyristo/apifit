@@ -28,17 +28,17 @@ For this resource, let's check that :
 * the name of the first user is *Leanne Graham*
 * the address street name of the second user is *Victor Plains*
 
-To create the test, we add a FitNesse test page with an Apifit dynamic decision table.  This table is based on the **API Fixture**. 
+To create the test, we add a FitNesse test page with an Apifit dynamic decision table.  This table is based on the **API Fixture** of Apifit. 
 
 The first row is the table header. We have here the fixture name, and its constructor parameters. This test needs two parameters:
 * the *host* (jsonplaceholder.typicode.com) 
 * the *path* (/users)
 
-The second row is the column headers. This test doesn't requieres input data, only output assertions (columns with an ?). 
+The second row is the column headers. This test doesn't requiere input data, only output assertions (columns with an ?). 
 
 The third row contains the test data, which are only assertions for this simple test. Apitfit assertions are based on two patterns:
 * Apifit key words (like *status code*)
-* Jsonpath expression language (http://goessner.net/articles/JsonPath/)
+* JsonPath expression language (http://goessner.net/articles/JsonPath/)
 
 Here is the test table description in FitNesse wiki :
 ```
@@ -51,7 +51,7 @@ Now let's run the test. Here is the result :
 ![very simple test](https://github.com/cyristo/apifit/blob/master/images/apifit%20very%20simple%20test.PNG)
 
 Congratulations ! You've just created your first Apifit test...
-
+If it takes you more than 5 minutes, please contact the 24/7 Apifit help desk ;-)
 
 Data Driven test style
 ----------------------
@@ -85,11 +85,11 @@ Now let's run the test. Here is the result :
 BDD test style
 --------------
 
-Another interesting Apifit feature is that you can design a test scenario involving different API endpoints within the same test page. The result of a step can be used for input or assertions in the next test step. 
+Another interesting Apifit feature is that you can design a BDD test scenario involving different API calls within the same test page. The result of a step can be used for input or assertions in the next test step. 
 
 This is possible through the Apifit **Session Fixture**. 
 
-Start your test scenario by opening an Apifit test session, which generates a unique test session id. This id need to be put as a constructor in every Apifit fixture whithin the test page. 
+Start your BDD scenario by opening an Apifit test session, which generates a unique test session id. This id need to be in a FitNesse variable, which will be used as constructor input of every Apifit fixture whithin the test page. 
 
 This id is used by Apifit to share objects in the background. So at the end of the scenario, you need to close the session in order to clear out the memory. 
 
@@ -105,6 +105,8 @@ Typicaly, the test session management is done through the setup and teardown cap
 |tear down?                      |
 |OK                              |
 ```
+
+
 
 Available features
 ------------------
