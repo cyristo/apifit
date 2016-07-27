@@ -30,6 +30,11 @@ For this resource, let's check that :
 * the address street name of the second user is *Victor Plains*
 
 To create the test, we add a FitNesse test page with an Apifit dynamic decision table.  This table is based on the **API Fixture** of Apifit. 
+```
+|ddt:API Fixture|jsonplaceholder.typicode.com|/users                             |
+|status code?   |$.length()?                 |$.[0].name?  |$.[1].address.street?|
+|200            |10                          |Leanne Graham|Victor Plains        |
+```
 
 The first row is the table header. We have here the fixture name, and its constructor parameters. This test needs two parameters:
 * the *host* (jsonplaceholder.typicode.com) 
@@ -40,13 +45,6 @@ The second row is the column headers. This test doesn't requiere input data, onl
 The third row contains the test data, which are only assertions for this simple test. Apitfit assertions are based on two patterns:
 * Apifit key words (like *status code*)
 * JsonPath expression language (http://goessner.net/articles/JsonPath/)
-
-Here is the test table description in FitNesse wiki :
-```
-|ddt:API Fixture|jsonplaceholder.typicode.com|/users                             |
-|status code?   |$.length()?                 |$.[0].name?  |$.[1].address.street?|
-|200            |10                          |Leanne Graham|Victor Plains        |
-```
 
 Now let's run the test. Here is the result :
 ![very simple test](https://github.com/cyristo/apifit/blob/master/images/apifit%20very%20simple%20test.PNG)
