@@ -55,15 +55,22 @@ Congratulations ! You've just created your first Apifit test...
 
 Data Driven test style
 ----------------------
-As Apifit is based on FitNesse, it inherits of its embeded data driven testing capabilities. A table can contains multiple rows, testing the same API with different inputs and outputs. 
+As Apifit is based on FitNesse, it inherits of its embeded data driven testing capabilities. A table can contain multiple rows, testing the same API with different inputs and outputs. 
 
-Let's 
+An interesting Apifit feature is that test inputs data can be some parts of the host name or path to the API, as well as any GET parameters or POST payloads. For example, this capability enables you to check the same endpoint on different environment, or different version of the service within the same test table.
 
-Here is the test table description in FitNesse wiki :
+To demonstrate this, let's consider that the **typicode** part of the **jsonplaceholder.typicode.com** host is variable. Let's consider as well that the full path is variable. 
+
+We first create two FitNesse variables for the host and the path. 
+
+These FitNesse variables contparts of the string 
+
 ```
 !define API_HOST {jsonplaceholder.[host_var].com}
 !define API_PATH {/[path_var]}
-
+```
+Here is the test table description in FitNesse wiki :
+```
 |ddt:API Fixture|${API_HOST}|${API_PATH}                     |
 |[host_var]     |[path_var] |id|status code?|$.[0].name?     |
 |typicode       |users      |1 |200         |Leanne Graham   |
