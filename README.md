@@ -36,7 +36,7 @@ To create the test, we add a FitNesse test page with an Apifit dynamic decision 
 |200            |10                          |Leanne Graham|Victor Plains        |
 ```
 
-The first row is the table header. We have here the fixture name, and its constructor parameters. This test needs two parameters:
+The first row is the table header. We have here the fixture name, and two constructor parameters: 
 * the *host* (jsonplaceholder.typicode.com) 
 * the *path* (/users)
 
@@ -50,6 +50,7 @@ Now let's run the test. Here is the result :
 ![very simple test](https://github.com/cyristo/apifit/blob/master/images/apifit%20very%20simple%20test.PNG)
 
 Congratulations ! You've just created your first Apifit test...
+
 If it takes you more than 5 minutes, please contact the 24/7 Apifit help desk ;-)
 
 Data Driven test style
