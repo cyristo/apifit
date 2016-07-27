@@ -91,7 +91,7 @@ To do so, you need to start your BDD scenario by opening an Apifit test session.
 
 This fixture generates a unique test session id. This id is used by Apifit to share objects in the background of a test scenario execution. 
 
-To share the session context between test steps, the test session id need to be put in a FitNesse variable and used as a contructor parameter of every Apifit fixtures involved in the scenario. 
+To share the session context between test steps, the test session id needs to be put in a FitNesse variable and used as a contructor parameter of every Apifit fixtures involved in the scenario. 
 
 At the end of the scenario, you need to close the session in order to clear out the session memory. 
 
@@ -137,6 +137,13 @@ Below the related scenario implementation with Apifit :
 And the test execution result : 
 ![bdd test](https://github.com/cyristo/apifit/blob/master/images/apifit%20bdd%20test.PNG)
 
+
+We took this Apifit BDD testing style presentation as an opportunity to introduce some new Apifit features:
+* the *execution error message* key word, which show the error message if any
+* the *execution time* key word, which is asserted here to be less than 1 second
+* the *Data Result Parsing Fixture*, which enables to assert the result message of the preceding step
+
+More to be introduced in the User Guide...
 
 Available features
 ------------------
