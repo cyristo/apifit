@@ -170,14 +170,16 @@ Configurable proxy | Set a proxy configuration if needed
 Variable host parts | Set variable parts of a host string as test inputs
 Variable path parts | Set variable parts of a path string as test inputs
 URL parameters | Add any paramters to an URL as test inputs
+Date pattern input | Set input date with embeded time resilient pattern (TODAY, TODAY+X, TODAY-X)
+String pattern output | Assert output string with embeded string manipulation pattern (COUNT(xxx)) 
 Status code | Set an expected HTTP return status and direct the returned data in a success or error message (default is 200)
 Body visualization | Show the content of a returned message (either succes or error) 
 Json navigation | Assert any value of a Json returned message (either succes or error) - based on JsonPath expression language
 Data assertion | Assert any returned data with equality, numerical or regular expression comparisons - based on Java Regex language
 Execution log | Get the full trace of a test scenario execution (including URLs, headers, payloads, status code, returned bodies)
 Request time | Get and assert the time taken by a request
-Test session context | Share and reuse data between test steps (bodies, cookies)
-Cookies | Automatic cookie setting
+Test session | Share and reuse data between test steps (bodies, data values, cookies)
+Cookies | Automatic cookies setting between API calls
 Redirections | Compatible with HTTP redirections
 
 This is the list of what you will be able to do with Apifit in a near futur.
@@ -188,3 +190,4 @@ XML navigation | Assert any value of an XML returned message (either succes or e
 Configurable timeout | Set a request and/or connection timeout - Can be configured localy (test table) or globaly (test suite)
 SQL fixture | Set an SQL step in a test scenario to check data stored by an API 
 Payload externaliszation | Get generic payloads for POST or PUT request from file system locations
+Embeded pattern | New pattern for string assterions (like startsWith, endsWith, ContainsNone/ContainsAny, ...)
