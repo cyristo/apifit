@@ -149,8 +149,8 @@ And the test execution result :
 
 
 We took this Apifit BDD testing style presentation as an opportunity to introduce some new Apifit features:
-* the *execution error message* key word, which show the error message if any
-* the *execution time* key word, which is asserted here to be less than 1 second
+* the *execution error message* sentence, which show the error message if any
+* the *execution time* sentence, which is asserted here to be less than 1 second
 * the *Data Result Parsing Fixture*, which enables to navigate and assert the result message of the previous step
 
 Apifit capzbilities
