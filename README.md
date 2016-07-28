@@ -160,36 +160,30 @@ This is the list of what you can do with Apifit. For more details, please refer 
 
 Available Feature | Description                                                                
 ------------------|------------
-Configurable request method | Set a GET, POST, PUT or DELETE method for an API test (default is GET)
-Configurable request content type | Set any request content type (default is application/json)
-Configurable URL scheme | Compatible with HTTPS (default is HTTP)
-Configurable URL port | Set any port (default is 80)
-Configurable host | Set variable parts of a host string as test inputs
-Configurable path | Set variable parts of a path string as test inputs
-Configurable URL parameters | Add any paramters to an URL as test inputs
-Status code | Set an expected HTTP return status and direct the message returned in a success or error message (default is 200)
-Returned body visualization | Show the content of a returned message (either succes or error) 
-Returned body parsing | Assert any value of a Json returned message (either succes or error) 
-Execution log | Get all the execution log of a test scenario (including request URL, headers, payloads and returned bodies)
+Configurable request method | Set a GET, POST, PUT or DELETE method for an API test (default is GET) - Can be configured localy (test table) or globaly (test suite)
+Configurable content type | Set any request content type (default is application/json) - Can be configured localy (test table) or globaly (test suite)
+Configurable scheme | Set the URL scheme (HTTP or HTTPS, default is HTTP) - Can be configured localy (test table) or globaly (test suite)
+Configurable port | Set the URL port (default is 80) - Can be configured localy (test table) or globaly (test suite)
+Configurable host | Set the API host - Can be configured localy (test table) or globaly (test suite)
+Configurable path | Set the API path - Can be configured localy (test table) or globaly (test suite)
+Variable host parts | Set variable parts of a host string as test inputs
+Variable path parts | Set variable parts of a path string as test inputs
+URL parameters | Add any paramters to an URL as test inputs
+Status code | Set an expected HTTP return status and direct the returned data in a success or error message (default is 200)
+Body visualization | Show the content of a returned message (either succes or error) 
+Json navigation | Assert any value of a Json returned message (either succes or error) - based on JsonPath expression language
+Data assertion | Assert any returned data with equality, numerical or regular expression comparisons - based on Java Regex language
+Execution log | Get the full trace of a test scenario execution (including URLs, headers, payloads, status code, returned bodies)
 Request time | Get and assert the time taken by a request
-
-
-
 Redirections |
 Cookies |
 Proxy | Setting a proxy configuration if needed
 
-
-min()     | Provides the min value of an array of numbers                             
-max()     | Provides the max value of an array of numbers                             
-avg()     | Provides the average value of an array of numbers                         
-stddev()  | Provides the standard deviation value of an array of numbers              
-length()  | Provides the length of an array                                           
-
 This is the list of what you will be able to do with Apifit in a near futur.
 
-Feature to implement | Description                                                                
----------------------|------------
-XML and HTLM support | Parsing and assertions on XML or HTML returned bodies
-SQL Fixture step     | 
-Timeout | Set a request and connection timeout
+//TODO feature | Description                                                                
+---------------|------------
+XML navigation | Assert any value of an XML returned message (either succes or error) - based on XPath expression language
+Configurable timeout | Set a request and/or connection timeout - Can be configured localy (test table) or globaly (test suite)
+SQL fixture | Set an SQL step in a test scenario to check data stored by an API 
+Payload externaliszation | Get generic payloads for POST or PUT request from file system locations
