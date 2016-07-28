@@ -182,7 +182,7 @@ Redirections | Compatible with HTTP redirections
 
 This is the list of what you will be able to do with Apifit in a near futur.
 
-//TODO feature | Description                                                                
+//TODO Feature | Description                                                                
 ---------------|------------
 XML navigation | Assert any value of an XML returned message (either succes or error) - based on XPath expression language
 Configurable timeout | Set a request and/or connection timeout - Can be configured localy (test table) or globaly (test suite)
