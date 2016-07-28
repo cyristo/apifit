@@ -149,13 +149,21 @@ We took this Apifit BDD testing style presentation as an opportunity to introduc
 * the *execution time* key word, which is asserted here to be less than 1 second
 * the *Data Result Parsing Fixture*, which enables to navigate and assert the result message of the previous step
 
-Available features
-------------------
+Apifit capzbilities
+-------------------
 
-Apifit includes these features:
+This is the list of what you can do with Apifit. For more details, please refer to the User Guide (WIP...).
 
 Feature   |Description                                                                
 ----------|-----------
+Request methods| GET, POST, PUT or DELETE methods (default is GET)
+Encrypted connections | Compatible with HTTPS (default is HTTP)
+Request Content type | Setting any request content type (default is application/json)
+Response Content Parsing | Parsing Json content (XML and HTML to be considered in a futur version)
+Status code checking | Setting an expected HTTP return status and direct the message returned in a success or error message (default is 200)
+Returned bodies parsing | Asserting any value of a returned message (either succes or error) 
+Execution Log | Getting all the execution log of a test scenario (including request URL, headers, payloads and returned bodies)
+
 min()     | Provides the min value of an array of numbers                             
 max()     | Provides the max value of an array of numbers                             
 avg()     | Provides the average value of an array of numbers                         
