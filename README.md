@@ -154,15 +154,27 @@ Apifit capzbilities
 
 This is the list of what you can do with Apifit. For more details, please refer to the User Guide (WIP...).
 
-Feature   |Description                                                                
-----------|-----------
-Request methods| GET, POST, PUT or DELETE methods (default is GET)
-Encrypted connections | Compatible with HTTPS (default is HTTP)
-Request Content type | Setting any request content type (default is application/json)
-Response Content Parsing | Parsing Json content (XML and HTML to be considered in a futur version)
-Status code checking | Setting an expected HTTP return status and direct the message returned in a success or error message (default is 200)
-Returned bodies parsing | Asserting any value of a returned message (either succes or error) 
-Execution Log | Getting all the execution log of a test scenario (including request URL, headers, payloads and returned bodies)
+Available Feature | Description                                                                
+------------------|------------
+Configurable request method | Set a GET, POST, PUT or DELETE method for an API test (default is GET)
+Configurable request content type | Set any request content type (default is application/json)
+Configurable URL scheme | Compatible with HTTPS (default is HTTP)
+Configurable URL port | Set any port (default is 80)
+Configurable host | Set variable parts of a host string as test inputs
+Configurable path | Set variable parts of a path string as test inputs
+Configurable URL parameters | Add any paramters to an URL as test inputs
+Status code | Set an expected HTTP return status and direct the message returned in a success or error message (default is 200)
+Returned body visualization | Show the content of a returned message (either succes or error) 
+Returned body parsing | Assert any value of a Json returned message (either succes or error) 
+Execution log | Get all the execution log of a test scenario (including request URL, headers, payloads and returned bodies)
+Request time | Get and assert the time taken by a request
+
+
+
+Redirections |
+Cookies |
+Proxy | Setting a proxy configuration if needed
+
 
 min()     | Provides the min value of an array of numbers                             
 max()     | Provides the max value of an array of numbers                             
@@ -170,4 +182,10 @@ avg()     | Provides the average value of an array of numbers
 stddev()  | Provides the standard deviation value of an array of numbers              
 length()  | Provides the length of an array                                           
 
+This is the list of what you will be able to do with Apifit in a near futur.
 
+Feature to implement | Description                                                                
+---------------------|------------
+XML and HTLM support | Parsing and assertions on XML or HTML returned bodies
+SQL Fixture step     | 
+Timeout | Set a request and connection timeout
