@@ -42,7 +42,9 @@ The first row is the table header. We have here the fixture name, and two constr
 
 The second row is the column headers. This test doesn't requiere any input data, only output assertions (columns with an ?). 
 
-The third row contains the test data, which are only assertions for this simple test. Apitfit assertions are based on two patterns:
+The third row contains the test data. 
+
+Apitfit assertions are based on two patterns:
 * Apifit key words (like *status code*)
 * JsonPath expression language (http://goessner.net/articles/JsonPath/)
 
