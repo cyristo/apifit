@@ -29,7 +29,7 @@ For this resource, let's check that :
 * the name of the first user is *Leanne Graham*
 * the address street name of the second user is *Victor Plains*
 
-To create the test, we add a FitNesse test page with an Apifit dynamic decision table.  This table is based on the **API Fixture** of Apifit. 
+To create the test, we add a FitNesse test page with a FitNesse dynamic decision table.  This table uses the **API Fixture** of Apifit. 
 ```
 |ddt:API Fixture|jsonplaceholder.typicode.com|/users                             |
 |status code?   |$.length()?                 |$.[0].name?  |$.[1].address.street?|
