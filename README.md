@@ -45,10 +45,10 @@ The second row is the column headers. This test doesn't requiere any input data,
 The third row contains the test data. 
 
 Assertions done on returned data can use :
-* Apifit key sentences (like *status code* or *execution time*)
+* Apifit sentences (like *status code* or *execution time*)
 * Apifit patterns (like COUNT or TODAY+X)
 * JsonPath expression language (http://goessner.net/articles/JsonPath/)
-* Numerical comparisons or regular expressions comparisons  (http://www.fitnesse.org/FitNesse.UserGuide.WritingAcceptanceTests.SliM.ValueComparisons) 
+* Numerical or regular expressions comparisons  (http://www.fitnesse.org/FitNesse.UserGuide.WritingAcceptanceTests.SliM.ValueComparisons) 
 
 Now let's run the test. No, wait, just a little step more. Indeed, we need to provide FitNesse with our Apifit Fixtures. Just a simple import directive, to be placed in a suite setup page for example. 
 ```
