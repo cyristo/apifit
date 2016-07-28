@@ -153,7 +153,7 @@ We took this Apifit BDD testing style presentation as an opportunity to introduc
 * the *execution time* sentence, which is asserted here to be less than 1 second
 * the *Data Result Parsing Fixture*, which enables to navigate and assert the result message of the previous step
 
-Apifit capzbilities
+Apifit features
 -------------------
 
 This is the list of what you can do with Apifit. For more details, please refer to the User Guide (WIP...).
