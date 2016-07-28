@@ -46,7 +46,13 @@ The third row contains the test data, which are only assertions for this simple 
 * Apifit key words (like *status code*)
 * JsonPath expression language (http://goessner.net/articles/JsonPath/)
 
-Now let's run the test. Here is the result :
+Now let's run the test. No, wait, just a little step more. Indeed, we need to provide FitNesse with our Apifit Fixtures. Just a simple import directive, to be placed in a suite setup page for example. 
+```
+|import                                |
+|apifit.fixture                        |
+```
+Now let's run the test.
+Here is the result :
 ![very simple test](https://github.com/cyristo/apifit/blob/master/images/apifit%20very%20simple%20test.PNG)
 
 Congratulations ! You've just run your first Apifit test...and it's green !
