@@ -166,6 +166,7 @@ Configurable scheme | Set the URL scheme (HTTP or HTTPS, default is HTTP) - Can 
 Configurable port | Set the URL port (default is 80) - Can be configured localy (test table) or globaly (test suite)
 Configurable host | Set the API host - Can be configured localy (test table) or globaly (test suite)
 Configurable path | Set the API path - Can be configured localy (test table) or globaly (test suite)
+Configurable proxy | Set a proxy configuration if needed
 Variable host parts | Set variable parts of a host string as test inputs
 Variable path parts | Set variable parts of a path string as test inputs
 URL parameters | Add any paramters to an URL as test inputs
@@ -175,9 +176,9 @@ Json navigation | Assert any value of a Json returned message (either succes or 
 Data assertion | Assert any returned data with equality, numerical or regular expression comparisons - based on Java Regex language
 Execution log | Get the full trace of a test scenario execution (including URLs, headers, payloads, status code, returned bodies)
 Request time | Get and assert the time taken by a request
-Redirections |
-Cookies |
-Proxy | Setting a proxy configuration if needed
+Test session context | Share and reuse data between test steps (bodies, cookies)
+Cookies | Automatic cookie setting
+Redirections | Compatible with HTTP redirections
 
 This is the list of what you will be able to do with Apifit in a near futur.
 
