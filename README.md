@@ -33,9 +33,9 @@ For this resource, let's check that :
 
 To create the test, we add a FitNesse test page with a FitNesse dynamic decision table.  This table uses the **API Fixture** of Apifit. 
 ```
-|ddt:API Fixture|jsonplaceholder.typicode.com|/users                                                              |
-|status code? |$.length()?  |$.[0].name?  |$.[1].address.street?|APIFIT:CONTAINS(innovative)?|APIFIT:COUNT(Trump)?|
-|200          |10           |Leanne Graham|Victor Plains        |TRUE                        |0                   |
+|ddt:API Fixture|jsonplaceholder.typicode.com|/users                                                           |
+|status code?|$.length()?|$.[0].name?  |$.[1].address.street?|APIFIT:CONTAINS(innovative)?|APIFIT:COUNT(Trump)?|
+|200         |10         |Leanne Graham|Victor Plains        |TRUE                        |0                   |
 ```
 
 The first row is the table header. We have here the fixture name, and two constructor parameters: 
