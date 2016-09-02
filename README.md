@@ -159,7 +159,7 @@ We took this Apifit BDD testing style presentation as an opportunity to introduc
 Apifit features
 -------------------
 
-This is the list of what you can do with Apifit. For more details, please refer to the User Guide (WIP...).
+This is the list of what you can do with Apifit. 
 
 Available Feature | Description                                                                
 ------------------|------------
