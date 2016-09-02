@@ -59,7 +59,7 @@ Now let's run the test. No, wait, just a little step more. Indeed, we need to pr
 |apifit.fixture                        |
 ```
 Now let's run the test.
-Here is the result (green as usual) :
+Here is the result :
 ![very simple test](https://github.com/cyristo/apifit/blob/master/images/apifit%20very%20simple%20test.PNG)
 
 Congratulations ! You've just run your first Apifit test...and it's green !
@@ -92,7 +92,7 @@ Here is the test table description in FitNesse wiki :
 |typicode       |users      |3 |200         |Clementine Bauch|
 ```
 
-Now let's run the test. Here is the result :
+Now let's run the test. Here is the result (green as usual) :
 ![data driven test](https://github.com/cyristo/apifit/blob/master/images/apifit%20data%20driven%20test.PNG)
 
 BDD test style
