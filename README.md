@@ -177,9 +177,9 @@ Date pattern input | Set input date with embeded time resilient pattern (TODAY, 
 String pattern output | Assert output string with embeded string manipulation pattern (COUNT(xxx), CONTAINS(xxx)) 
 Status code | Set an expected HTTP return status and direct the returned data in a success or error message (default is 200)
 Body visualization | Show the content of a returned message (either succes or error) 
-Json navigation | Assert any value of a Json returned message (either succes or error) - based on JsonPath expression language
-Xml navigation | Assert any value of a Xml returned message (either succes or error) - based on GPath expression language
-Html navigation | Assert any value of a Html returned page (either succes or error) - based on GPath expression language
+Json navigation | Assert any element of a Json returned message (either succes or error) - based on JsonPath expression language
+Xml navigation | Assert any element of a Xml returned message (either succes or error) - based on GPath expression language
+Html navigation | Assert any element of a Html returned page (either succes or error) - based on GPath expression language
 Data assertion | Assert any returned data with equality, numerical or regular expression comparisons - based on Java Regex language
 Execution log | Get the full trace of a test scenario execution (including URLs, headers, payloads, status code, returned bodies)
 Request time | Get and assert the time taken by a request
