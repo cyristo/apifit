@@ -70,7 +70,7 @@ Data Driven test style
 ----------------------
 Apifit inherits of FitNesse data driven testing capabilities. A table can contain multiple rows, testing the same API with different inputs and outputs. 
 
-An interesting Apifit feature is that test inputs data can be some parts of the host name or path to the API, as well as any GET parameters or POST payloads. For example, this capability enables you to check the same API on different environments, or different version of the service within the same test table.
+An interesting Apifit feature is that data used as test inputs can be some parts of the API URI (like host name or path to the API), as well as any GET parameters or POST payloads. For example, this capability enables you to check the same API on different environments, or different version of the service, or different outputs with different inputs, all of that within the same test table.
 
 To demonstrate this, let's consider that the *typicode* part of the *jsonplaceholder.typicode.com* host is variable. Let's consider that the full path is variable as well. 
 
