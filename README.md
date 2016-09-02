@@ -74,7 +74,7 @@ An interesting Apifit feature is that data used as test inputs can be some parts
 
 To demonstrate this, let's consider that the *typicode* part of the *jsonplaceholder.typicode.com* host is variable. Let's consider that the full path is variable as well. 
 
-First we create two FitNesse variables (API_HOST, API_PATH) for the *host* and the *path*. These FitNesse variables contains the Apitfit variable parts (named *host_var* and *path_var*] put into brackets [].
+First we create two FitNesse variables (API_HOST, API_PATH) for the *host* and the *path* (this is optional, but cleaner). These FitNesse variables contains the Apitfit variable parts (named *host_var* and *path_var*] put into brackets [].
 
 ```
 !define API_HOST {jsonplaceholder.[host_var].com}
