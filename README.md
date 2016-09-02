@@ -164,7 +164,7 @@ This is the list of what you can do with Apifit.
 Available Feature | Description                                                                
 ------------------|------------
 Configurable request method | Set a GET, POST, PUT or DELETE method for an API test (default is GET) - Can be configured localy (test table) or globaly (test suite)
-Configurable content type | Set any request content type (default is application/json) - Can be configured localy (test table) or globaly (test suite)
+Configurable content type | Set any request content type (default is *application/json*) - Can be configured localy (test table) or globaly (test suite). Must be set to *application/xml* to assert on Xml results, and to *text/html* to assert on html page result.
 Configurable scheme | Set the URL scheme (HTTP or HTTPS, default is HTTP) - Can be configured localy (test table) or globaly (test suite)
 Configurable port | Set the URL port (default is 80) - Can be configured localy (test table) or globaly (test suite)
 Configurable host | Set the API host - Can be configured localy (test table) or globaly (test suite)
