@@ -28,12 +28,14 @@ For this resource, let's check that :
 * *ten* users are returned by the API call
 * the name of the first user is *Leanne Graham*
 * the address street name of the second user is *Victor Plains*
+* the response contains at least one time the word *innovative* 
+* the response does not contain the word *tower* 
 
 To create the test, we add a FitNesse test page with a FitNesse dynamic decision table.  This table uses the **API Fixture** of Apifit. 
 ```
-|ddt:API Fixture|jsonplaceholder.typicode.com|/users                             |
-|status code?   |$.length()?                 |$.[0].name?  |$.[1].address.street?|
-|200            |10                          |Leanne Graham|Victor Plains        |
+|ddt:API Fixture|jsonplaceholder.typicode.com|/users                                                                               |
+|status code?   |$.length()?                 |$.[0].name?  |$.[1].address.street?|APIFIT:CONTAINS(innovative)?|APIFIT:COUNT(tower)?|
+|200            |10                          |Leanne Graham|Victor Plains        |TRUE                        |0                   |
 ```
 
 The first row is the table header. We have here the fixture name, and two constructor parameters: 
