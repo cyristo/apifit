@@ -59,7 +59,7 @@ Now let's run the test. No, wait, just a little step more. Indeed, we need to pr
 |apifit.fixture                        |
 ```
 Now let's run the test.
-Here is the result :
+Here is the result (green as usual) :
 ![very simple test](https://github.com/cyristo/apifit/blob/master/images/apifit%20very%20simple%20test.PNG)
 
 Congratulations ! You've just run your first Apifit test...and it's green !
