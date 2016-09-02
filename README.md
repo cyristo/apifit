@@ -174,7 +174,7 @@ Variable host parts | Set variable parts of a host string as test inputs
 Variable path parts | Set variable parts of a path string as test inputs
 URL parameters | Add any paramters to an URL as test inputs
 Date pattern input | Set input date with embeded time resilient pattern (TODAY, TODAY+X, TODAY-X)
-String pattern output | Assert output string with embeded string manipulation pattern (COUNT(xxx)) 
+String pattern output | Assert output string with embeded string manipulation pattern (COUNT(xxx), CONTAINS(xxx)) 
 Status code | Set an expected HTTP return status and direct the returned data in a success or error message (default is 200)
 Body visualization | Show the content of a returned message (either succes or error) 
 Json navigation | Assert any value of a Json returned message (either succes or error) - based on JsonPath expression language
