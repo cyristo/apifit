@@ -40,11 +40,11 @@ public class TestPattern {
 		
 		String pattern = "APIFIT:COUNT(toto)";
 		assertEquals(new Integer(0), DataPattern.doPattern(pattern, payload));
-		pattern = "APIFIT:COUNT (hotelCode )";
+		pattern = "APIFIT:COUNT(hotelCode)";
 		assertEquals(new Integer(1), DataPattern.doPattern(pattern, payload));
-		pattern = "APIFIT: COUNT(Code)";
+		pattern = "APIFIT:COUNT(Code)";
 		assertEquals(new Integer(3), DataPattern.doPattern(pattern, payload));
-		pattern = "APIFIT : COUNT(\"hotelCode\" :)";
+		pattern = "APIFIT:COUNT(\"hotelCode\" :)";
 		assertEquals(new Integer(1), DataPattern.doPattern(pattern, payload));
 	}
 	

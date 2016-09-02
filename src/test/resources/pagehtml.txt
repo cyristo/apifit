@@ -1,0 +1,551 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head><script type="text/javascript" src="/scripts/redir-mobile/script.js"></script>
+	<title>REC2 - 16.04 : </title>
+	<meta name="Description" content="" />
+	<meta name="keywords" content="" />
+	<meta name="robots" content="noindex">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Content-language" content="fr" />
+
+	<link rel="stylesheet" href="/css-v1604/booking/hotels-list.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/css-v1604/booking/autocompletion.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/css-v1604/booking/wdr_discountBanner.css" type="text/css" media="screen" />
+
+	<!--[if IE 6]>
+	<link rel="stylesheet" href="/css-v1604/booking/booking-ie6.css" type="text/css" media="screen" />
+	<![endif]-->
+	<!--[if IE 7]>
+	<link rel="stylesheet" href="/css-v1604/booking/booking-ie7.css" type="text/css" media="screen" />
+	<![endif]-->
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="/scripts-v1604/lib/jquery-1.6.1-min-ah.js"></script>
+
+	<!-- Autocompletion -->
+	<script type="text/javascript" src="//js-api-staging.afs-antidot.net/antidot.js"></script>
+        
+	<!-- Sets -->
+	<script type="text/javascript" src="/scripts-v1604/set/autocompletion.js"></script>
+	<script type="text/javascript" src="/scripts-v1604/set/booking-core_fr.js"></script>
+	<script type="text/javascript" src="/scripts-v1604/set/booking-engine.js"></script>
+	<script type="text/javascript" src="/scripts-v1604/set/popins.js"></script>
+
+	<script type="text/javascript" src="/scripts-v1604/lib/swfobject.js"></script>
+	<script type="text/javascript" src="/scripts-v1604/booking/common/interhotels.js"></script>
+    <script type="text/javascript" src="/scripts-v1604/lib/jplugins/jquery.medslider.js"></script>
+    
+    <script type="text/javascript" src="/scripts-v1604/maps.js"></script>
+	<script type="text/javascript" src="/scripts-v1604/booking/hotels-list-utils.js"></script>
+	<script type="text/javascript" src="/scripts-v1604/booking/hotels-list.js"></script>
+    
+    <!-- start  : /common/custom.htm from 57.200.2.187 --><link rel="stylesheet" href="/css-v1604/booking/custom.css" type="text/css" media="screen" />
+<script src="/scripts-v1604/booking/whitelabel.js"></script><!-- end : /common/custom.htm -->
+    
+
+<script type="text/javascript" src="//service.maxymiser.net/cdn/accor/js/mmcore.js"></script></head>
+<body id="hotelsList" class="fr" data-pagename="results::standard::list" data-nopush="1">
+<div class="mainContainer">
+
+    <div class="headerContainer">
+        <!-- start  : /fr/commun/bandeau_cr.htm from 57.200.2.187 --><script type="text/javascript" src="/scripts-v1604/popup.js"></script>
+<script src="/scripts-v1604/booking/whitelabel.js"></script>
+<link rel="stylesheet" href="/css-v1604/booking/bandeau_cr.css">
+<link rel="stylesheet" href="/css-v1604/booking/custom.css" type="text/css" media="screen" />
+
+<div id="header">
+	<a href="http://www.airfrance.fr/" class="logo">Air France</a>	
+</div>
+<!-- end : /fr/commun/bandeau_cr.htm -->
+    </div>
+</div>
+
+    <div id="booking-top" class="off"> 
+        <!-- start  : /fr/booking/top-booking-engine.htm from 57.200.2.187 -->
+<div class="top-booking-engine" id="top-booking-engine">
+<div class="mainContainer">
+    <div class="bookingEngine">
+    
+    <div class="bookingEngineWrapper">
+	<!-- identification-pro.tplf -->
+		<div id="identificationProTemplate"></div>
+		<!-- fin identification-pro.tplf -->
+        <div class="errorMessage validatorInvalidState tErrorMessage topbooking"></div>
+        <form id="newbookingEngine" class="newbookingEngine" action="/geo/newSearch.action" method="post" autocomplete="off">
+           <div class="toperrorMessage"> <div class="errorMessage validatorInvalidState tErrorMessage"></div></div>  
+          
+            
+            <div>
+            <fieldset class="destination">
+                    <input type="text" id="search-destination-new" class="tSearchDestination" name="search.destination" title="Ville, Centre d�int�r�t, Nom d�h�tel (Nouveau !)" placeholder="Ville, Centre d�int�r�t, Nom d�h�tel (Nouveau !)" />
+                    <a class="tooltip cfgtt-offx:0-offy:5-xpos:left-ypos:bottom-width:160" title="Merci de saisir une ville, un pays, un code h�tel ou un code a�roport"></a>
+
+                    <div id="search-destination-update-new" class="update" style="display: none;"></div>
+            </fieldset><!-- //Destination -->
+            
+            <fieldset class="small date">
+                <div class="arrivalDate date">
+                    <input name="search.dateIn" id="search-dateIn-new" class="tArrivalDate" placeholder="Date d'arriv�e"/>
+                    <input value="" id="search-dayIn-new" name="search.dayIn" type="hidden" />
+                    <input value="" id="search-monthIn-new" name="search.monthIn" type="hidden" />
+                    <input value="" id="search-yearIn-new" name="search.yearIn" type="hidden" />
+                </div>
+                <div class="line departureDate">
+                    <input name="search.dateOut" id="search-dateOut-new" class="tDepartureDate" placeholder="Date de d�part"/>
+                    <input value="" id="search-dayOut-new" name="search.dayOut" type="hidden" />
+                    <input value="" id="search-monthOut-new" name="search.monthOut" type="hidden" />
+                    <input value="" id="search-yearOut-new" name="search.yearOut" type="hidden" />
+                </div>
+                <div class="nights tNights off">
+                    <input value="" name="search.nightNb" class="tNightNb" id="search-nightNb-new" type="hidden" />
+                </div>
+            </fieldset><!-- //Gestion des dates -->
+            </div>
+
+
+    
+        <fieldset>
+        <div class="rooms" id="roomtop">
+            <label for="search-roomNumber-new">Chambre(s)</label>
+            <select id="search-roomNumber-new" name="search.roomNumber">
+			</select>
+        </div><!-- //chambre -->
+         <div class="adultspan off" id="adultspan">
+             <span id="numberadultspan"></span>
+            <label for="search-adultNumber-new">Adulte(s)</label>
+           
+         </div>
+        <div class="childspan off" id="childspan">
+            <span id="numberchildspan" ></span>
+            <label for="search-childrenNumber-new">Enfant(s)</label> 
+         </div>
+        <div class="adults" id="adultstop">
+            <label for="search-adultNumber-new">Adulte(s)</label>
+            <select id="search-adultNumber-new"  name="search.adultNumber">
+			</select>
+        </div><!-- //faux select adults -->
+        <div class="childrens children">
+            <label for="search-childrenNumber-new">Enfant(s)</label>
+            <select id="search-childrenNumber-new"  name="search.childrenNumber">
+			</select>
+        </div><!-- //faux select enfants -->
+        </fieldset>
+	<div class="buttontop">
+         <a class="buttonH tSubmit btn-md lighter-blue"><span>Rechercher</span></a>
+         <a class="buttonH tPlus btn-md lighter-blue lighter-plus" id="tMoreLinktop"><span></span></a> 
+    </div>
+    <div class="clear"></div>
+    <div class="roomsDetails off">
+    <p class="undeploy"><a class="lnk-moreoptions" href="#">Composition des chambres</a></p>
+            <div class="roomsWrapper"></div>
+            <div class="clear"></div>
+    </div>
+              
+
+        
+			
+            <fieldset class="fidelitycard-form off">
+
+                    <div class="confort line">
+                    <label for="filter.hotelRatingClass">Confort</label>
+                    <select id="filter-hotelRatingClasse-new" name="filter.hotelRatingClass">
+                    <option value="ALL">Any</option>
+                    <option value="EL">Exclusive Luxury</option>
+                    <option value="LX">Luxury</option>
+                    <option value="UP">Upscale</option>
+                    <option value="FI">Midscale</option>
+                    <option value="TO">Economy</option>
+                 <option value="BU">Budget</option>
+                    </select>
+                    </div>
+                <div class="zone-fidelity">
+                    <label for="identification-fidelityCard-number-new">N� de carte de fid�lit� ou d�abonnement</label>
+                    <input type="text" value="" name="identification.fidelityCard.number" id="identification-fidelityCard-number-new" />
+                    <a class="tooltip cfgtt-offx:0-offy:5-xpos:left-ypos:bottom-width:160" title="Merci de saisir les 16 chiffres de votre carte de fid�lit�"></a>
+                    <a href="/fr/booking/discover-leclub.shtml" class="aclubPopin popin p-m-i-w:600-h:400-type:infos-ref:aclub">D�couvrez Le Club Accorhotels</a>
+                </div>
+                
+             
+                
+                <div class="zone-preferredCode zone-preferredCode">
+                    <label for="identification-preferredCode-code-new">Code pr�f�rentiel</label>
+                    <input type="text" value="" name="identification.preferredCode.code" id="identification-preferredCode-code-new" />
+                    <a class="tooltip cfgtt-offx:0-offy:5-xpos:left-ypos:bottom-width:160" title="Vous b�n�ficiez d'un code pr�f�rentiel ? Merci de le saisir afin de consulter les h�tels proposant les tarifs associ�s"></a>
+                </div>
+                   <div id="fidelity-block" class="fidelity-block-new"></div>
+            </fieldset>
+            
+     
+        <div class="zone-freenight-top">
+            <fieldset class="zone-freenight">
+                <label for="search.freeNight" class="search-freeNight">Utiliser ma Stay Plus pour cette r�servation</label>
+                <div class="freenight-choice">
+                    <label class="freenight-label"><input type="radio" id="search.freeNight-yes" name="search.freeNight" value="yes" />Oui</label>
+                    <label class="freenight-label"><input type="radio" id="search.freeNight-no" name="search.freeNight" value="no" />Non</label>
+                </div>
+             
+            </fieldset>
+        </div>
+            
+             <div class="line advancedsearchContract">
+                <a href="/fr/booking/advanced-search.shtml" class="lnk-advancedsearchContract" target="_top">Voyageurs d'affaires avec contrat</a>
+            </div>
+            
+            <div class="line">
+            </div>
+            
+            <input id="search-geoZone-type-new" type="hidden" name="search.geoZone.geoZoneType" value=""/>
+            <input id="search-geoZone-code-new" type="hidden" name="search.geoZone.geoZoneCode" value=""/>
+            <input id="search-currency-code" type="hidden" name="currencyCode" value=""/>
+			<input type="hidden" name="identification.reserverType" id="identification-reserverType-new" value="" />
+            <input type="hidden" name="identification.reserverId" id="identification-reserverId-new" value="" />
+            <input type="hidden" name="identification.reserverContract" id="identification-reserverContract-new" value="" />
+            <input type="hidden" name="identification.accountId" id="identification-accountId-new" value="" />
+            <input type="hidden" name="identification.accountContract" id="identification-accountContract-new" value="" />
+			<!-- Autocompletion + Google Places -->
+            <input type="hidden" name="search.geoZone.location.latitude" id="search-geoZone-location-latitude-new" value=""/>
+            <input type="hidden" name="search.geoZone.location.longitude" id="search-geoZone-location-longitude-new" value=""/>
+			<input type="hidden" name="search.radius.value" id="search-radius-value-new" value=""/>
+			<input type="hidden" name="search.radius.unit" id="search-radius-unit-new" value=""/>
+			<!-- Affichage par marque -->
+            <input id="filter-brands-new" type="hidden" name="filter.brands" value="ALL"/>
+        </form>
+    </div>
+</div>
+</div>
+</div><!-- end : /fr/booking/top-booking-engine.htm -->
+    </div>
+<div class="mainContainer">
+    <div class="contentContainer">
+       <div class="leftContent">
+       <div id="leClub"></div>
+            <!-- start  : /common/bloc_interhotels_start.htm from 57.200.2.187 -->  <div id="bloc_interhotel" style="display:none;">		  		   
+            <strong>Interhotels</strong><br>     		   
+            <div id="bloc_hotelReservataire" style="display:none;">
+                <div id="nomhotelreservataire" name="nomhotelreservataire" style="display:none;"></div>
+                <br>
+            </div>
+            <div id="bloc_liste_hotel" style="display:none;">    
+                  <label for="card_type_lbl">choisir</label>&nbsp;
+                  <select id="interhotels_list" name="interhotels_list"></select>
+                  <br><br>
+            </div>
+            <input type="HIDDEN" id="code_tars" name="code_tars" value=""/>       		
+	</div>	<!-- end : /common/bloc_interhotels_start.htm -->
+
+        <div id="booking-new" class="off">
+            <!-- start  : /fr/booking/new-booking-engine.htm from 57.200.2.187 --> <div class="bookingEngine">
+    <div class="bookingEngineWrapper">
+        <h2><img src="/fr/images/booking/booking-engine/title-bookingengine.gif" alt="Modifiez votre recherche" /></h2>
+       
+	  <!-- identification-pro.tplf -->
+		<div id="identificationProTemplate"></div>
+		<!-- fin identification-pro.tplf -->
+
+
+	   <form id="newbookingEngine" class="newbookingEngine" action="/geo/newSearch.action" method="post" autocomplete="off">
+            
+            <div class="errorMessage validatorInvalidState tErrorMessage"></div>
+            
+            <fieldset>
+                <div class="line">
+                    <label for="search-destination-new">Destination</label>
+                    <input type="text" id="search-destination-new" class="tSearchDestination" name="search.destination" title="Ville / Pays / Code H�tel" />
+                    <a class="tooltip cfgtt-offx:0-offy:5-xpos:left-ypos:bottom-width:160" title="Merci de saisir une ville, un pays, un code h�tel ou un code a�roport">Aide</a>
+                    <div id="search-destination-update-new" class="update" style="display: none;"></div>
+                </div>
+            </fieldset><!-- //Destination -->
+            
+            <fieldset>
+                <div class="line arrivalDate">
+                    <label for="search-dateIn-new">Date d�arriv�e</label>
+                    <input name="search.dateIn" id="search-dateIn-new" class="tArrivalDate" />
+                    <input value="" id="search-dayIn-new" name="search.dayIn" type="hidden" />
+                    <input value="" id="search-monthIn-new" name="search.monthIn" type="hidden" />
+                    <input value="" id="search-yearIn-new" name="search.yearIn" type="hidden" />
+                </div>
+                <div class="line departureDate">
+                    <label for="search-dateOut-new">Date de d�part</label>
+                    <input name="search.dateOut" id="search-dateOut-new" class="tDepartureDate" />
+                    <input value="" id="search-dayOut-new" name="search.dayOut" type="hidden" />
+                    <input value="" id="search-monthOut-new" name="search.monthOut" type="hidden" />
+                    <input value="" id="search-yearOut-new" name="search.yearOut" type="hidden" />
+                </div>
+                <div class="nights tNights off">
+                	<span class="duree">Soit&nbsp;<span class="tDuree"></span>&nbsp;nuit(s)</span>
+                    <input value="" name="search.nightNb" class="tNightNb" id="search-nightNb-new" type="hidden" />
+                </div>
+            </fieldset><!-- //Gestion des dates -->
+            
+    
+    <fieldset class="rooms-form">
+    	<div class="confort line">
+        	<p><label for="filter-hotelRatingClasse-new">Niveau de confort</label></p>
+            <select id="filter-hotelRatingClasse-new" name="filter.hotelRatingClass">
+                <option value="ALL">Indiff�rent</option>
+                <option value="EL">Exclusive Luxury</option>
+                <option value="LX">Luxe</option>
+                <option value="UP">Haut de gamme</option>
+                <option value="FI"> Milieu de gamme</option>
+                <option value="TO">Economique</option>
+                <option value="BU">Tr�s �conomique</option>
+            </select>
+        </div><!-- //confort -->
+        <div class="rooms">
+        	<p><label for="search-roomNumber-new">Chambre(s)</label></p>
+            <select id="search-roomNumber-new" name="search.roomNumber">
+			</select>
+        </div><!-- //chambre -->
+        <div class="adults">
+        	<p><label for="search-adultNumber-new">Adulte(s)</label></p>
+            <select id="search-adultNumber-new"  name="search.adultNumber">
+			</select>
+        </div><!-- //faux select adults -->
+        <div class="childrens children">
+        	<p><label for="search-childrenNumber-new">Enfant(s)</label></p>
+            <select id="search-childrenNumber-new"  name="search.childrenNumber">
+			</select>
+        </div><!-- //faux select enfants -->
+    </fieldset>
+    <div class="roomsDetails off">
+        <p class="undeploy"><a class="lnk-moreoptions" href="#">Composition des chambres</a></p>
+            <div class="roomsWrapper"></div> 
+    </div>
+	
+    		<div class="resa-separator"></div>
+
+            <fieldset class="fidelitycard-form">
+                <div class="line zone-fidelity">
+                    <label for="identification-fidelityCard-number-new">N� de carte de fid�lit� ou d�abonnement</label>
+                    <input type="text" value="" name="identification.fidelityCard.number" id="identification-fidelityCard-number-new" />
+                    <a class="tooltip cfgtt-offx:0-offy:5-xpos:left-ypos:bottom-width:160" title="Merci de saisir les 16 chiffres de votre carte de fid�lit�">Aide</a>
+                    <a href="/fr/booking/discover-leclub.shtml" class="aclubPopin popin p-m-i-w:600-h:400-type:infos-ref:aclub">D�couvrez Le Club Accorhotels</a>
+                </div>
+                
+                <div id="fidelity-block" class="fidelity-block-new"></div>
+                
+                <div class="line zone-preferredCode">
+                    <label for="identification-preferredCode-code-new">Code pr�f�rentiel</label>
+                    <input type="text" value="" name="identification.preferredCode.code" id="identification-preferredCode-code-new" />
+                    <a class="tooltip cfgtt-offx:0-offy:5-xpos:left-ypos:bottom-width:160" title="Vous b�n�ficiez d'un code pr�f�rentiel ? Merci de le saisir afin de consulter les h�tels proposant les tarifs associ�s">Aide</a>
+                </div>
+            </fieldset>
+            
+            <div class="resa-separator zone-preferredCode"></div>
+
+            <fieldset class="zone-freenight">
+                <label for="search.freeNight">Utiliser ma Stay Plus pour cette r�servation</label>
+                <div class="freenight-choice">
+                    <label class="freenight-label"><input type="radio" id="search.freeNight-yes" name="search.freeNight" value="yes" />Oui</label>
+                    <label class="freenight-label"><input type="radio" id="search.freeNight-no" name="search.freeNight" value="no" />Non</label>
+                </div>
+                <div class="resa-separator" />
+            </fieldset>
+            
+             <div class="line advancedsearchContract">
+                <a href="/fr/booking/advanced-search.shtml" class="lnk-advancedsearchContract" target="_top">Voyageurs d'affaires avec contrat</a>
+            </div>
+            
+            
+            <div class="line">
+                <a href="/fr/booking/advanced-search.shtml" class="lnk-advancedsearch" target="_top">Nouvelle recherche</a>
+                <a class="buttonH submiter tSubmit"><span>Rechercher</span></a>
+            </div>
+            
+            
+            <input id="search-geoZone-type-new" type="hidden" name="search.geoZone.geoZoneType" value=""/>
+            <input id="search-geoZone-code-new" type="hidden" name="search.geoZone.geoZoneCode" value=""/>
+            <input id="search-currency-code" type="hidden" name="currencyCode" value=""/>
+            
+            <input type="hidden" name="identification.reserverType" id="identification-reserverType-new" value="" />
+            <input type="hidden" name="identification.reserverId" id="identification-reserverId-new" value="" />
+            <input type="hidden" name="identification.reserverContract" id="identification-reserverContract-new" value="" />
+            <input type="hidden" name="identification.accountId" id="identification-accountId-new" value="" />
+            <input type="hidden" name="identification.accountContract" id="identification-accountContract-new" value="" />
+          <!-- Affichage par marque -->
+            <input id="filter-brands-new" type="hidden" name="filter.brands" value="ALL"/>
+        </form>
+    </div>
+</div><!-- end : /fr/booking/new-booking-engine.htm -->
+        </div>
+            <div class="filterEngine tFilterEngine">
+                <div class="filterEngineWrapper">
+                    <h2><img src="/fr/images/booking/hotels-list/title-filter-engine.png" alt="Pr�ciser votre recherche"  /></h2>
+                    <div id="filtersResult"></div>
+                </div>
+            </div>
+            <!-- start  : /fr/booking/call-centers.htm from 57.200.2.187 --><div class="insetSupport">
+    <div class="insetSupportWrapper">
+        
+    </div>
+</div>
+<!-- end : /fr/booking/call-centers.htm -->
+			<!-- start  : /fr/booking/left-details.htm from 57.200.2.187 -->?<div  id="new" class="guarantee">
+	<div class="guaranteeWrapper">
+        <span class="icon-top"><img src="/imagerie/booking/common/icon_usp.png"/></span>
+    	<h2>Pourquoi r�server sur <span>ACCORHOTELS.COM<span></h2>
+        <ul class="usp">
+        	<li class="priceusp">
+                <span>Meilleur prix garanti</span>
+            </li>
+            
+            <li class="welcome">
+                <span>Online check-in / </br>Fast check-out</span></span>
+            </li>
+            
+            <li class="leclub">
+                <span>Programme de fid�lit�</span>
+            </li>
+            
+            <li class="offre">
+                <span>Offres exclusives et ventes priv�es</span>
+            </li>
+            
+             <li class="avis">
+                <span>Plus de 550.000 avis de nos clients</span>
+            </li>
+            
+            <li class="services">
+                <span>Service client 24h/24�dans votre langue</span>
+            </li>
+            
+            <li class="hotelier">
+                <span>Des h�teliers � votre service</span>
+            </li>
+            
+            
+        
+        </ul>
+    </div>
+</div><!-- end : /fr/booking/left-details.htm -->
+
+            <div class="commissionBox tCommissionBox"></div>
+        </div>
+        <div class="middleContent"> <a name="topMiddleContent"></a>
+            <!-- bloc WDR -->
+          <!--    <div id="wdr_discountBannerTemplate"></div> 
+        	<!-- bloc header title -->
+            <div class="errorMessage tAjaxError"></div>
+            <div class="titleResult">
+                <div id="titleTemplate"></div>
+
+                <form class="currencyForm" action="#">
+                    <label for="selectCurrency">Devise</label>
+                    <select id="selectCurrency" name="selectCurrency"></select>
+                </form>
+            </div>
+            <!-- @End bloc header title -->
+            <div id="hotel-top"></div>
+            <!-- option choice -->
+            <div class="optionChoice tFilterSummary">
+                <p><strong>Crit�res s�lectionn�s :</strong> <span></span></p>
+            </div>
+            <!-- @End option choice -->
+
+            <!-- menu List / Map -->
+            <ul class="menuTab tMenuTab">
+                <li id="list" class="on"><a href="#">Liste</a></li>
+                <li id="map" class=""><a href="#">Carte</a></li>
+            </ul>
+            <!-- @End menu List / Map -->
+
+            <!-- Pagination -->
+            <div class="pageNav top">
+	            <p>Page</p>
+	            <ul>
+	                <li class="firstPage"><a title="Premi�re page" href="#">&lt;&lt;</a></li>
+	                <li class="prevPage"><a title="Page pr�c�dente" href="#">&lt;</a></li>
+	                <li class="numPage"><ul></ul></li>
+	                <li class="nextPage"><a title="Page suivante page" href="#">&gt;</a></li>
+	                <li class="lastPage"><a title="Derni�re page" href="#">&gt;&gt;</a></li>
+	            </ul>
+            </div>
+            <!-- @End Pagination -->
+
+            <!-- result list hotel -->
+            <div class="resultList">
+                <div class="tMapWrapper mapWrapper off">
+                    <iframe allowtransparency="true" src="" id="themap" class="mapResult" scrolling="no" frameborder="0" ></iframe>
+                </div>
+                <!-- bloc filter -->
+                <form class="filterForm" action="">
+                    <div class="select">
+                        <label for="sort">Trier par:</label></br></br>
+                        <select name="sort" id="sort" class="off" >
+                            <option value="0">Recommand�</option>
+                            <option value="1">Prix</option>
+                            <option value="2">Distance</option>
+                            <option value="3">Nom d'h�tel</option>
+                        </select>
+                        <label class="sortradio"><input type="radio" value="0" name="sortradio" class="sortradio" >Recommand�</label>
+                        <label class="sortradio"><input type="radio" value="1" name="sortradio" class="sortradio">Prix</label>
+                        <label class="sortradio"><input type="radio" value="2" name="sortradio" class="sortradio">Distance</label>
+                        <label class="sortradio"><input type="radio" value="3" name="sortradio" class="sortradio">Nom d'h�tel</label>
+                    </div>
+                    <a class="buttonH tComparisonButton" href="/ajax/comparison/compare.action"><span>Comparer les h�tels s�lectionn�s</span></a>
+                </form>
+                <!-- @End bloc filter -->
+
+                <div id="loading"></div>
+                <div id="resultTemplate"></div>
+
+                <!-- bloc compare -->
+                <div class="blocCompare"> <a class="buttonH tComparisonButton" href="/ajax/comparison/compare.action"><span>Comparer les h�tels s�lectionn�s</span></a> </div>
+                <!-- @End bloc compare -->
+
+                <!-- pagination bottom -->
+                <div class="pageNav">
+                    <p>Page</p>
+                    <ul>
+                        <li class="firstPage"><a title="Premi�re page" href="#">&lt;&lt;</a></li>
+                        <li class="prevPage"><a title="Page pr�c�dente" href="#">&lt;</a></li>
+                        <li class="numPage"><ul></ul></li>
+                        <li class="nextPage"><a title="Page suivante page" href="#">&gt;</a></li>
+                    		<li class="lastPage"><a title="Derni�re page" href="#">&gt;&gt;</a></li>
+                    </ul>
+                </div>
+                <!-- @End pagination bottom -->
+            </div>
+            <!-- @End result list hotel -->
+        </div>
+    </div>
+</div>
+    <div id="brandX-bloc"></div>
+<div class="mainContainer">
+    <div class="notification">
+    	<p>*Ces prix s�entendent � � partir de �. Ils correspondent au prix moyen le plus bas disponible aux dates demand�es, sur la base d�une chambre pour une ou deux personnes. Ils peuvent porter sur des types de chambres diff�rents. Selon le pays de l�h�tel, ces prix peuvent �tre indiqu�s soit hors taxes, soit incluant la TVA seule, soit toutes taxes comprises (TVA et taxe de s�jour incluses). Lorsque les prix ne sont pas affich�s toutes taxes comprises, les taxes (TVA et/ou taxe de s�jour) seront pr�cis�es dans les �tapes suivantes du processus de r�servation. Le prix n�est garanti qu�au moment de la r�servation.�</p>
+		<p><strong>La conversion en monnaie �trang�re est donn�e � titre indicatif et non contractuelle. Seule la monnaie confirm�e lors de votre r�servation est garantie.</strong></p>
+        <p>Le classement de l�h�tel (1 � 5 �toiles pour la France) r�pond � des crit�res fix�s par la r�glementation locale. </p>
+        <p class="bestprice-footer">(1) MEILLEUR PRIX GARANTI</p>
+    </div>
+    <div class="footerContainer">
+        <!-- start  : /fr/commun/footer_cr.htm from 57.200.2.187 --><div id="footer">
+    
+</div><!-- end : /fr/commun/footer_cr.htm -->
+    </div>
+</div>
+<div class="popin search">
+    <p id="tComparisonNotEnoughHotels">Vous devez s�lectionner au moins <span class="minComparableHotels"></span>&nbsp;h�tels pour effectuer une comparaison</p>
+    <p id="tComparisonTooManyHotels">Vous ne pouvez s�lectionner que <span class="maxComparableHotels"></span>&nbsp;h�tels maximum</p>
+    <p id="tCompBrandHotelMsg">Vous avez s�lectionn� un h�tel d'une autre marque du groupe Accor.<br />Nous vous proposons de poursuivre votre r�servation sur le site Accorhotels.com</p>
+    <p id="tExternalHotelIbisMsg">Vous avez s�lectionn� un h�tel de la famille Ibis.<br/>Nous vous proposons de poursuivre votre r�servation sur un site de la famille Ibis.</p>
+    <p id="tExternalHotelMsg">Vous avez s�lectionn� un h�tel d'une autre marque du groupe Accor.<br/>Nous vous proposons de poursuivre votre r�servation sur un site du groupe Accor.</p>
+    <div id="comparisonPopinButtons" class="btn">
+        <a class="cancel" href="#">OK</a>
+    </div>
+    <div id="compBrandHotelPopinButtons" class="btn">
+        <a class="cancel" href="#">Annuler</a>
+        <a class="submit" href="#" target="_blank">Poursuivre</a>
+    </div>
+</div>
+<!-- DEBUT / Xiti / START -->
+<script type="text/javascript" src="/scripts-v1604/xiti_utils.js"></script>
+<script type="text/javascript">
+	var xtnopage = "1";
+	xitinit("results::standard::list");
+</script>
+<script type="text/javascript" src="/scripts-v1604/xtanalyzer_roi.js"></script>
+<!-- FIN / Xiti / END -->
+
+<script async="true" type="text/javascript" src="/_recette/recette_validate_certificate.js" ></script><script type="text/javascript" src="/scripts/smart_banner_header.js"></script><script>(function(a,b,c,d,e){function f(){var a=b.createElement('script');a.async=!0;a.src='//radar.cedexis.com/1/10096/radar.js';b.body.appendChild(a)}/\bMSIE 6/i.test(a.navigator.userAgent)||(a[c]?a[c](e,f,!1):a[d]&&a[d]('on'+e,f))})(window,document,'addEventListener','attachEvent','load');</script><script type="text/javascript">if (document.cookie.indexOf('cookieconsent')==-1){(function(w,d){var a=function(){var a=d.createElement('script');a.type='text/javascript';a.async='async';a.src='/scripts/cookies-disclaimer.js';d.body.appendChild(a);};if(w.addEventListener){w.addEventListener('load', a, false);}else if(w.attachEvent){ w.attachEvent('onload',a);}}(window, document));}</script></body>
+</html>

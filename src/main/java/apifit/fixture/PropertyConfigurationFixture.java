@@ -42,11 +42,11 @@ public class PropertyConfigurationFixture {
 	private void initProxy() {
 		String proxyHost = ApiFitCache.getInstance().getConfigProperty(APIFIT_PROXY_HOST);
 		String integerString = ApiFitCache.getInstance().getConfigProperty(APIFIT_PROXY_PORT);
-		if (proxyHost != null) {
+		if (proxyHost != null && proxyHost.trim().length() > 0) {
 			APIHost proxy = new APIHost();
 			proxy.setHost(proxyHost);
 			Integer proxyPort = 80;
-			if (integerString != null) {
+			if (integerString != null  && integerString.trim().length() > 0) {
 				proxyPort = new Integer(integerString);
 			}
 			proxy.setPort(proxyPort);
