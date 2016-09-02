@@ -53,6 +53,8 @@ Assertions done on returned data can use :
 * GPath expression language, to assert on Json, XML or HTML responses (http://groovy-lang.org/processing-xml.html)
 * Numerical or regular expressions comparisons  (http://www.fitnesse.org/FitNesse.UserGuide.WritingAcceptanceTests.SliM.ValueComparisons) 
 
+What ? Asserting on Html results ? Yes, no need to use Selenium any more !!!
+
 Now let's run the test. No, wait, just a little step more. Indeed, we need to provide FitNesse with our Apifit Fixtures. Just a simple import directive, to be placed in a suite setup page for example. 
 ```
 |import                                |
@@ -194,3 +196,6 @@ This is the list of what you will be able to do with Apifit in a near futur.
 Configurable timeout | Set a request and/or connection timeout - Can be configured localy (test table) or globaly (test suite)
 SQL fixture | Set an SQL step in a test scenario to check data stored by an API 
 Payload externaliszation | Get generic payloads for POST or PUT request from file system locations
+
+Apifit configuration
+--------------------
