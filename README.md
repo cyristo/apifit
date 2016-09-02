@@ -29,13 +29,13 @@ For this resource, let's check that :
 * the name of the first user is *Leanne Graham*
 * the address street name of the second user is *Victor Plains*
 * the response contains at least one time the word *innovative* 
-* the response does not contain the word *tower* 
+* the response does not contain the word *Trump* (fortunatly not) 
 
 To create the test, we add a FitNesse test page with a FitNesse dynamic decision table.  This table uses the **API Fixture** of Apifit. 
 ```
-|ddt:API Fixture|jsonplaceholder.typicode.com|/users                                                                               |
-|status code?   |$.length()?                 |$.[0].name?  |$.[1].address.street?|APIFIT:CONTAINS(innovative)?|APIFIT:COUNT(tower)?|
-|200            |10                          |Leanne Graham|Victor Plains        |TRUE                        |0                   |
+|ddt:API Fixture|jsonplaceholder.typicode.com|/users                                                              |
+|status code? |$.length()?  |$.[0].name?  |$.[1].address.street?|APIFIT:CONTAINS(innovative)?|APIFIT:COUNT(Trump)?|
+|200          |10           |Leanne Graham|Victor Plains        |TRUE                        |0                   |
 ```
 
 The first row is the table header. We have here the fixture name, and two constructor parameters: 
@@ -50,7 +50,7 @@ Assertions done on returned data can use :
 * Apifit sentences (like *status code* or *execution time*)
 * Apifit patterns (like COUNT or TODAY+X)
 * JsonPath expression language, dedicated to assert on Json responses (http://goessner.net/articles/JsonPath/)
-* GPath expression language, to assert on Json, XML or HTML response (http://groovy-lang.org/processing-xml.html)
+* GPath expression language, to assert on Json, XML or HTML responses (http://groovy-lang.org/processing-xml.html)
 * Numerical or regular expressions comparisons  (http://www.fitnesse.org/FitNesse.UserGuide.WritingAcceptanceTests.SliM.ValueComparisons) 
 
 Now let's run the test. No, wait, just a little step more. Indeed, we need to provide FitNesse with our Apifit Fixtures. Just a simple import directive, to be placed in a suite setup page for example. 
