@@ -42,7 +42,7 @@ The first row is the table header. We have here the fixture name, and two constr
 * the *host* (jsonplaceholder.typicode.com) 
 * the *path* (/users)
 
-The second row is the column headers. This test doesn't requiere any input data, only output assertions (columns with an ?). 
+The second row is the column headers. This test doesn't requiere any input data, only output assertions (header column names with an ?). 
 
 The third row contains the test data. 
 
