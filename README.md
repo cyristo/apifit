@@ -1,11 +1,11 @@
 # Apifit
-## Start securing your API layer through an automated user friendly test suite, in 5 minutes !
+## Start securing your API layer with an automated test suite in 5 minutes, really !
 
-Apifit is a framework that extends FitNesse with a full range of Rest API testing capabilities. 
+Apifit is a framework that extends FitNesse with a full range of Rest API testing capabilities. If you don't know about FitNesee, start here : www.fitnesse.org.
 
 Installation
 ------------
-Prerequisite : have Java 8 and FitNesse installed (www.fitnesse.org).
+Prerequisite : have Java 8 and FitNesse installed.
 
 * Download apifit-dist.zip
 * Extract apifit-dist.zip under FitNesseRoot
@@ -53,7 +53,8 @@ Assertions done on returned data can use :
 * GPath expression language, to assert on Json, XML or HTML responses (http://groovy-lang.org/processing-xml.html)
 * Numerical or regular expressions comparisons  (http://www.fitnesse.org/FitNesse.UserGuide.WritingAcceptanceTests.SliM.ValueComparisons) 
 
-What ? Asserting on Html results ? Yes, no need to use Selenium any more !!!
+You - What ? Asserting on Html result pages within a simple test table ? 
+Me - Yes, no more heavy-and-hard-to-maintain Selenium tests !!!
 
 Now let's run the test. No, wait, just a little step more. Indeed, we need to provide FitNesse with our Apifit Fixtures. Just a simple import directive, to be placed in a suite setup page for example. 
 ```
@@ -66,7 +67,7 @@ Here is the result :
 
 Congratulations ! You've just run your first Apifit test...and it's green !
 
-If it takes you more than 5 minutes, please contact the 24/7 Apifit help desk :smile:
+If it takes you more than 5 minutes, please contact the 24/7 Apifit support :smile:
 
 Data Driven test style
 ----------------------
@@ -199,3 +200,8 @@ Payload externaliszation | Get generic payloads for POST or PUT request from fil
 
 Apifit configuration
 --------------------
+//TODO work in progress
+
+Apifit architecture
+-------------------
+//TODO work in progress
