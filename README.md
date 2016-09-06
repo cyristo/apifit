@@ -200,8 +200,8 @@ Payload externaliszation | Get generic payloads for POST or PUT request from fil
 
 Apifit configuration
 --------------------
-//TODO work in progress
+work in progress
 
 Apifit architecture
 -------------------
-//TODO work in progress
+work in progress
