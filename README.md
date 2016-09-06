@@ -7,8 +7,8 @@ Installation
 ------------
 Prerequisite : have Java 8 and FitNesse installed.
 
-* Download apifit-dist-<VERSION>.zip
-* Extract apifit-dist.zip under FitNesseRoot
+* Download apifit-dist-VERSION.zip
+* Extract apifit-dist-VERSION.zip under FitNesseRoot
 * Start FitNesse
 * Set the FitNesse test engine to SLIM 
 ```!define TEST_SYSTEM {slim}```
