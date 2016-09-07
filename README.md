@@ -49,7 +49,7 @@ The third row contains the test data.
 Assertions done on returned data can use :
 * Apifit sentences (like *status code* or *execution time*)
 * Apifit patterns (like COUNT or TODAY+X)
-* JsonPath expression language, dedicated to assert on Json responses (http://goessner.net/articles/JsonPath/)
+* JsonPath expression language, dedicated to assert on Json responses (https://github.com/jayway/JsonPath)
 * GPath expression language, to assert on Json, XML or HTML responses (http://groovy-lang.org/processing-xml.html)
 * Numerical or regular expressions comparisons  (http://www.fitnesse.org/FitNesse.UserGuide.WritingAcceptanceTests.SliM.ValueComparisons) 
 
