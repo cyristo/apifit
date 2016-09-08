@@ -188,6 +188,7 @@ Execution log | Get the full trace of a test scenario execution (including URLs,
 Request time | Get and assert the time taken by a request
 Test session | Share and reuse data between test steps (bodies, data values, cookies)
 Cookies | Automatic cookies setting between API calls
+Header | Add http header to a test session
 Redirections | Compatible with HTTP redirections
 
 This is the list of what you will be able to do with Apifit in a near futur.
@@ -197,6 +198,7 @@ This is the list of what you will be able to do with Apifit in a near futur.
 Configurable timeout | Set a request and/or connection timeout - Can be configured localy (test table) or globaly (test suite)
 SQL fixture | Set an SQL step in a test scenario to check data stored by an API 
 Payload externaliszation | Get generic payloads for POST or PUT request from file system locations
+Multiple headers| Add multiple headers per request
 
 Apifit configuration
 --------------------
