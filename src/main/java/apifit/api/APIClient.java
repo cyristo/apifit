@@ -134,7 +134,7 @@ public class APIClient implements IAPIClient {
 				String name = (String) enumer.nextElement();
 				String value = cookies.get(name);
 				cookie = new BasicClientCookie(name, value);
-				cookie.setDomain(".accorhotels.ws");
+				cookie.setDomain(".domain.ws");
 				cookie.setPath("/");
 				cookieStore.addCookie(cookie);
 				cookieString.append(name).append("=").append(value);
@@ -339,7 +339,7 @@ public class APIClient implements IAPIClient {
 			requestFlow.append(LINE_SEPARATOR).append("REQUEST HEADERS  : ");
 			for (int i = 0; i < headers.length; i++) {
 				Header header = headers[i];
-				requestFlow.append(LINE_SEPARATOR).append(header.getName()).append(": ").append(header.getValue());
+				requestFlow.append(LINE_SEPARATOR).append(header.getName()).append(":").append(header.getValue());
 			}
 		}
 		if (payload != null) {
