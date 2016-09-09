@@ -10,6 +10,7 @@ public interface IDecisionTableFixture {
 	public void endTable(); 
 	public void reset();
 	
+	
 	public String executionStatus();
 	public String executionSuccessBody();
 	public String executionErrorMessage();
