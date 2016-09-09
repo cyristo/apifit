@@ -38,9 +38,10 @@ To create the test, we add a FitNesse test page with a FitNesse dynamic decision
 |200         |10         |Leanne Graham|Victor Plains        |TRUE                        |0                   |
 ```
 
-The first row is the table header. We have here the fixture name, and two constructor parameters: 
-* the *host* (jsonplaceholder.typicode.com) 
-* the *path* (/users)
+The first row is the table header. We have here the fixture name, and 3 constructor parameters: 
+* the *http verb* to execute (GET)
+* the *host* of the service (jsonplaceholder.typicode.com) 
+* the *path* to the ressource (/users)
 
 The second row is the column headers. This test doesn't requiere any input data, only output assertions (header column names with an ?). 
 
