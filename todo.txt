@@ -1,18 +1,11 @@
-User/Profile pour US FAST TRACK
 UT de Add et Update fixture
-fitnesse ressources organisation
 SQL management
-Booking authentifié
-Gérer age of children
 API client optimization 
 API client full external configuration
 XML management
 Maven Test without IT Test
 Update Json without any DTO 
-integration Jenkins
 Intégration Sonar
-GITHub ReadMe
-Demo dans FitNesse
 JavaDoc
 PPT
 

@@ -1,7 +1,7 @@
 package apifit.contract;
 
 import static apifit.common.ApiFitConstants.COOKIES;
-import static apifit.common.ApiFitConstants.APIFIT_REQUEST_HEADERS;
+import static apifit.common.ApiFitConstants.HEADERS;
 import static apifit.common.ApiFitConstants.POST;
 import static apifit.common.ApiFitConstants.PUT;
 //import static apifit.common.ApiFitConstants.PROXY_HOST;
@@ -43,11 +43,9 @@ public abstract class AbstractAPIDomain implements IDomain {
 		if (cookies != null) {
 			apiClient.setCookies((Hashtable<String, String>) cookies);
 		}
-		Object headers = TestSessionCache.getInstance().getObjectInTestSession(testSessionId+APIFIT_REQUEST_HEADERS); 
+		Object headers = TestSessionCache.getInstance().getObjectInTestSession(testSessionId+HEADERS); 
 		if (headers != null) {
-			String name = StringUtils.substringBefore((String) headers, ":");
-			String value = StringUtils.substringAfter((String) headers, ":");
-			apiClient.addRequestHeader(name, value);
+			apiClient.setRequestHeaders((Hashtable<String, String>) headers);
 		}
 		/*
 		Object proxyHost = TestSessionCache.getInstance().getObjectInTestSession(PROXY_HOST);
