@@ -2,7 +2,6 @@ package apifit.contract;
 
 import com.google.common.collect.ArrayListMultimap;
 
-import apifit.api.APIHost;
 import apifit.common.ApiFitException;
 
 public interface IAPIClient {

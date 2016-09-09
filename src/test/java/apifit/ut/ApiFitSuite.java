@@ -11,7 +11,8 @@ import org.junit.runners.Suite;
 	TestJsonToDTO.class,
 	TestPattern.class,
 	TestTheCacheSystem.class, 
-	TestURLBuilder.class
+	TestURLBuilder.class, 
+	TestXml.class
 })
 
 public class ApiFitSuite {

@@ -37,8 +37,7 @@ public class TestDynamicHttpFixture {
 		String optionsPath = "/hotels/[hotel]/rooms/[room]/offers/[offer]/options";
 
 		//public HttpRequestFixture(String httpVerb, String scheme, String host, Integer port, String path) {
-		APIFixture httpFixture = new APIFixture(scheme, host, 80+"", path+optionsPath);
-		httpFixture.reset();		
+		APIFixture httpFixture = new APIFixture("GET", scheme, host, 80+"", path+optionsPath);	
 		httpFixture.set("[env]", "rec2");
 		httpFixture.set("[version]", "v2.0");
 		httpFixture.set("[clientId]", "accorhotels");

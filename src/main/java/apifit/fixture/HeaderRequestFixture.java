@@ -4,7 +4,6 @@ import static apifit.common.ApiFitConstants.HEADERS;
 
 import java.util.Hashtable;
 
-import apifit.common.ApiFitCache;
 import apifit.common.TestSessionCache;
 
 public class HeaderRequestFixture {

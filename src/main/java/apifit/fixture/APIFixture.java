@@ -3,18 +3,18 @@ package apifit.fixture;
 import static apifit.common.ApiFitConstants.APIFIT_CHECK_STATUS;
 import static apifit.common.ApiFitConstants.APIFIT_CONTENT_TYPE;
 import static apifit.common.ApiFitConstants.APIFIT_HOST;
-import static apifit.common.ApiFitConstants.APIFIT_HTTP_VERB;
 import static apifit.common.ApiFitConstants.APIFIT_PATH;
 import static apifit.common.ApiFitConstants.APIFIT_PAYLOAD;
 import static apifit.common.ApiFitConstants.APIFIT_PORT;
 import static apifit.common.ApiFitConstants.APIFIT_SCHEME;
 import static apifit.common.ApiFitConstants.APIFIT_STATUS_CODE;
 import static apifit.common.ApiFitConstants.GET;
-import static apifit.common.ApiFitConstants.JSON_CONTENT_TYPE;
 import static apifit.common.ApiFitConstants.HTML_CONTENT_TYPE;
+import static apifit.common.ApiFitConstants.JSON_CONTENT_TYPE;
 import static apifit.common.ApiFitConstants.XML_CONTENT_TYPE;
-import static apifit.common.DataPattern.*;
-
+import static apifit.common.DataPattern.doPattern;
+import static apifit.common.DataPattern.isApiFitPattern;
+import static apifit.common.DataPattern.isDatePattern;
 
 import java.time.LocalDateTime;
 
@@ -42,56 +42,66 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 	private Integer checkStatus = 200;
 
 	public APIFixture() {
-		this(ApiFitCache.getInstance().getConfigProperty(APIFIT_SCHEME), 
+		this(GET, 
+				ApiFitCache.getInstance().getConfigProperty(APIFIT_SCHEME), 
 				ApiFitCache.getInstance().getConfigProperty(APIFIT_HOST), 
 				ApiFitCache.getInstance().getConfigProperty(APIFIT_PORT), 
 				ApiFitCache.getInstance().getConfigProperty(APIFIT_PATH), 
 				null);
 	}
-	public APIFixture(String host) {
-		this(ApiFitCache.getInstance().getConfigProperty(APIFIT_SCHEME), 
+	
+	public APIFixture(String httpVerb) {
+		this(httpVerb, 
+				ApiFitCache.getInstance().getConfigProperty(APIFIT_SCHEME), 
+				ApiFitCache.getInstance().getConfigProperty(APIFIT_HOST), 
+				ApiFitCache.getInstance().getConfigProperty(APIFIT_PORT), 
+				ApiFitCache.getInstance().getConfigProperty(APIFIT_PATH), 
+				null);
+	}
+	public APIFixture(String httpVerb, String host) {
+		this(httpVerb, 
+				ApiFitCache.getInstance().getConfigProperty(APIFIT_SCHEME), 
 				host, 
 				ApiFitCache.getInstance().getConfigProperty(APIFIT_PORT), 
 				ApiFitCache.getInstance().getConfigProperty(APIFIT_PATH), 
 				null);
 	}
-	public APIFixture(String host, String path) {
-		this(ApiFitCache.getInstance().getConfigProperty(APIFIT_SCHEME), 
+	public APIFixture(String httpVerb, String host, String path) {
+		this(httpVerb, 
+				ApiFitCache.getInstance().getConfigProperty(APIFIT_SCHEME), 
 				host, 
 				ApiFitCache.getInstance().getConfigProperty(APIFIT_PORT), 
 				path, 
 				null);
 	}
 
-	public APIFixture(String host, String path, String testSessionId) {
-		this(ApiFitCache.getInstance().getConfigProperty(APIFIT_SCHEME), 
+	public APIFixture(String httpVerb, String host, String path, String testSessionId) {
+		this(httpVerb, 
+				ApiFitCache.getInstance().getConfigProperty(APIFIT_SCHEME), 
 				host, 
 				ApiFitCache.getInstance().getConfigProperty(APIFIT_PORT), 
 				path, 
 				testSessionId);
 	}
-	public APIFixture(String scheme, String host, String port, String path) {
-		this(scheme, host, port, path, null);
+	public APIFixture(String httpVerb, String scheme, String host, String port, String path) {
+		this(httpVerb, scheme, host, port, path, null);
 	}
-	public APIFixture(String scheme, String host, String port, String path, String testSessionId) {
+	public APIFixture(String httpVerb, String scheme, String host, String port, String path, String testSessionId) {
 		super(testSessionId);
+		this.httpVerb = httpVerb;
 		this.httpToolBox = new APIToolBox();
 		if (scheme == null || scheme.trim().length() == 0) scheme = "http";
 		if (port == null || port.trim().length() == 0) port = "80";
 		this.baseURL = httpToolBox.buildURI(scheme, host, new Integer(port), path);
-		this.nbParams = 0;
-		
+		URL = baseURL;
+		nbParams = 0;
 	}
 
 	public void set(String header, String value) {
 		header = header.trim();
 		value = value.trim();
-		if (header.equals(APIFIT_HTTP_VERB)) {
-			httpVerb = value;
-		} else if (header.equals(APIFIT_PAYLOAD)) {
+		if (header.equals(APIFIT_PAYLOAD)) {
 			payload = value;
-		//} else if (header.equals(APIFIT_CONTENT_TYPE)) {
-		//	contentType = value;
 		} else if (header.equals(APIFIT_CHECK_STATUS)) {
 			checkStatus = new Integer(value);
 		} else if (header.startsWith("[") && header.endsWith("]")) {
@@ -149,7 +159,6 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 		URL = baseURL;
 		nbParams = 0;
 	}
-	
 	
 	private String getParamFromResultBody(String requestedValue) {
 		

@@ -3,13 +3,10 @@ package apifit.ut;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import java.util.ArrayList;
-
 import org.junit.Test;
 
 import apifit.common.ApiFitException;
 import apifit.common.ApiFitUtils;
-import apifit.json.JsonToolBox;
 import apifit.xml.XmlToolBox;
 
 public class TestXml {

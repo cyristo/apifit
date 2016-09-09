@@ -20,7 +20,6 @@ import org.apache.commons.io.IOUtils;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import apifit.common.ApiFitException;
@@ -95,9 +94,7 @@ public class TestAPIFixture {
 	public void get() throws InterruptedException {
 
 		//act
-		APIFixture fixture = new APIFixture("http", host, port, path);
-		fixture.reset();
-		fixture.set("APIFIT:HTTP_VERB", GET);
+		APIFixture fixture = new APIFixture(GET, "http", host, port, path);
 		fixture.set("APIFIT:CHECK_STATUS", "200");
 		fixture.execute();
 
@@ -117,9 +114,7 @@ public class TestAPIFixture {
 	public void delete() throws InterruptedException {
 
 		//act
-		APIFixture fixture = new APIFixture("http", host, port, path+"/1");
-		fixture.reset();
-		fixture.set("APIFIT:HTTP_VERB", DELETE);
+		APIFixture fixture = new APIFixture(DELETE, "http", host, port, path+"/1");
 		fixture.execute();
 
 		//assert
@@ -130,9 +125,7 @@ public class TestAPIFixture {
 
 		//act again
 		Thread.sleep(1000);
-		fixture = new APIFixture("http", host, port, path);
-		fixture.reset();
-		fixture.set("APIFIT:HTTP_VERB", GET);
+		fixture = new APIFixture(GET, "http", host, port, path);
 		fixture.set("APIFIT:CHECK_STATUS", "200");
 		fixture.execute();
 
@@ -152,9 +145,7 @@ public class TestAPIFixture {
 		String payload = getJsonUser();
 
 		//act
-		APIFixture fixture = new APIFixture("http", host, port, path+"/1");
-		fixture.reset();
-		fixture.set("APIFIT:HTTP_VERB", PUT);
+		APIFixture fixture = new APIFixture(PUT, "http", host, port, path+"/1");
 		fixture.set("APIFIT:PAYLOAD", payload);
 		fixture.execute();
 
@@ -167,9 +158,7 @@ public class TestAPIFixture {
 
 		//act again
 		Thread.sleep(1000);
-		fixture = new APIFixture("http", host, port, path);
-		fixture.reset();
-		fixture.set("APIFIT:HTTP_VERB", GET);
+		fixture = new APIFixture(GET, "http", host, port, path);
 		fixture.set("APIFIT:CHECK_STATUS", "200");
 		fixture.execute();
 
@@ -189,9 +178,7 @@ public class TestAPIFixture {
 		String payload = getJsonUser();
 
 		//act
-		APIFixture fixture = new APIFixture("http", host, port, path);
-		fixture.reset();
-		fixture.set("APIFIT:HTTP_VERB", POST);
+		APIFixture fixture = new APIFixture(POST, "http", host, port, path);
 		fixture.set("APIFIT:PAYLOAD", payload);
 		fixture.set("APIFIT:CHECK_STATUS", "201");
 		fixture.execute();
@@ -205,9 +192,7 @@ public class TestAPIFixture {
 		//act again
 		Thread.sleep(1000);
 		path = "/myjsondb";
-		fixture = new APIFixture("http", host, port, path);
-		fixture.reset();
-		fixture.set("APIFIT:HTTP_VERB", GET);
+		fixture = new APIFixture(GET, "http", host, port, path);
 		fixture.set("APIFIT:CHECK_STATUS", "200");
 		fixture.execute();
 

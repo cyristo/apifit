@@ -1,8 +1,5 @@
 package apifit.domain;
-import static apifit.common.ApiFitConstants.POST;
-import static apifit.common.ApiFitConstants.PUT;
 import apifit.common.ApiFitException;
-import apifit.common.TestSessionCache;
 import apifit.contract.AbstractAPIDomain;
 
 public class APIDomain extends AbstractAPIDomain {

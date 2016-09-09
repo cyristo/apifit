@@ -6,9 +6,9 @@ public interface IDecisionTableFixture {
 
 	public void table(List<List<String>> table); 
 	public void beginTable();
-	public void reset();
 	public void execute();
 	public void endTable(); 
+	public void reset();
 	
 	public String executionStatus();
 	public String executionSuccessBody();

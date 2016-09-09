@@ -4,7 +4,6 @@ import static apifit.common.ApiFitConstants.STATUS_OK;
 
 import java.util.UUID;
 
-import apifit.common.ApiFitCache;
 import apifit.common.TestSessionCache;
 
 public class SessionFixture {

@@ -80,12 +80,11 @@ public abstract class AbstractFixture implements IDecisionTableFixture {
 		// TODO Auto-generated method stub
 	}
 
-	public void reset() {
-		// TODO Auto-generated method stub
-	}
-
 	public void endTable() {
 		// TODO Auto-generated method stub
+	}
+	public void reset() {
+		
 	}
 
 }
