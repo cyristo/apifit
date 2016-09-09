@@ -33,7 +33,7 @@ For this resource, let's check that :
 
 To create the test, we add a FitNesse test page with a FitNesse dynamic decision table.  This table uses the **API Fixture** of Apifit. 
 ```
-|ddt:API Fixture|jsonplaceholder.typicode.com|/users                                                           |
+|ddt:API Fixture|GET        |jsonplaceholder.typicode.com|/users                                                                 |
 |status code?|$.length()?|$.[0].name?  |$.[1].address.street?|APIFIT:CONTAINS(innovative)?|APIFIT:COUNT(Trump)?|
 |200         |10         |Leanne Graham|Victor Plains        |TRUE                        |0                   |
 ```
@@ -88,11 +88,11 @@ These variables can now used in any test tables of any test pages.
 We will test here different *id* of the *users* resource, which is a GET parameter of this API.   
 Here is the test table description in FitNesse wiki :
 ```
-|ddt:API Fixture|${API_HOST}|${API_PATH}                     |
-|[host_var]     |[path_var] |id|status code?|$.[0].name?     |
-|typicode       |users      |1 |200         |Leanne Graham   |
-|typicode       |users      |2 |200         |Ervin Howell    |
-|typicode       |users      |3 |200         |Clementine Bauch|
+|ddt:API Fixture|GET       |${API_HOST}|${API_PATH}                  |
+|[host_var]     |[path_var]|id         |status code?|$.[0].name?     |
+|typicode       |users     |1          |200         |Leanne Graham   |
+|typicode       |users     |2          |200         |Ervin Howell    |
+|typicode       |users     |3          |200         |Clementine Bauch|
 ```
 
 Now let's run the test. Here is the result (green as usual) :
@@ -140,9 +140,9 @@ Below the related scenario implementation with Apifit :
 '''GIVEN I am authentified'''
 '''WHEN I ask for the description of user number 1'''
 '''THEN the response time is less than 1 second'''
-|ddt:API Fixture|${API_HOST}|${API_PATH}|$TEST_SESSION_ID                                     |
-|[host_var]     |[path_var] |id         |status code?|execution error message?|execution time?|
-|typicode       |users      |1          |200         |                        |< 1000         |
+|ddt:API Fixture|GET       |${API_HOST}|${API_PATH} |$TEST_SESSION_ID                        |
+|[host_var]     |[path_var]|id         |status code?|execution error message?|execution time?|
+|typicode       |users     |1          |200         |                        |< 1000         |
 '''AND the name of the user is Leanne Graham'''
 '''AND the city of the user is an alphanumeric string'''
 |ddt: Data Result Parsing Fixture|$TEST_SESSION_ID   |
