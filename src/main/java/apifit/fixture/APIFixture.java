@@ -9,9 +9,13 @@ import static apifit.common.ApiFitConstants.APIFIT_PORT;
 import static apifit.common.ApiFitConstants.APIFIT_SCHEME;
 import static apifit.common.ApiFitConstants.APIFIT_STATUS_CODE;
 import static apifit.common.ApiFitConstants.GET;
+import static apifit.common.ApiFitConstants.POST;
+import static apifit.common.ApiFitConstants.DELETE;
+import static apifit.common.ApiFitConstants.PUT;
 import static apifit.common.ApiFitConstants.HTML_CONTENT_TYPE;
 import static apifit.common.ApiFitConstants.JSON_CONTENT_TYPE;
 import static apifit.common.ApiFitConstants.XML_CONTENT_TYPE;
+import static apifit.common.ApiFitConstants.PAYLOAD;
 import static apifit.common.DataPattern.doPattern;
 import static apifit.common.DataPattern.isApiFitPattern;
 import static apifit.common.DataPattern.isDatePattern;
@@ -22,7 +26,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import apifit.api.APIToolBox;
 import apifit.common.ApiFitCache;
+import apifit.common.ApiFitException;
 import apifit.common.GracefulNamer;
+import apifit.common.TestSessionCache;
 import apifit.contract.AbstractFixture;
 import apifit.contract.IDynamicDecisionTableFixture;
 import apifit.domain.APIDomain;
@@ -95,28 +101,36 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 		this.baseURL = httpToolBox.buildURI(scheme, host, new Integer(port), path);
 		URL = baseURL;
 		nbParams = 0;
+		payload = (String) TestSessionCache.getInstance().getObjectInTestSession(testSessionId+PAYLOAD);
 	}
 
 	public void set(String header, String value) {
 		header = header.trim();
 		value = value.trim();
-		if (header.equals(APIFIT_PAYLOAD)) {
-			payload = value;
-		} else if (header.equals(APIFIT_CHECK_STATUS)) {
+		if (header.equals(APIFIT_CHECK_STATUS)) {
 			checkStatus = new Integer(value);
 		} else if (header.startsWith("[") && header.endsWith("]")) {
 			URL = StringUtils.replace(URL, header, value);
 		} else {
-			nbParams++;
-			if (isApiFitPattern(value)) {
-				if (isDatePattern(value)) {
-					LocalDateTime time = (LocalDateTime) doPattern(value);
-					value = StringUtils.substringBefore(time.toString(), "T");
+			if (httpVerb.equals(GET) || httpVerb.equals(DELETE)) {
+				nbParams++;
+				if (isApiFitPattern(value)) {
+					if (isDatePattern(value)) {
+						LocalDateTime time = (LocalDateTime) doPattern(value);
+						value = StringUtils.substringBefore(time.toString(), "T");
+					}
+				}
+				value = StringUtils.replace(value, " ", "%20");
+				if (nbParams == 1) URL = httpToolBox.addFirstParameter(URL, header, value);
+				else URL = httpToolBox.addParameter(URL, header, value);
+			} else {
+				JsonToolBox jsonToolBox = new JsonToolBox();
+				try {
+					payload = jsonToolBox.updateJsonAttribute(payload, header, value);
+				} catch (ApiFitException ignore) {
 				}
 			}
-			value = StringUtils.replace(value, " ", "%20");
-			if (nbParams == 1) URL = httpToolBox.addFirstParameter(URL, header, value);
-			else URL = httpToolBox.addParameter(URL, header, value);
+
 		}
 	}
 
@@ -147,6 +161,8 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 	}
 
 	public void execute() {
+		if (payload != null) payload = payload.replace("<br/>", "");
+		//payload.replace("\n", "").replace("\r", "");
 		domain = new APIDomain(httpVerb, URL, payload, contentType, checkStatus);
 		super.execute();	
 	}

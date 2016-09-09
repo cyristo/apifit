@@ -1,5 +1,6 @@
 package apifit.fixture;
 
+import static apifit.common.ApiFitConstants.PAYLOAD;
 import static apifit.common.ApiFitConstants.STATUS_OK;
 
 import java.util.UUID;
@@ -41,7 +42,9 @@ public class SessionFixture {
 		return STATUS_OK;
 	}
 
-
+	public void setPayload(String payload) {
+		TestSessionCache.getInstance().addOrUpdateObjectInTestSession(testSessionId+PAYLOAD, payload);
+	}
 
 
 }

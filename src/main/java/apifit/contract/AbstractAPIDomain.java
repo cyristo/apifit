@@ -58,7 +58,6 @@ public abstract class AbstractAPIDomain implements IDomain {
 	protected void standardExecution(String contentType, String URL, int checkStatus, String payload) throws ApiFitException {
 		if ((requestType.equals(POST) || requestType.equals(PUT)) && payload == null) {
 			payload = (String) TestSessionCache.getInstance().getObjectInTestSession(testSessionId+EXECUTION_SUCCESS_BODY);
-			System.out.println("PAY HeRE " + payload);
 		}
 		if (apiClient.execute(contentType, URL, checkStatus, payload)) {
 			executionStatus = STATUS_OK;
