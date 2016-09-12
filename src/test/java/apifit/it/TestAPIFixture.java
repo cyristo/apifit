@@ -20,6 +20,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import apifit.common.ApiFitException;
@@ -139,6 +140,7 @@ public class TestAPIFixture {
 	}
 
 	@Test 	
+	@Ignore
 	public void put() throws IOException, InterruptedException {
 
 		//arrange
@@ -172,6 +174,7 @@ public class TestAPIFixture {
 	}
 
 	@Test 	
+	@Ignore
 	public void post() throws IOException, InterruptedException {
 
 		//arrange

@@ -12,6 +12,7 @@ import org.junit.runners.Suite;
 	TestPattern.class,
 	TestTheCacheSystem.class, 
 	TestURLBuilder.class, 
+	TestUtils.class,
 	TestXml.class
 })
 
