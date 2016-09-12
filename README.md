@@ -160,6 +160,55 @@ We took this Apifit BDD testing style presentation as an opportunity to introduc
 * the *execution time* sentence, which is asserted here to be less than 1 second
 * the *Data Result Parsing Fixture*, which enables to navigate and assert the result message of the previous step
 
+Post example
+-------------
+
+Until now, we saw how to assert on GET requests with different test styles. Let's have a look at how we can do the same with POST requests. 
+
+First we need to add the request payload template into the test session, so that each test (or table row) can update it before the test. Let's consider here that this payload comes from a FitNesse variable.
+```
+!define PAYLOAD {
+!-{-!
+    "id": 1,
+    "name": "Leanne Graham",
+    "username": "Bret",
+    "email": "Sincere@april.biz",
+    "address": !-{-!
+      "street": "Kulas Light",
+      "suite": "Apt. 556",
+      "city": "Gwenborough",
+      "zipcode": "92998-3874",
+      "geo": !-{-!
+        "lat": "-37.3159",
+        "lng": "81.1496"
+      !-}-!
+    !-}-!,
+    "phone": "1-770-736-8031 x56442",
+    "website": "hildegard.org",
+    "company": !-{-!
+      "name": "Romaguera-Crona",
+      "catchPhrase": "Multi-layered client-server neural-net",
+      "bs": "harness real-time e-markets"
+    !-}-!
+  !-}-!
+}
+
+|Session Fixture|$TEST_SESSION_ID|
+|payload                         |
+|${PAYLOAD}                      |
+```
+
+Then, simply call the *API Fixture* like we did before, but with a *POST* parameter in its constructor. The test table below will execute 2 tests (2 POST requests) by updating the *id*, the *name* and the *city* of template payload, and asserting the same on the responses. 
+```
+|ddt:API Fixture|POST           |jsonplaceholder.typicode.com|/users      |$TEST_SESSION_ID               |
+|$.id           |$.name         |$.address.city              |status code?|$.name?        |$.address.city?|
+|12             |Jack the Ripper|London                      |201         |Jack the Ripper|London         |
+|13             |Marilyn Manson |Los Angeles                 |201         |Marilyn Manson |Los Angeles    |
+```
+
+Let's test. And it's green again !
+![post test](https://github.com/cyristo/apifit/blob/master/images/apifit%20post%20test.PNG)
+
 Apifit features
 -------------------
 
