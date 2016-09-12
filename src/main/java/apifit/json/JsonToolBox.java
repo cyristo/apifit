@@ -3,19 +3,23 @@ package apifit.json;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeType;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.jayway.jsonpath.Configuration;
+import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
-import com.jayway.restassured.path.json.JsonPath;
+import com.jayway.jsonpath.spi.json.JacksonJsonNodeJsonProvider;
+import com.jayway.jsonpath.spi.mapper.JacksonMappingProvider;
+//import com.jayway.restassured.path.json.JsonPath;
 //import com.jayway.jsonpath.*;
 
 import apifit.common.ApiFitException;
 import apifit.common.ApiFitLogger;
+import apifit.common.ApiFitUtils;
 
 public class JsonToolBox {
 
@@ -28,9 +32,9 @@ public class JsonToolBox {
 		Object obj = null;
 		try {
 			if (name.startsWith("$")) {
-				obj = com.jayway.jsonpath.JsonPath.read(jsonPayload, name);
+				obj = JsonPath.read(jsonPayload, name);
 			} else {
-				JsonPath jsonPath = new JsonPath(jsonPayload);
+				com.jayway.restassured.path.json.JsonPath jsonPath = new com.jayway.restassured.path.json.JsonPath(jsonPayload);
 				obj = jsonPath.get(name);			
 			}
 
@@ -60,9 +64,8 @@ public class JsonToolBox {
 	}
 
 	public String updateJsonAttribute(String jsonPayload, String fieldPath, Object newValue) throws ApiFitException {
-		String parent = StringUtils.substringBeforeLast(fieldPath, ".");
-		String field = StringUtils.substringAfterLast(fieldPath, ".");
-		return updateJsonPayload(jsonPayload, field, newValue, 0);
+		JsonNode updatedJson = JsonPath.using(configuration).parse(jsonPayload).set(fieldPath, newValue).json();
+		return updatedJson.toString();
 	}
 
 	public String updateJsonPayload(String jsonPayload, String fieldName, Object newValue) throws ApiFitException {
@@ -138,7 +141,15 @@ public class JsonToolBox {
 			} else if (newValue.getClass().equals(Boolean.class)) {
 				node.put(fieldName, new Boolean((Boolean) newValue));
 			} else {
-				node.put(fieldName, new String((String) newValue));
+				if (node.get(fieldName).getNodeType().equals(JsonNodeType.NUMBER)) {
+					if (ApiFitUtils.isInteger(newValue.toString()))  {
+						node.put(fieldName, new Integer(newValue.toString()));
+					} else {
+						node.put(fieldName, new Double(newValue.toString()));
+					}
+				} else {
+					node.put(fieldName, new String((String) newValue));					
+				}
 			}
 			return;
 		}
@@ -148,6 +159,40 @@ public class JsonToolBox {
 			change(child, fieldName, newValue, levelOfUpdate);
 		}
 	}
+	private void change2(JsonNode parent, String fieldPath, Object newValue) {
+
+		JsonNode node = ((ObjectNode) parent).findParent(fieldPath);
+		System.out.println(node);
+		/*
+			ObjectNode node = (ObjectNode) parent;
+			if (newValue.getClass().equals(Integer.class)) {
+				node.put(fieldName, new Integer((Integer) newValue));
+			} else if (newValue.getClass().equals(Float.class)) {
+				node.put(fieldName, new Float((Float) newValue));
+			} else if (newValue.getClass().equals(Double.class)) {
+				node.put(fieldName, new Double((Double) newValue));
+			} else if (newValue.getClass().equals(ArrayList.class)) {
+				ObjectMapper mapper = new ObjectMapper();
+				ArrayNode array = mapper.valueToTree(newValue);
+				node.putArray(fieldName).addAll(array);
+			} else if (newValue.getClass().equals(Boolean.class)) {
+				node.put(fieldName, new Boolean((Boolean) newValue));
+			} else {
+				if (node.get(fieldName).getNodeType().equals(JsonNodeType.NUMBER)) {
+					if (ApiFitUtils.isInteger(newValue.toString()))  {
+						node.put(fieldName, new Integer(newValue.toString()));
+					} else {
+						node.put(fieldName, new Double(newValue.toString()));
+					}
+				} else {
+					node.put(fieldName, new String((String) newValue));					
+				}
+			}
+			*/
+			return;
+	}
+	
+	
 	private void remove(JsonNode parent, String fieldName) {
 
 		if (parent.has(fieldName)) {
@@ -188,4 +233,9 @@ public class JsonToolBox {
 		return ret;
 		//mapper.defaultPrettyPrintingWriter().writeValueAsString(txt);
 	}
+
+	private static final Configuration configuration = Configuration.builder()
+			.jsonProvider(new JacksonJsonNodeJsonProvider())
+			.mappingProvider(new JacksonMappingProvider())
+			.build();
 }

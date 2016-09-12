@@ -8,6 +8,10 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import com.jayway.jsonpath.Configuration;
+import com.jayway.jsonpath.spi.json.JacksonJsonNodeJsonProvider;
+import com.jayway.jsonpath.spi.mapper.JacksonMappingProvider;
+
 import apifit.common.ApiFitException;
 import apifit.common.ApiFitUtils;
 import apifit.common.JsonDTOToolBox;
@@ -20,15 +24,16 @@ public class TestJson {
 		JsonToolBox jsonToolBox = new JsonToolBox();
 		String updatedPayload = null;
 		try {
-			updatedPayload = jsonToolBox.updateJsonAttribute(payload, "room[0].period.dateIn", "2022-11-11");
+			updatedPayload = jsonToolBox.updateJsonAttribute(payload, "$.room[0].period.dateIn", "2022-11-11");
+			updatedPayload = jsonToolBox.updateJsonAttribute(updatedPayload, "$.room[0].period.nights", 3);
 		} catch (ApiFitException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		assertEquals("", "2022-11-11", jsonToolBox.getJsonParamValue(updatedPayload, "room[0].period.dateIn"));
+		assertEquals("", "2022-11-11", jsonToolBox.getJsonParamValue(updatedPayload, "$.room[0].period.dateIn"));
+		assertEquals("", 3, jsonToolBox.getJsonParamValue(updatedPayload, "$.room[0].period.nights"));
 	}
-	
-	
+
 	@Test
 	public void getJsonParamValue() {	
 		JsonToolBox jsonToolBox = new JsonToolBox();
@@ -65,7 +70,9 @@ public class TestJson {
 			assertEquals("", boul, new Boolean(jsonToolBox.getJsonParamValue(updatedPayload, "room[0].discount").toString()));
 
 			updatedPayload = jsonToolBox.updateJsonPayload(payload, "price", new Double(20.99));
+			//updatedPayload = jsonToolBox.updateJsonPayload(payload, "price", "20.99");
 			assertEquals("", new Double(20.99), new Double(jsonToolBox.getJsonParamValue(updatedPayload, "room[0].price").toString()));
+			//System.out.println(updatedPayload);
 
 		} catch (ApiFitException e) {
 			exceptionThrown = true;
@@ -87,7 +94,7 @@ public class TestJson {
 		assertEquals("", "myNewValue", jsonToolBox.getJsonParamValue(updatedPayload, "myNewField"));
 		System.out.println(updatedPayload);
 	}
-	
+
 	@Test
 	public void populateJsonPayloadFromDTO() {
 		//arrange
@@ -99,7 +106,7 @@ public class TestJson {
 		dto.setDateIn("2014-01-02");
 		dto.setNights(1);
 		dto.setProductCode("myCode");
-		
+
 		String payload = null;		
 
 		//Act
@@ -205,5 +212,9 @@ public class TestJson {
 			"}"+
 			"}";
 
+	private static final Configuration configuration = Configuration.builder()
+			.jsonProvider(new JacksonJsonNodeJsonProvider())
+			.mappingProvider(new JacksonMappingProvider())
+			.build();
 
 }

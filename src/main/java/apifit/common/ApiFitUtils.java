@@ -18,10 +18,18 @@ public class ApiFitUtils {
 		System.out.println(content);
 		return content;
 	}
-	/*
-	public static String getDayPlusXDay(String date) {
-		System.out.println(LocalTime.now());
-		return null;
+
+
+	public static boolean isInteger(String s) {
+	    try { 
+	        Integer.parseInt(s); 
+	    } catch(NumberFormatException e) { 
+	        return false; 
+	    } catch(NullPointerException e) {
+	        return false;
+	    }
+	    // only got here if we didn't return false
+	    return true;
 	}
-*/
+		
 }

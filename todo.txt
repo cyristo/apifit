@@ -1,7 +1,7 @@
+API fixture & client full external configuration
 UT de Add et Update fixture
 SQL management
 API client optimization 
-API client full external configuration
 XML management
 Maven Test without IT Test
 Update Json without any DTO 
