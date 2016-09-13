@@ -44,7 +44,7 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 	private String contentType = JSON_CONTENT_TYPE;
 	private APIToolBox httpToolBox;
 	//private JsonToolBox jsonToolBox;
-	private Integer checkStatus = 200;
+	private Integer checkStatus = -1;
 
 	public APIFixture() {
 		this(GET, 
@@ -165,7 +165,10 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 
 	public void execute() {
 		//TODO to be handled in config
-		if (httpVerb.equals(POST)) checkStatus = 201;
+		if (checkStatus == -1) {
+			if (httpVerb.equals(POST)) checkStatus = 201;
+			else checkStatus = 200;
+		}
 		domain = new APIDomain(httpVerb, URL, payload, contentType, checkStatus);
 		super.execute();	
 	}
