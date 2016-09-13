@@ -2,6 +2,7 @@ package apifit.it;
 
 import static apifit.common.ApiFitConstants.DELETE;
 import static apifit.common.ApiFitConstants.GET;
+import static apifit.common.ApiFitConstants.PAYLOAD;
 import static apifit.common.ApiFitConstants.POST;
 import static apifit.common.ApiFitConstants.PUT;
 import static org.junit.Assert.assertEquals;
@@ -24,6 +25,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import apifit.common.ApiFitException;
+import apifit.common.TestSessionCache;
 import apifit.fixture.APIFixture;
 
 public class TestAPIFixture {
@@ -89,6 +91,7 @@ public class TestAPIFixture {
 		File fileSave = new File(classLoader.getResource("db.json_save").getFile());
 		File fileDB = new File(fileSave.getParent(), "db.json");
 		FileUtils.copyFile(fileSave, fileDB);
+		TestSessionCache.getInstance().removeAllObjectInTestSessionStartingWithKey("testSessionId");
 	}
 
 	@Test
@@ -140,15 +143,14 @@ public class TestAPIFixture {
 	}
 
 	@Test 	
-	@Ignore
 	public void put() throws IOException, InterruptedException {
 
 		//arrange
 		String payload = getJsonUser();
+		TestSessionCache.getInstance().addOrUpdateObjectInTestSession("testSessionId"+PAYLOAD, payload);
 
 		//act
-		APIFixture fixture = new APIFixture(PUT, "http", host, port, path+"/1");
-		fixture.set("APIFIT:PAYLOAD", payload);
+		APIFixture fixture = new APIFixture(PUT, "http", host, port, path+"/1", "testSessionId");
 		fixture.execute();
 
 		//assert
@@ -160,7 +162,7 @@ public class TestAPIFixture {
 
 		//act again
 		Thread.sleep(1000);
-		fixture = new APIFixture(GET, "http", host, port, path);
+		fixture = new APIFixture(GET, "http", host, port, path, "testSessionId");
 		fixture.set("APIFIT:CHECK_STATUS", "200");
 		fixture.execute();
 
@@ -174,15 +176,14 @@ public class TestAPIFixture {
 	}
 
 	@Test 	
-	@Ignore
 	public void post() throws IOException, InterruptedException {
 
 		//arrange
 		String payload = getJsonUser();
+		TestSessionCache.getInstance().addOrUpdateObjectInTestSession("testSessionId"+PAYLOAD, payload);
 
 		//act
-		APIFixture fixture = new APIFixture(POST, "http", host, port, path);
-		fixture.set("APIFIT:PAYLOAD", payload);
+		APIFixture fixture = new APIFixture(POST, "http", host, port, path, "testSessionId");
 		fixture.set("APIFIT:CHECK_STATUS", "201");
 		fixture.execute();
 
@@ -195,7 +196,7 @@ public class TestAPIFixture {
 		//act again
 		Thread.sleep(1000);
 		path = "/myjsondb";
-		fixture = new APIFixture(GET, "http", host, port, path);
+		fixture = new APIFixture(GET, "http", host, port, path, "testSessionId");
 		fixture.set("APIFIT:CHECK_STATUS", "200");
 		fixture.execute();
 
