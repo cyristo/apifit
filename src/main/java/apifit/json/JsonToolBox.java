@@ -39,11 +39,13 @@ public class JsonToolBox {
 			}
 
 		} catch (IllegalArgumentException e) {
-			ApiFitLogger.log("JSON PARSING ERROR : " + e.getMessage());
-			throw e;
+			obj = "JSON PARSING ERROR : " + e.getMessage();
+			ApiFitLogger.log(obj+"");
+			//throw e;
 		} catch (PathNotFoundException e1) {
-			ApiFitLogger.log("JSON PARSING ERROR : " + e1.getMessage());
-			throw e1;
+			obj = "JSON PARSING ERROR : " + e1.getMessage();
+			ApiFitLogger.log(obj+"");
+			//throw e1;
 		}
 		return obj;
 	}
