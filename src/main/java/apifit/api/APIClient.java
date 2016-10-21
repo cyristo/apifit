@@ -6,6 +6,10 @@ import static apifit.common.ApiFitConstants.JSON_CONTENT_TYPE;
 import static apifit.common.ApiFitConstants.LINE_SEPARATOR;
 import static apifit.common.ApiFitConstants.POST;
 import static apifit.common.ApiFitConstants.PUT;
+import static apifit.common.ApiFitConstants.AUTH_HOST;
+import static apifit.common.ApiFitConstants.AUTH_PORT;
+import static apifit.common.ApiFitConstants.AUTH_USER;
+import static apifit.common.ApiFitConstants.AUTH_PSWD;
 
 import java.io.IOException;
 import java.security.KeyManagementException;
@@ -29,8 +33,11 @@ import org.apache.http.HeaderIterator;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.ParseException;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.CookieStore;
+import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -45,6 +52,7 @@ import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCookieStore;
+import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
@@ -74,7 +82,7 @@ public class APIClient implements IAPIClient {
 	private ArrayListMultimap<String, String> requestHeaders = null;
 	private StringBuffer requestFlow;
 	private CookieStore cookieStore = null;
-	//private HttpHost proxy = null;
+	private CredentialsProvider credsProvider = null;
 
 	public APIClient(String requestType) {
 		this.requestType = requestType;
@@ -143,20 +151,16 @@ public class APIClient implements IAPIClient {
 			addRequestHeader("Cookie", cookieString.toString());
 		}
 	}
-	/*
-	public void setContentEncoder(ContentDecoder decoder1, ContentDecoder decoder2) {
-		if (decoder2 != null) {
-			RestAssured.config = config().decoderConfig(decoderConfig().contentDecoders(decoder1, decoder2));
-		} else {
-			RestAssured.config = config().decoderConfig(decoderConfig().contentDecoders(decoder1));
+	
+	public void setAuthParams(Hashtable<String, String> authParams) {
+		if (authParams != null) {
+			credsProvider = new BasicCredentialsProvider();
+			credsProvider.setCredentials(
+			    new AuthScope(authParams.get(AUTH_HOST), new Integer(authParams.get(AUTH_PORT))), 
+			    new UsernamePasswordCredentials(authParams.get(AUTH_USER), authParams.get(AUTH_PSWD)));
 		}
 	}
-*/
-	/*
-	public void setProxy(APIHost apiProxy) {
-		this.proxy = new HttpHost(apiProxy.getHost(), apiProxy.getPort());
-	}
-*/
+
 	public boolean execute(String contentType, String URL, int checkStatus) throws ApiFitException {
 		return execute(contentType, URL, checkStatus, null);
 	}
@@ -169,20 +173,28 @@ public class APIClient implements IAPIClient {
 
 		CloseableHttpResponse response = null; 
 		requestTime = -1;
-		
 		try {
 			parseRequestEntity(httpRequest, payload);
 			long before;
-			if (cookieStore != null) {
+			//if (cookieStore != null) {
+				/*
 				HttpContext localContext = new BasicHttpContext();
 				localContext.setAttribute(HttpClientContext.COOKIE_STORE, cookieStore);
 				before = System.currentTimeMillis();
 				response = httpclient.execute(httpRequest, localContext);
+				*/
+			if (cookieStore != null || credsProvider != null) {
+				HttpClientContext context = HttpClientContext.create();
+				if (credsProvider != null) context.setCredentialsProvider(credsProvider);
+				if (cookieStore != null) context.setAttribute(HttpClientContext.COOKIE_STORE, cookieStore);
+				before = System.currentTimeMillis();
+				response = httpclient.execute(httpRequest, context);
 			} else {
 				before = System.currentTimeMillis();
 				response = httpclient.execute(httpRequest);
 			}
 			long after = System.currentTimeMillis();
+			statusCode = response.getStatusLine().getStatusCode();
 			requestTime = after - before;
 			parseResponseEntity(response, payload);
 		} catch (ClientProtocolException e) {
@@ -200,7 +212,6 @@ public class APIClient implements IAPIClient {
 			}
 		}
 		
-		statusCode = response.getStatusLine().getStatusCode();
 		requestFlow.append(LINE_SEPARATOR).append("RESPONSE STATUS  : ").append(statusCode);
 		requestFlow.append(LINE_SEPARATOR).append("RESPONSE TIME    : ").append(requestTime);
 		requestFlow.append(LINE_SEPARATOR).append("RESPONSE HEADERS :");

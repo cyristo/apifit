@@ -5,8 +5,11 @@ import static apifit.common.ApiFitConstants.EXECUTION_SUCCESS_BODY;
 import static apifit.common.ApiFitConstants.HEADERS;
 import static apifit.common.ApiFitConstants.POST;
 import static apifit.common.ApiFitConstants.PUT;
-//import static apifit.common.ApiFitConstants.PROXY_HOST;
-//import static apifit.common.ApiFitConstants.PROXY_PORT;
+import static apifit.common.ApiFitConstants.AUTH_PARAMS;
+import static apifit.common.ApiFitConstants.AUTH_PORT;
+import static apifit.common.ApiFitConstants.AUTH_HOST;
+import static apifit.common.ApiFitConstants.AUTH_USER;
+import static apifit.common.ApiFitConstants.AUTH_PSWD;
 import static apifit.common.ApiFitConstants.STATUS_KO;
 import static apifit.common.ApiFitConstants.STATUS_OK;
 import static apifit.common.ApiFitConstants.STATUS_UNKNOWN;
@@ -45,14 +48,10 @@ public abstract class AbstractAPIDomain implements IDomain {
 		if (headers != null) {
 			apiClient.setRequestHeaders((Hashtable<String, String>) headers);
 		}
-		/*
-		Object proxyHost = TestSessionCache.getInstance().getObjectInTestSession(PROXY_HOST);
-		Object proxyPort = TestSessionCache.getInstance().getObjectInTestSession(PROXY_PORT);
-		if (proxyHost != null) {
-			if (proxyPort == null) proxyPort = new Integer(80);
-			apiClient.setProxy((String) proxyHost, (Integer) proxyPort);
+		Object autParams = TestSessionCache.getInstance().getObjectInTestSession(testSessionId+AUTH_PARAMS); 
+		if (autParams != null) {
+			apiClient.setAuthParams((Hashtable<String, String>) autParams);
 		}
-		*/
 	}
 	
 	protected void standardExecution(String contentType, String URL, int checkStatus, String payload) throws ApiFitException {
@@ -65,6 +64,7 @@ public abstract class AbstractAPIDomain implements IDomain {
 		} else {
 			executionStatus = STATUS_KO;
 			executionErrorMessage = apiClient.getResponseBody();
+			executionBody = executionErrorMessage;
 		}
 		statusCode = apiClient.getStatusCode();
 		executionTime = apiClient.getRequestTime();

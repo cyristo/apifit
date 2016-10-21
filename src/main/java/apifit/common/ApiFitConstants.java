@@ -19,7 +19,7 @@ public class ApiFitConstants {
 	public static final String APIFIT_CHECK_STATUS = "APIFIT:CHECK_STATUS";
 	public static final String APIFIT_PROXY_HOST = "APIFIT:PROXY_HOST";
 	public static final String APIFIT_PROXY_PORT = "APIFIT:PROXY_PORT";
-	
+		
 	public static final String BASE_URL = "BASE_URL";
 	public static final String SCHEME = "SCHEME";
 	public static final String PORT = "PORT";
@@ -48,5 +48,10 @@ public class ApiFitConstants {
 	public static final String EXECUTION_ERROR_MESSAGE = "EXECUTION_ERROR_MESSAGE";
 	public static final String EXECUTION_SUCCESS_BODY = "EXECUTION_SUCCESS_BODY";
 	public static final String EXECUTION_STATUS = "EXECUTION_STATUS";
-	
+
+	public static final String AUTH_PARAMS = "AUTH_PARAMS";
+	public static final String AUTH_HOST = "AUTH_HOST";
+	public static final String AUTH_PORT = "AUTH_PORT";
+	public static final String AUTH_USER = "AUTH_USER";
+	public static final String AUTH_PSWD = "AUTH_PSWD";
 }

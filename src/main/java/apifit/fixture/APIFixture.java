@@ -140,7 +140,7 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 	public String get(String requestedValue) {		
 		String returnedValue = "";
 		if (requestedValue.equals(APIFIT_STATUS_CODE)) {
-			returnedValue = statusCode.toString();
+			if (statusCode != null) returnedValue = statusCode.toString();
 		} else if (isApiFitPattern(requestedValue)) {
 			//if (isCounterPattern(requestedValue)) {
 				returnedValue = doPattern(requestedValue, executionSuccessBody).toString();
@@ -148,7 +148,7 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 				
 			//}
 		} else if (GracefulNamer.disgrace(requestedValue).equals("StatusCode")) {
-			returnedValue = statusCode.toString();
+			if (statusCode != null) returnedValue = statusCode.toString();
 		} else if (GracefulNamer.disgrace(requestedValue).equals("ExecutionStatus")) {
 			returnedValue = executionStatus;
 		} else if (GracefulNamer.disgrace(requestedValue).equals("ExecutionSuccessBody")) {
@@ -156,7 +156,7 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 		} else if (GracefulNamer.disgrace(requestedValue).equals("ExecutionErrorMessage")) {
 			returnedValue = executionErrorMessage;
 		} else if (GracefulNamer.disgrace(requestedValue).equals("ExecutionTime")) {
-			returnedValue = executionTime.toString();
+			if (executionTime != null) returnedValue = executionTime.toString();
 		} else {
 			returnedValue = getParamFromResultBody(requestedValue);	
 		}
@@ -202,7 +202,7 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 			XmlToolBox xmlToolBox = new XmlToolBox();
 			returnedValue = xmlToolBox.getHtmlParamValue(executionSuccessBody, requestedValue)+"";	
 		}
-	
+
 		return returnedValue;
 	}
 }

@@ -30,6 +30,8 @@ public class JsonToolBox {
 
 	public Object getJsonParamValue(String jsonPayload, String name) {
 		Object obj = null;
+		System.out.println(jsonPayload);
+		System.out.println(name);
 		try {
 			if (name.startsWith("$")) {
 				obj = JsonPath.read(jsonPayload, name);
