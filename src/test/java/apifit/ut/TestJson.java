@@ -2,12 +2,19 @@ package apifit.ut;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.commons.io.FileUtils;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.spi.json.JacksonJsonNodeJsonProvider;
 import com.jayway.jsonpath.spi.mapper.JacksonMappingProvider;
@@ -15,7 +22,9 @@ import com.jayway.jsonpath.spi.mapper.JacksonMappingProvider;
 import apifit.common.ApiFitException;
 import apifit.common.ApiFitUtils;
 import apifit.common.JsonDTOToolBox;
+import apifit.it.TestAPIFixture;
 import apifit.json.JsonToolBox;
+import apifit.json.ValidationUtils;
 
 public class TestJson {
 
@@ -168,6 +177,52 @@ public class TestJson {
 		assertFalse(payload.contains("code"));
 		assertFalse(payload.contains("quantity"));
 
+	}
+
+	@Test
+	public void testSchemaValidation() {
+
+		boolean exceptionThrown = false;
+		String schema = null;
+		String goodJson = null;
+		String badJson = null;
+		
+		try {
+			goodJson = ApiFitUtils.getFileContent(".\\src\\test\\resources\\", "Good_Example.json");
+			badJson = ApiFitUtils.getFileContent(".\\src\\test\\resources\\", "Bad_Example.json");
+			schema = ApiFitUtils.getFileContent(".\\src\\test\\resources\\", "Good_Schema.json");
+		} catch (ApiFitException e) {
+			exceptionThrown = true;
+			e.printStackTrace();
+		}
+
+
+		try {
+			ValidationUtils.validateJson(schema, goodJson);
+		} catch (IOException e) {
+			exceptionThrown = true;
+			e.printStackTrace();
+		} catch (ProcessingException e) {
+			exceptionThrown = true;
+			e.printStackTrace();
+		}
+
+		assertFalse(exceptionThrown);
+		
+		String reportMessage = null;
+		try {
+			ValidationUtils.validateJson(schema, badJson);
+		} catch (IOException e) {
+			exceptionThrown = true;
+			e.printStackTrace();
+		} catch (ProcessingException e) {
+			exceptionThrown = true;
+			reportMessage = e.getMessage();
+		}
+
+		assertTrue(exceptionThrown);
+		assertNotNull(reportMessage);
+		
 	}
 
 	private String payload = "{"+

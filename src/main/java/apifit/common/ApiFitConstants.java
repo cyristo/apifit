@@ -48,7 +48,8 @@ public class ApiFitConstants {
 	public static final String EXECUTION_ERROR_MESSAGE = "EXECUTION_ERROR_MESSAGE";
 	public static final String EXECUTION_SUCCESS_BODY = "EXECUTION_SUCCESS_BODY";
 	public static final String EXECUTION_STATUS = "EXECUTION_STATUS";
-
+	public static final String SCHEMA = "SCHEMA";
+	
 	public static final String AUTH_PARAMS = "AUTH_PARAMS";
 	public static final String AUTH_HOST = "AUTH_HOST";
 	public static final String AUTH_PORT = "AUTH_PORT";

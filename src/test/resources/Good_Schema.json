@@ -1,0 +1,60 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "object",
+	"properties": {
+		"hotels": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"hotelCode": {
+						"type": "string"
+					},
+					"segments": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"stayOffers": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"daysOffer": {
+												"type": "object"
+											},
+											"cdvs": {
+												"type": "object",
+												"optional": true
+											},
+											"tkDto": {
+												"type": "object"
+											},
+											"productRefDto": {
+												"type": "object"
+											},
+											"attachedProducts": {
+												"type": "object",
+												"optional": true
+											},
+											"price": {
+												"type": "object"
+											},
+											"packagedOfferInfo": {
+												"type": "object"
+											}
+										},
+										"required": ["daysOffer", "tkDto", "productRefDto", "price", "packagedOfferInfo"]
+									}
+								}
+							},
+							"required": ["stayOffers"]
+						}
+					}
+				},
+				"required": ["hotelCode", "segments"]
+			}
+		}
+	},
+	"required": ["hotels"]
+}

@@ -7,6 +7,7 @@ import static apifit.common.ApiFitConstants.APIFIT_PATH;
 import static apifit.common.ApiFitConstants.APIFIT_PORT;
 import static apifit.common.ApiFitConstants.APIFIT_SCHEME;
 import static apifit.common.ApiFitConstants.APIFIT_STATUS_CODE;
+import static apifit.common.ApiFitConstants.COOKIES;
 import static apifit.common.ApiFitConstants.DELETE;
 import static apifit.common.ApiFitConstants.GET;
 import static apifit.common.ApiFitConstants.HTML_CONTENT_TYPE;
@@ -14,24 +15,31 @@ import static apifit.common.ApiFitConstants.JSON_CONTENT_TYPE;
 import static apifit.common.ApiFitConstants.PAYLOAD;
 import static apifit.common.ApiFitConstants.POST;
 import static apifit.common.ApiFitConstants.XML_CONTENT_TYPE;
+import static apifit.common.ApiFitConstants.SCHEMA;
 import static apifit.common.DataPattern.doPattern;
 import static apifit.common.DataPattern.isApiFitPattern;
 import static apifit.common.DataPattern.isDatePattern;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 
 import org.apache.commons.lang3.StringUtils;
+
+import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 
 import apifit.api.APIToolBox;
 import apifit.common.ApiFitCache;
 import apifit.common.ApiFitException;
 import apifit.common.ApiFitLogger;
+import apifit.common.ApiFitUtils;
 import apifit.common.GracefulNamer;
 import apifit.common.TestSessionCache;
 import apifit.contract.AbstractFixture;
 import apifit.contract.IDynamicDecisionTableFixture;
 import apifit.domain.APIDomain;
 import apifit.json.JsonToolBox;
+import apifit.json.ValidationUtils;
 import apifit.xml.XmlToolBox;
 
 public class APIFixture extends AbstractFixture implements IDynamicDecisionTableFixture {
@@ -45,6 +53,7 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 	private APIToolBox httpToolBox;
 	//private JsonToolBox jsonToolBox;
 	private Integer checkStatus = -1;
+	private String validationMessage = "";
 
 	public APIFixture() {
 		this(GET, 
@@ -157,6 +166,10 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 			returnedValue = executionErrorMessage;
 		} else if (GracefulNamer.disgrace(requestedValue).equals("ExecutionTime")) {
 			if (executionTime != null) returnedValue = executionTime.toString();
+		} else if (GracefulNamer.disgrace(requestedValue).equals("IsResponseValid")) {
+			returnedValue = schemaValidation();
+		} else if (GracefulNamer.disgrace(requestedValue).equals("ValidationMessage")) {
+			returnedValue = validationMessage;
 		} else {
 			returnedValue = getParamFromResultBody(requestedValue);	
 		}
@@ -186,6 +199,7 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 		
 		String returnedValue = null;
 		
+		//TODO I think I need to put that in execution context, not in global context
 		String storedContentType = ApiFitCache.getInstance().getConfigProperty(APIFIT_CONTENT_TYPE);
 		
 		if (storedContentType == null || storedContentType.length() == 0) {
@@ -204,5 +218,26 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 		}
 
 		return returnedValue;
+	}
+	
+	private String schemaValidation() {
+		String ret = "FASLE";
+		
+		Object obj = TestSessionCache.getInstance().getObjectInTestSession(testSessionId+SCHEMA); 
+		if (obj == null) return ret;
+		
+		String schema = obj.toString();
+	
+		try {
+			ValidationUtils.validateJson(schema.replace("<br/>", ""), executionSuccessBody);
+			ret = "TRUE";
+		} catch (IOException e) {
+			e.printStackTrace();
+			validationMessage = e.getMessage();
+		} catch (ProcessingException e) {
+			validationMessage = e.getMessage();
+		}
+				
+		return ret;
 	}
 }
