@@ -230,6 +230,7 @@ Date pattern input | Set input date with embeded time resilient pattern (TODAY, 
 String pattern output | Assert output string with embeded string manipulation pattern (COUNT(xxx), CONTAINS(xxx)) 
 Status code | Set an expected HTTP return status and direct the returned data in a success or error message (default is 200)
 Body visualization | Show the content of a returned message (either succes or error) 
+Json Body validation | Validation of a retruned Json body against a schema
 Json navigation | Assert any element of a Json returned message (either succes or error) - based on JsonPath expression language
 Xml navigation | Assert any element of a Xml returned message (either succes or error) - based on GPath expression language
 Html navigation | Assert any element of a Html returned page (either succes or error) - based on GPath expression language
@@ -248,6 +249,7 @@ This is the list of what you will be able to do with Apifit in a near futur.
 ---------------|------------
 Configurable timeout | Set a request and/or connection timeout - Can be configured localy (test table) or globaly (test suite)
 SQL fixture | Set an SQL step in a test scenario to check data stored by an API 
+Xml Body validation | Validation of a retruned Xml body against a schema
 
 Apifit configuration
 --------------------
