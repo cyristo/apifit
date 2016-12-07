@@ -248,6 +248,7 @@ This is the list of what you will be able to do with Apifit in a near futur.
 //TODO Feature | Description                                                                
 ---------------|------------
 Configurable timeout | Set a request and/or connection timeout - Can be configured localy (test table) or globaly (test suite)
+Data externalisation | Get test data from external sources
 SQL fixture | Set an SQL step in a test scenario to check data stored by an API 
 Xml Body validation | Validation of a retruned Xml body against a schema
 
