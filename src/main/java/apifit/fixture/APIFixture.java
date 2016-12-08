@@ -112,7 +112,7 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 		payload = (String) TestSessionCache.getInstance().getObjectInTestSession(testSessionId+PAYLOAD);
 		//TODO see why this !
 		if (payload != null && contentType != HTML_CONTENT_TYPE) payload = payload.replace("<br/>", "");
-		//payload.replace("\n", "").replace("\r", "");
+		validationMessage = "";
 	}
 
 	public void set(String header, String value) {
@@ -136,6 +136,12 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 				else URL = httpToolBox.addParameter(URL, header, value);
 			} else {
 				JsonToolBox jsonToolBox = new JsonToolBox();
+				if (isApiFitPattern(value)) {
+					if (isDatePattern(value)) {
+						LocalDateTime time = (LocalDateTime) doPattern(value);
+						value = StringUtils.substringBefore(time.toString(), "T");
+					}
+				}
 				try {
 					payload = jsonToolBox.updateJsonAttribute(payload, header, value);
 				} catch (ApiFitException ignore) {
@@ -182,6 +188,7 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 			if (httpVerb.equals(POST)) checkStatus = 201;
 			else checkStatus = 200;
 		}
+		//TODO see why this
 		domain = new APIDomain(httpVerb, URL, payload, contentType, checkStatus);
 		super.execute();	
 	}

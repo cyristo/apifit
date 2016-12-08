@@ -1,0 +1,10 @@
+|import        |
+|apifit.fixture|
+
+!define APIFIT_PROXY_HOST {172.19.117.103}
+!define APIFIT_PROXY_PORT {3128}
+
+APITFIT Standard Configuration
+|ddt:Property Configuration Fixture       |
+|APIFIT:PROXY_HOST   |APIFIT:PROXY_PORT   |
+|${APIFIT_PROXY_HOST}|${APIFIT_PROXY_PORT}|

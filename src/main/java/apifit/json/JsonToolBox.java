@@ -3,6 +3,8 @@ package apifit.json;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,6 +13,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeType;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.Option;
 import com.jayway.jsonpath.PathNotFoundException;
 import com.jayway.jsonpath.spi.json.JacksonJsonNodeJsonProvider;
 import com.jayway.jsonpath.spi.mapper.JacksonMappingProvider;
@@ -68,7 +71,21 @@ public class JsonToolBox {
 	}
 
 	public String updateJsonAttribute(String jsonPayload, String fieldPath, Object newValue) throws ApiFitException {
-		JsonNode updatedJson = JsonPath.using(configuration).parse(jsonPayload).set(fieldPath, newValue).json();
+		Object valueToUpdate = newValue.toString();
+		
+		valueToUpdate = StringUtils.replace(newValue.toString(), "\"", "");
+		/*
+		if (!StringUtils.startsWith(valueToUpdate.toString(), "[") && !StringUtils.endsWith(valueToUpdate.toString(), "]")) {
+			valueToUpdate = new String(newValue.toString());
+		}
+		*/
+		if (ApiFitUtils.isInteger(newValue.toString())) {
+			valueToUpdate = new Integer(Integer.parseInt(newValue.toString()));
+		} else if (ApiFitUtils.isDouble(newValue.toString())) {
+			valueToUpdate = new Double(Double.parseDouble(newValue.toString()));
+		}
+
+		JsonNode updatedJson = JsonPath.using(configuration).parse(jsonPayload).set(fieldPath, valueToUpdate).json();
 		return updatedJson.toString();
 	}
 

@@ -1,0 +1,72 @@
+!3 Welcome to apifit demo ! Click Test to execute !
+To visualize the full log trace of the test scenario, go to Tools/Test history and click on Execution Log of the last test execution
+
+|Session Fixture          |
+|set up?|test session id? |
+|OK     |$TEST_SESSION_ID=|
+
+'''1 - simple API test example'''
+|ddt:API Fixture|GET        |jsonplaceholder.typicode.com|/users                                                                 |
+|status code?   |$.length()?|$.[0].name?                 |$.[1].address.street?|APIFIT:CONTAINS(innovative)?|APIFIT:COUNT(Trump)?|
+|200            |10         |Leanne Graham               |Victor Plains        |TRUE                        |0                   |
+
+
+'''2 - Data Driven example'''
+!define API_HOST {jsonplaceholder.[host_var].com}
+!define API_PATH {/[path_var]}
+
+|ddt:API Fixture|GET       |${API_HOST}|${API_PATH}                  |
+|[host_var]     |[path_var]|id         |status code?|$.[0].name?     |
+|typicode       |users     |1          |200         |Leanne Graham   |
+|typicode       |users     |2          |200         |Ervin Howell    |
+|typicode       |users     |3          |200         |Clementine Bauch|
+
+'''3 - Behavior Driven Development example'''
+''GIVEN I am authentified''
+''WHEN I ask for the description of user number 1''
+''THEN the response time is less than 1 second''
+|ddt:API Fixture|GET       |${API_HOST}|${API_PATH} |$TEST_SESSION_ID                        |
+|[host_var]     |[path_var]|id         |status code?|execution error message?|execution time?|
+|typicode       |users     |1          |200         |                        |< 1000         |
+''AND the name of the user is Leanne Graham''
+''AND the city of the user is an alphanumeric string''
+|ddt: Data Result Parsing Fixture|$TEST_SESSION_ID   |
+|$.[0].name?                     |$.[0].address.city?|
+|Leanne Graham                   |=~/^[a-zA-Z]*$/    |
+
+'''4 - Post example'''
+
+!define PAYLOAD {
+!-{-!
+    "id": 1,
+    "name": "Leanne Graham",
+    "username": "Bret",
+    "email": "Sincere@april.biz",
+    "address": !-{-!
+      "street": "Kulas Light",
+      "suite": "Apt. 556",
+      "city": "Gwenborough",
+      "zipcode": "92998-3874",
+      "geo": !-{-!
+        "lat": "-37.3159",
+        "lng": "81.1496"
+      !-}-!
+    !-}-!,
+    "phone": "1-770-736-8031 x56442",
+    "website": "hildegard.org",
+    "company": !-{-!
+      "name": "Romaguera-Crona",
+      "catchPhrase": "Multi-layered client-server neural-net",
+      "bs": "harness real-time e-markets"
+    !-}-!
+  !-}-!
+}
+
+|Session Fixture|$TEST_SESSION_ID|
+|payload                         |
+|${PAYLOAD}                      |
+
+|ddt:API Fixture|POST           |jsonplaceholder.typicode.com|/users      |$TEST_SESSION_ID               |
+|$.id           |$.name         |$.address.city              |status code?|$.name?        |$.address.city?|
+|12             |Jack the Ripper|London                      |201         |Jack the Ripper|London         |
+|13             |Marilyn Manson |Los Angeles                 |201         |Marilyn Manson |Los Angeles    |
