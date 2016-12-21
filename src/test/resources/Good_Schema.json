@@ -5,56 +5,94 @@
 		"hotels": {
 			"type": "array",
 			"items": {
-				"type": "object",
-				"properties": {
-					"hotelCode": {
+				"type": "string"
+			}
+		},
+		"conditions": {
+			"type": "object",
+			"properties": {
+				"context": {
+					"type": "string"
+				},
+				"packagedMainProductToFilter": {
+					"type": "array",
+					"items": {
 						"type": "string"
 					},
-					"segments": {
-						"type": "array",
-						"items": {
-							"type": "object",
-							"properties": {
-								"stayOffers": {
-									"type": "array",
-									"items": {
-										"type": "object",
-										"properties": {
-											"daysOffer": {
-												"type": "object"
-											},
-											"cdvs": {
-												"type": "object",
-												"optional": true
-											},
-											"tkDto": {
-												"type": "object"
-											},
-											"productRefDto": {
-												"type": "object"
-											},
-											"attachedProducts": {
-												"type": "object",
-												"optional": true
-											},
-											"price": {
-												"type": "object"
-											},
-											"packagedOfferInfo": {
-												"type": "object"
-											}
-										},
-										"required": ["daysOffer", "tkDto", "productRefDto", "price", "packagedOfferInfo"]
-									}
-								}
+					"optional": true
+				}
+			},
+			"required": [
+				"context"
+			]
+		},
+		"unqualifiedPolicy": {
+			"type": "string"
+		},
+		"segmentCriterias": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"dateIn": {
+						"type": "string"
+					},
+					"los": {
+						"type": "integer"
+					},
+					"nbRooms": {
+						"type": "integer"
+					},
+					"paxCriteria": {
+						"type": "object",
+						"properties": {
+							"pax": {
+								"type": "integer"
 							},
-							"required": ["stayOffers"]
-						}
+							"nbChildrens": {
+								"type": "integer"
+							},
+							"childrenAges": {
+								"type": "array",
+								"items": {}
+							}
+						},
+						"required": [
+							"pax",
+							"nbChildrens",
+							"childrenAges"
+						]
 					}
 				},
-				"required": ["hotelCode", "segments"]
+				"required": [
+					"dateIn",
+					"los",
+					"nbRooms",
+					"paxCriteria"
+				]
 			}
+		},
+		"mainCroSubCroPK": {
+			"type": "object",
+			"properties": {
+				"mainCro": {
+					"type": "string"
+				},
+				"subCro": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"mainCro",
+				"subCro"
+			]
 		}
 	},
-	"required": ["hotels"]
+	"required": [
+		"hotels",
+		"conditions",
+		"unqualifiedPolicy",
+		"segmentCriterias",
+		"mainCroSubCroPK"
+	]
 }

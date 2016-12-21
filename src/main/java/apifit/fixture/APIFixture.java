@@ -63,7 +63,7 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 				ApiFitCache.getInstance().getConfigProperty(APIFIT_PATH), 
 				null);
 	}
-	
+
 	public APIFixture(String httpVerb) {
 		this(httpVerb, 
 				ApiFitCache.getInstance().getConfigProperty(APIFIT_SCHEME), 
@@ -135,17 +135,26 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 				if (nbParams == 1) URL = httpToolBox.addFirstParameter(URL, header, value);
 				else URL = httpToolBox.addParameter(URL, header, value);
 			} else {
-				JsonToolBox jsonToolBox = new JsonToolBox();
-				if (isApiFitPattern(value)) {
-					if (isDatePattern(value)) {
-						LocalDateTime time = (LocalDateTime) doPattern(value);
-						value = StringUtils.substringBefore(time.toString(), "T");
+				if (header.startsWith("XPATH:")) {
+					XmlToolBox xmlToolBox = new XmlToolBox();
+					try {
+						payload = xmlToolBox.updateXmlNodeValue(payload, StringUtils.substringAfter(header, "XPATH:"), value);
+					} catch (ApiFitException ignore) {
+						ApiFitLogger.log(ignore.getMessage());
 					}
-				}
-				try {
-					payload = jsonToolBox.updateJsonAttribute(payload, header, value);
-				} catch (ApiFitException ignore) {
-					ApiFitLogger.log(ignore.getMessage());
+				} else {
+					JsonToolBox jsonToolBox = new JsonToolBox();
+					if (isApiFitPattern(value)) {
+						if (isDatePattern(value)) {
+							LocalDateTime time = (LocalDateTime) doPattern(value);
+							value = StringUtils.substringBefore(time.toString(), "T");
+						}
+					}
+					try {
+						payload = jsonToolBox.updateJsonAttribute(payload, header, value);
+					} catch (ApiFitException ignore) {
+						ApiFitLogger.log(ignore.getMessage());
+					}
 				}
 			}
 
@@ -158,9 +167,9 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 			if (statusCode != null) returnedValue = statusCode.toString();
 		} else if (isApiFitPattern(requestedValue)) {
 			//if (isCounterPattern(requestedValue)) {
-				returnedValue = doPattern(requestedValue, executionSuccessBody).toString();
+			returnedValue = doPattern(requestedValue, executionSuccessBody).toString();
 			//} else if (isStringPattern(requestedValue)) {
-				
+
 			//}
 		} else if (GracefulNamer.disgrace(requestedValue).equals("StatusCode")) {
 			if (statusCode != null) returnedValue = statusCode.toString();
@@ -196,19 +205,19 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 	public String URL() {
 		return URL;
 	}
-	
+
 	public void reset() {
 		URL = baseURL;
 		nbParams = 0;
 	}
-	
+
 	private String getParamFromResultBody(String requestedValue) {
-		
+
 		String returnedValue = null;
-		
+
 		//TODO I think I need to put that in execution context, not in global context
 		String storedContentType = ApiFitCache.getInstance().getConfigProperty(APIFIT_CONTENT_TYPE);
-		
+
 		if (storedContentType == null || storedContentType.length() == 0) {
 			storedContentType = contentType;
 		}
@@ -226,15 +235,16 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 
 		return returnedValue;
 	}
-	
+
 	private String schemaValidation() {
 		String ret = "FASLE";
-		
+		validationMessage = "";
+
 		Object obj = TestSessionCache.getInstance().getObjectInTestSession(testSessionId+SCHEMA); 
 		if (obj == null) return ret;
-		
+
 		String schema = obj.toString();
-	
+
 		try {
 			ValidationUtils.validateJson(schema.replace("<br/>", ""), executionSuccessBody);
 			ret = "TRUE";
@@ -244,7 +254,7 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 		} catch (ProcessingException e) {
 			validationMessage = e.getMessage();
 		}
-				
+
 		return ret;
 	}
 }
