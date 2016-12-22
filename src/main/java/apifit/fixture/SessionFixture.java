@@ -1,8 +1,8 @@
 package apifit.fixture;
 
 import static apifit.common.ApiFitConstants.PAYLOAD;
-import static apifit.common.ApiFitConstants.STATUS_OK;
 import static apifit.common.ApiFitConstants.SCHEMA;
+import static apifit.common.ApiFitConstants.STATUS_OK;
 
 import java.util.UUID;
 

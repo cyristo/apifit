@@ -7,21 +7,21 @@ import static apifit.common.ApiFitConstants.APIFIT_PATH;
 import static apifit.common.ApiFitConstants.APIFIT_PORT;
 import static apifit.common.ApiFitConstants.APIFIT_SCHEME;
 import static apifit.common.ApiFitConstants.APIFIT_STATUS_CODE;
-import static apifit.common.ApiFitConstants.COOKIES;
+import static apifit.common.ApiFitConstants.BLANK;
 import static apifit.common.ApiFitConstants.DELETE;
 import static apifit.common.ApiFitConstants.GET;
 import static apifit.common.ApiFitConstants.HTML_CONTENT_TYPE;
 import static apifit.common.ApiFitConstants.JSON_CONTENT_TYPE;
 import static apifit.common.ApiFitConstants.PAYLOAD;
 import static apifit.common.ApiFitConstants.POST;
-import static apifit.common.ApiFitConstants.XML_CONTENT_TYPE;
 import static apifit.common.ApiFitConstants.SCHEMA;
+import static apifit.common.ApiFitConstants.XML_CONTENT_TYPE;
+import static apifit.common.ApiFitConstants.XPATH;
 import static apifit.common.DataPattern.doPattern;
 import static apifit.common.DataPattern.isApiFitPattern;
 import static apifit.common.DataPattern.isDatePattern;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 
 import org.apache.commons.lang3.StringUtils;
@@ -32,7 +32,6 @@ import apifit.api.APIToolBox;
 import apifit.common.ApiFitCache;
 import apifit.common.ApiFitException;
 import apifit.common.ApiFitLogger;
-import apifit.common.ApiFitUtils;
 import apifit.common.GracefulNamer;
 import apifit.common.TestSessionCache;
 import apifit.contract.AbstractFixture;
@@ -116,8 +115,12 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 	}
 
 	public void set(String header, String value) {
+		
+		if (value.trim().length() == 0) return;
 		header = header.trim();
 		value = value.trim();
+		if (value.trim().equals(BLANK)) value = "";
+		
 		if (header.equals(APIFIT_CHECK_STATUS)) {
 			checkStatus = new Integer(value);
 		} else if (header.startsWith("[") && header.endsWith("]")) {
@@ -135,10 +138,10 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 				if (nbParams == 1) URL = httpToolBox.addFirstParameter(URL, header, value);
 				else URL = httpToolBox.addParameter(URL, header, value);
 			} else {
-				if (header.startsWith("XPATH:")) {
+				if (header.startsWith(XPATH+":")) {
 					XmlToolBox xmlToolBox = new XmlToolBox();
 					try {
-						payload = xmlToolBox.updateXmlNodeValue(payload, StringUtils.substringAfter(header, "XPATH:"), value);
+						payload = xmlToolBox.updateXmlNodeValue(payload, StringUtils.substringAfter(header, XPATH+":"), value);
 					} catch (ApiFitException ignore) {
 						ApiFitLogger.log(ignore.getMessage());
 					}
@@ -209,6 +212,9 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 	public void reset() {
 		URL = baseURL;
 		nbParams = 0;
+		payload = (String) TestSessionCache.getInstance().getObjectInTestSession(testSessionId+PAYLOAD);
+		//TODO see why this !
+		if (payload != null && contentType != HTML_CONTENT_TYPE) payload = payload.replace("<br/>", "");
 	}
 
 	private String getParamFromResultBody(String requestedValue) {

@@ -1,10 +1,10 @@
 package apifit.fixture;
 
-import static apifit.common.ApiFitConstants.AUTH_PARAMS;
 import static apifit.common.ApiFitConstants.AUTH_HOST;
+import static apifit.common.ApiFitConstants.AUTH_PARAMS;
 import static apifit.common.ApiFitConstants.AUTH_PORT;
-import static apifit.common.ApiFitConstants.AUTH_USER;
 import static apifit.common.ApiFitConstants.AUTH_PSWD;
+import static apifit.common.ApiFitConstants.AUTH_USER;
 
 import java.util.Hashtable;
 

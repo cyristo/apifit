@@ -1,15 +1,11 @@
 package apifit.contract;
 
+import static apifit.common.ApiFitConstants.AUTH_PARAMS;
 import static apifit.common.ApiFitConstants.COOKIES;
 import static apifit.common.ApiFitConstants.EXECUTION_SUCCESS_BODY;
 import static apifit.common.ApiFitConstants.HEADERS;
 import static apifit.common.ApiFitConstants.POST;
 import static apifit.common.ApiFitConstants.PUT;
-import static apifit.common.ApiFitConstants.AUTH_PARAMS;
-import static apifit.common.ApiFitConstants.AUTH_PORT;
-import static apifit.common.ApiFitConstants.AUTH_HOST;
-import static apifit.common.ApiFitConstants.AUTH_USER;
-import static apifit.common.ApiFitConstants.AUTH_PSWD;
 import static apifit.common.ApiFitConstants.STATUS_KO;
 import static apifit.common.ApiFitConstants.STATUS_OK;
 import static apifit.common.ApiFitConstants.STATUS_UNKNOWN;

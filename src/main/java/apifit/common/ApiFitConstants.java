@@ -19,7 +19,10 @@ public class ApiFitConstants {
 	public static final String APIFIT_CHECK_STATUS = "APIFIT:CHECK_STATUS";
 	public static final String APIFIT_PROXY_HOST = "APIFIT:PROXY_HOST";
 	public static final String APIFIT_PROXY_PORT = "APIFIT:PROXY_PORT";
-		
+	
+	public static final String BLANK = "BLANK";
+	public static final String XPATH = "XPATH";
+	
 	public static final String BASE_URL = "BASE_URL";
 	public static final String SCHEME = "SCHEME";
 	public static final String PORT = "PORT";

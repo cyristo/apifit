@@ -5,13 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.apache.commons.io.FileUtils;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.github.fge.jsonschema.core.exceptions.ProcessingException;
@@ -22,7 +18,6 @@ import com.jayway.jsonpath.spi.mapper.JacksonMappingProvider;
 import apifit.common.ApiFitException;
 import apifit.common.ApiFitUtils;
 import apifit.common.JsonDTOToolBox;
-import apifit.it.TestAPIFixture;
 import apifit.json.JsonToolBox;
 import apifit.json.ValidationUtils;
 

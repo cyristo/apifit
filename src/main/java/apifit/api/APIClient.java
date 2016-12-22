@@ -1,15 +1,15 @@
 package apifit.api;
 
+import static apifit.common.ApiFitConstants.AUTH_HOST;
+import static apifit.common.ApiFitConstants.AUTH_PORT;
+import static apifit.common.ApiFitConstants.AUTH_PSWD;
+import static apifit.common.ApiFitConstants.AUTH_USER;
 import static apifit.common.ApiFitConstants.DELETE;
 import static apifit.common.ApiFitConstants.GET;
 import static apifit.common.ApiFitConstants.JSON_CONTENT_TYPE;
 import static apifit.common.ApiFitConstants.LINE_SEPARATOR;
 import static apifit.common.ApiFitConstants.POST;
 import static apifit.common.ApiFitConstants.PUT;
-import static apifit.common.ApiFitConstants.AUTH_HOST;
-import static apifit.common.ApiFitConstants.AUTH_PORT;
-import static apifit.common.ApiFitConstants.AUTH_USER;
-import static apifit.common.ApiFitConstants.AUTH_PSWD;
 
 import java.io.IOException;
 import java.security.KeyManagementException;
@@ -59,8 +59,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.impl.conn.DefaultProxyRoutePlanner;
 import org.apache.http.impl.cookie.BasicClientCookie;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;
 import org.apache.http.ssl.SSLContexts;
 import org.apache.http.ssl.TrustStrategy;
 import org.apache.http.util.EntityUtils;
