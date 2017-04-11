@@ -14,6 +14,7 @@ public class TestTheCacheSystem {
 		
 		//Arrange
 		TestSessionCache testExecutionCache = TestSessionCache.getInstance();
+		testExecutionCache.clearCache();
 		String obj1 = "obj1";
 		String obj2 = "obj2";
 		String obj3 = "obj3";
@@ -57,6 +58,7 @@ public class TestTheCacheSystem {
 	public void removeAllObjectWithKey() {
 		
 		TestSessionCache testExecutionCache = TestSessionCache.getInstance();
+		testExecutionCache.clearCache();
 		String obj1 = "obj1";
 		String obj2 = "obj2";
 		String obj3 = "obj3";
