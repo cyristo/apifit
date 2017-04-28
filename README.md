@@ -9,8 +9,10 @@ Prerequisite : have Java 8 installed.
 
 * Download Apifit x.x.zip
 * Extract the zip
-* Start FitNesse
-* You are ready to go !
+* Start FitNesse : java -jar fitnesse-standalone.jar
+* Start up a browser and go to http://localhost/8001
+
+You're ready to go !
 
 Getting Started - your first *very simple* test
 -----------------------------------------------
