@@ -8,6 +8,8 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import apifit.common.ApiFitLogger;
+
 public class JsonToDTOConverter {
 
 	public static void main(String[] args) {
@@ -40,8 +42,7 @@ public class JsonToDTOConverter {
 		try {
 			lines = FileUtils.readLines(file, "utf-8");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ApiFitLogger.log(e.getMessage());
 		}
 		
 		Iterator iter = lines.iterator();

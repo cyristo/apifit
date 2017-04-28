@@ -142,8 +142,8 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 					XmlToolBox xmlToolBox = new XmlToolBox();
 					try {
 						payload = xmlToolBox.updateXmlNodeValue(payload, StringUtils.substringAfter(header, XPATH+":"), value);
-					} catch (ApiFitException ignore) {
-						ApiFitLogger.log(ignore.getMessage());
+					} catch (ApiFitException e) {
+						ApiFitLogger.log(e.getMessage());
 					}
 				} else {
 					JsonToolBox jsonToolBox = new JsonToolBox();
@@ -155,8 +155,8 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 					}
 					try {
 						payload = jsonToolBox.updateJsonAttribute(payload, header, value);
-					} catch (ApiFitException ignore) {
-						ApiFitLogger.log(ignore.getMessage());
+					} catch (ApiFitException e) {
+						ApiFitLogger.log(e.getMessage());
 					}
 				}
 			}
@@ -243,7 +243,7 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 	}
 
 	private String schemaValidation() {
-		String ret = "FASLE";
+		String ret = "FALSE";
 		validationMessage = "";
 
 		Object obj = TestSessionCache.getInstance().getObjectInTestSession(testSessionId+SCHEMA); 
@@ -255,7 +255,6 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 			ValidationUtils.validateJson(schema.replace("<br/>", ""), executionSuccessBody);
 			ret = "TRUE";
 		} catch (IOException e) {
-			e.printStackTrace();
 			validationMessage = e.getMessage();
 		} catch (ProcessingException e) {
 			validationMessage = e.getMessage();

@@ -360,7 +360,7 @@ public class APIClient implements IAPIClient {
 
 	private void parseResponseEntity(CloseableHttpResponse response, String payload) throws ApiFitException {
 		HttpEntity entity = response.getEntity();
-		if (entity.getContentType().equals(JSON_CONTENT_TYPE)) {
+		if (entity.getContentType().toString().equals(JSON_CONTENT_TYPE)) {
 			JsonToolBox toolBox = new JsonToolBox();
 				try {
 					responseBody = toolBox.formatPretty(EntityUtils.toString(entity));

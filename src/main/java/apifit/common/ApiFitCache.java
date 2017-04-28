@@ -9,30 +9,27 @@ public class ApiFitCache {
 	private Hashtable<String, String> config;
 	private String baseURL;
 	private APIHost proxy;
-	
+
 	private ApiFitCache() {
 	}
-	
+
 	/** Instance unique non préinitialisée */
 	private static ApiFitCache INSTANCE = null;
 
 	/** Point d'accès pour l'instance unique du singleton */
-	public static ApiFitCache getInstance() {	
-		if (INSTANCE == null) { 	
-			synchronized(ApiFitCache.class) {
-				if (INSTANCE == null) {	
-					INSTANCE = new ApiFitCache();
-					INSTANCE.initConfig();
-				}
-			}
+	public synchronized static ApiFitCache getInstance() {	
+		if (INSTANCE == null) {	
+			INSTANCE = new ApiFitCache();
+			INSTANCE.initConfig();
+
 		}
 		return INSTANCE;
 	}
-	
+
 	private void initConfig() {
 		config = new Hashtable<String, String>();
 	}
-	
+
 	public String getConfigProperty(String key) {
 		return config.get(key);
 	}

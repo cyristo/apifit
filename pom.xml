@@ -82,19 +82,15 @@
 	</dependencies>
 
 	<distributionManagement>
-		<!-- use the following if you're not using a snapshot version. 
-		<repository>
-			<id>localSnap</id>
-			<name>RepositoryProxyRel</name>
-			<url>http://127.0.0.1:8080/nexus/content/repositories/releases/</url>
-		</repository>
-		-->
+		<!-- use the following if you're not using a snapshot version. <repository> 
+			<id>localSnap</id> <name>RepositoryProxyRel</name> <url>http://127.0.0.1:8080/nexus/content/repositories/releases/</url> 
+			</repository> -->
 		<!-- use the following if you ARE using a snapshot version. -->
 		<snapshotRepository>
 			<id>deploymentRepo</id>
 			<name>RepositoryProxySnap</name>
 			<url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
-			
+
 		</snapshotRepository>
 	</distributionManagement>
 	<build>
@@ -115,6 +111,15 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.7.9</version>
 			</plugin>
 		</plugins>
 	</build>

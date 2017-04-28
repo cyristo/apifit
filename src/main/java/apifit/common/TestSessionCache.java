@@ -7,25 +7,21 @@ public class TestSessionCache {
 
 	private TestSessionCache() {
 	}
-	
+
 	private Hashtable<String, Object> hashTable;
-	
+
 	/** Instance unique non préinitialisée */
 	private static TestSessionCache INSTANCE = null;
- 
+
 	/** Point d'accès pour l'instance unique du singleton */
-	public static TestSessionCache getInstance() {	
+	public synchronized static TestSessionCache getInstance() {	
 		if (INSTANCE == null) { 	
-			synchronized(TestSessionCache.class) {
-				if (INSTANCE == null) {	
-					INSTANCE = new TestSessionCache();
-					INSTANCE.initCache();
-				}
-			}
+			INSTANCE = new TestSessionCache();
+			INSTANCE.initCache();
 		}
 		return INSTANCE;
 	}
-	
+
 	private void initCache() {
 		hashTable = new Hashtable<String, Object>();
 	}
