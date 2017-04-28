@@ -66,8 +66,6 @@ Here is the result :
 
 Congratulations ! You've just run your first Apifit test...and it's green !
 
-If it takes you more than 5 minutes, please contact the 24/7 Apifit support :smile:
-
 Data Driven test style
 ----------------------
 Apifit inherits of FitNesse data driven testing capabilities. A table can contain multiple rows, testing the same API with different inputs and outputs. 
