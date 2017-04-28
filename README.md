@@ -5,9 +5,9 @@ Apifit is a framework that extends FitNesse with a full range of Rest API testin
 
 Installation
 ------------
-Prerequisite : have Java 8 and FitNesse installed.
+Prerequisite : have Java 8 installed.
 
-* Download Apifit <version>.zip
+* Download Apifit x.x.zip
 * Extract the zip
 * Start FitNesse
 * You are ready to go !
