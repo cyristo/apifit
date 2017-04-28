@@ -52,9 +52,6 @@ Assertions done on returned data can use :
 * GPath expression language, to assert on Json, XML or HTML responses (http://groovy-lang.org/processing-xml.html)
 * Numerical or regular expressions comparisons  (http://www.fitnesse.org/FitNesse.UserGuide.WritingAcceptanceTests.SliM.ValueComparisons) 
 
-You - What ? Asserting on Html result pages within a simple test table ? 
-Me - Yes, no more heavy-and-hard-to-maintain Selenium tests !!!
-
 Now let's run the test. No, wait, just a little step more. Indeed, we need to provide FitNesse with our Apifit Fixtures. Just a simple import directive, to be placed in a suite setup page for example. 
 ```
 |import                                |
