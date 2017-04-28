@@ -1,4 +1,4 @@
-# Apifit
+# Apifit - Test Driven API Development
 ## Secure your API layer the agile way, with an automated and collaborative testing tool !
 
 Apifit is a framework that extends FitNesse with a full range of Rest API testing capabilities. If you don't know about FitNesse, start here : www.fitnesse.org.
