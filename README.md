@@ -7,16 +7,10 @@ Installation
 ------------
 Prerequisite : have Java 8 and FitNesse installed.
 
-* Download apifit-dist-VERSION.zip
-* Extract apifit-dist-VERSION.zip under FitNesseRoot
+* Download Apifit <version>.zip
+* Extract the zip
 * Start FitNesse
-* Set the FitNesse test engine to SLIM 
-```!define TEST_SYSTEM {slim}```
-* Set the FitNesse classpath with the Apifit distribution 
-```!path <your_local_dir>/FitNesseRoot/apifit/lib/*.jar```
-
-You are ready to use Apifit !
-
+* You are ready to go !
 
 Getting Started - your first *very simple* test
 -----------------------------------------------
