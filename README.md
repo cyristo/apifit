@@ -14,6 +14,8 @@ Prerequisite : have Java 8 installed.
 
 You're ready to go !
 
+You can execute all examples below directly from the distribution. Go to the http://localhost:8001/ApiFitDemoPage and click Test !
+
 Getting Started - your first *very simple* test
 -----------------------------------------------
 
