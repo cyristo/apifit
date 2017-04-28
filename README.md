@@ -1,5 +1,5 @@
 # Apifit - Test Driven API Development
-## Secure your API layer the agile way, with an automated and collaborative testing tool !
+## Secure your API development with an automated and collaborative testing tool !
 
 Apifit is a framework that extends FitNesse with a full range of Rest API testing capabilities. If you don't know about FitNesse, start here : www.fitnesse.org.
 
@@ -14,7 +14,7 @@ Prerequisite : have Java 8 installed.
 
 You're ready to go !
 
-You can execute all examples below directly from the distribution. Go to the localhost:8001/ApiFitDemoPage and click Test !
+You can execute all examples below directly from the distribution. Go to localhost:8001/ApiFitDemoPage and click Test !
 
 Getting Started - your first *very simple* test
 -----------------------------------------------
