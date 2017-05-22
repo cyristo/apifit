@@ -139,7 +139,7 @@ public class APIClient implements IAPIClient {
 			cookieStore = new BasicCookieStore();
 			// Populate cookies if needed
 			Set<String> set = cookies.keySet();
-			BasicClientCookie cookie = null;
+			BasicClientCookie cookie;
 			StringBuilder cookieString = new StringBuilder();
 			for (Iterator<String> iterator = set.iterator(); iterator.hasNext();) {
 				String name = (String) iterator.next();
