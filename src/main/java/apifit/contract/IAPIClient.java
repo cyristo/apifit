@@ -13,6 +13,6 @@ public interface IAPIClient {
 	public Integer getStatusCode();
 	public String getResponseBody();
 	public long getRequestTime();
-	public StringBuffer getRequestFlow();
+	public StringBuilder getRequestFlow();
 	
 }

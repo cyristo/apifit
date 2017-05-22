@@ -1,12 +1,12 @@
 package apifit.it;
 
+import static apifit.common.ApiFitConstants.APIFIT_PROXY_HOST;
+import static apifit.common.ApiFitConstants.APIFIT_PROXY_PORT;
 import static apifit.common.ApiFitConstants.DELETE;
 import static apifit.common.ApiFitConstants.GET;
 import static apifit.common.ApiFitConstants.PAYLOAD;
 import static apifit.common.ApiFitConstants.POST;
 import static apifit.common.ApiFitConstants.PUT;
-import static apifit.common.ApiFitConstants.APIFIT_PROXY_HOST;
-import static apifit.common.ApiFitConstants.APIFIT_PROXY_PORT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -24,7 +24,6 @@ import org.apache.commons.io.IOUtils;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import apifit.common.ApiFitException;

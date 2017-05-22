@@ -10,6 +10,7 @@ import static apifit.common.ApiFitConstants.STATUS_KO;
 import static apifit.common.ApiFitConstants.STATUS_OK;
 import static apifit.common.ApiFitConstants.STATUS_UNKNOWN;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 
 import apifit.api.APIClient;
@@ -38,15 +39,15 @@ public abstract class AbstractAPIDomain implements IDomain {
 
 		Object cookies = TestSessionCache.getInstance().getObjectInTestSession(testSessionId+COOKIES); 
 		if (cookies != null) {
-			apiClient.setCookies((Hashtable<String, String>) cookies);
+			apiClient.setCookies((HashMap<String, String>) cookies);
 		}
 		Object headers = TestSessionCache.getInstance().getObjectInTestSession(testSessionId+HEADERS); 
 		if (headers != null) {
-			apiClient.setRequestHeaders((Hashtable<String, String>) headers);
+			apiClient.setRequestHeaders((HashMap<String, String>) headers);
 		}
 		Object autParams = TestSessionCache.getInstance().getObjectInTestSession(testSessionId+AUTH_PARAMS); 
 		if (autParams != null) {
-			apiClient.setAuthParams((Hashtable<String, String>) autParams);
+			apiClient.setAuthParams((HashMap<String, String>) autParams);
 		}
 	}
 	

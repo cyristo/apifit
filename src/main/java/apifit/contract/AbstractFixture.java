@@ -38,7 +38,7 @@ public abstract class AbstractFixture implements IDecisionTableFixture {
 			try {
 				domain.execute(testSessionId);
 			} catch (ApiFitException e){
-				ApiFitLogger.log(e.getMessage());
+				ApiFitLogger.log(e);
 			}
 			executionStatus = domain.getExecutionStatus();
 			executionSuccessBody = domain.getExecutionBody();

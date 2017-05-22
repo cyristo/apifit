@@ -97,17 +97,15 @@ public class XmlToolBox {
 	}
 
 	public String replaceXmlElement(String xmlElement, String newElement) {
-		String newXmlElement = xmlElement;
 
 		String oldElement = StringUtils.substringBetween(xmlElement, ">", "</");
-		newXmlElement = StringUtils.replace(xmlElement, oldElement, newElement);
+		String newXmlElement = StringUtils.replace(xmlElement, oldElement, newElement);
 
 		return newXmlElement;
 	}
 
 	public String updateXmlNodeValue(String payload, String expression, String value) throws ApiFitException {
 
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		Document doc = null;
 		try {
 			DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();

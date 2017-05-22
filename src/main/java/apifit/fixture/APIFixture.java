@@ -143,7 +143,7 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 					try {
 						payload = xmlToolBox.updateXmlNodeValue(payload, StringUtils.substringAfter(header, XPATH+":"), value);
 					} catch (ApiFitException e) {
-						ApiFitLogger.log(e.getMessage());
+						ApiFitLogger.log(e);
 					}
 				} else {
 					JsonToolBox jsonToolBox = new JsonToolBox();
@@ -156,7 +156,7 @@ public class APIFixture extends AbstractFixture implements IDynamicDecisionTable
 					try {
 						payload = jsonToolBox.updateJsonAttribute(payload, header, value);
 					} catch (ApiFitException e) {
-						ApiFitLogger.log(e.getMessage());
+						ApiFitLogger.log(e);
 					}
 				}
 			}

@@ -3,7 +3,10 @@ package apifit.fixture;
 import static apifit.common.ApiFitConstants.EXECUTION_SUCCESS_BODY;
 
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Set;
 
 import apifit.common.ApiFitException;
 import apifit.common.TestSessionCache;
@@ -15,7 +18,7 @@ public class DataResultUpdateFixture extends AbstractFixture implements IDynamic
 
 	private String dataToUpdate;
 	private JsonToolBox jsonToolBox;
-	private Hashtable<String, String> table;
+	private HashMap<String, String> table;
 	boolean exceptionThrown = false;
 	
 	public DataResultUpdateFixture(String testSessionId) {
@@ -25,7 +28,7 @@ public class DataResultUpdateFixture extends AbstractFixture implements IDynamic
 		super(testSessionId, false);
 		this.dataToUpdate = (String) TestSessionCache.getInstance().getObjectInTestSession(testSessionId+EXECUTION_SUCCESS_BODY);	
 		jsonToolBox = new JsonToolBox();
-		table = new Hashtable<String, String>();
+		table = new HashMap<String, String>();
 	}
 
 	public void set(String fieldPath, String newValue) {
@@ -34,9 +37,9 @@ public class DataResultUpdateFixture extends AbstractFixture implements IDynamic
 
 	public void execute() {
 		
-		Enumeration<String> en = table.keys();
-		while (en.hasMoreElements()) {
-			String fieldPath = (String) en.nextElement();
+		Set<String> set = table.keySet();
+		for (Iterator<String> iterator = set.iterator(); iterator.hasNext();) {
+			String fieldPath = (String) iterator.next();
 			String newValue = table.get(fieldPath);
 			try {
 				dataToUpdate = jsonToolBox.updateJsonAttribute(dataToUpdate, fieldPath, newValue);

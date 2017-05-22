@@ -6,13 +6,14 @@ import static apifit.common.ApiFitConstants.AUTH_PORT;
 import static apifit.common.ApiFitConstants.AUTH_PSWD;
 import static apifit.common.ApiFitConstants.AUTH_USER;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 
 import apifit.common.TestSessionCache;
 
 public class AuthentificationFixture {
 
-	private Hashtable<String, String> authParams = null;
+	private HashMap<String, String> authParams = null;
 	private String testSessionId = null;
 	private String user = null;
 	private String password = null;
@@ -41,7 +42,7 @@ public class AuthentificationFixture {
 	
 	public void execute() {
 		if (host != null && port != null && user != null && password != null) {
-			authParams = new Hashtable<String, String>();
+			authParams = new HashMap<String, String>();
 			authParams.put(AUTH_HOST, host);
 			authParams.put(AUTH_PORT, port);
 			authParams.put(AUTH_USER, user);

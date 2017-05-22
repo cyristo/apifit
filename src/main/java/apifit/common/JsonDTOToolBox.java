@@ -3,7 +3,10 @@ package apifit.common;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -15,15 +18,18 @@ public class JsonDTOToolBox {
 	public String populateJsonPayloadFromDTO(IJsonDTO dto, String payload) throws ApiFitException {
 
 		//ArrayList<ValueField> table = getValueFieldsFromDTO(dto);
-		Hashtable<String, Object> hashTable = getValueFieldsFromDTO(dto);
-		Enumeration<String> keys = hashTable.keys();
-		String key = null;
-		Object value = null;
-		String level = "0";
+		HashMap<String, Object> hashTable = getValueFieldsFromDTO(dto);
+		Set<String> keys = hashTable.keySet();
+		
+		//Enumeration<String> keys = hashTable.keys();
+		String key;
+		Object value;
+		String level;
 		JsonToolBox jsonToolBox = new JsonToolBox();
 
-		while (keys.hasMoreElements()) {
-			key = (String) keys.nextElement();
+		for (Iterator iterator = keys.iterator(); iterator.hasNext();) {
+			key = (String) iterator.next();
+			//key = (String) keys.nextElement();
 			value = hashTable.get(key);
 			level = StringUtils.substringAfter(key, "_");
 			key = StringUtils.removeEnd(key, "_"+level);
@@ -34,15 +40,14 @@ public class JsonDTOToolBox {
 		return payload;
 	}
 
-	public Hashtable<String, Object> getValueFieldsFromDTO(IJsonDTO dto) throws ApiFitException {
+	public HashMap<String, Object> getValueFieldsFromDTO(IJsonDTO dto) throws ApiFitException {
 
-		Hashtable<String, Object> hashTable = new Hashtable<String, Object>();		
+		HashMap<String, Object> hashTable = new HashMap<String, Object>();		
 		Method[] methods = dto.getClass().getMethods();
 		int level = dto.getJsonNodeLevel();
 
-		String key = null;
-		String value = null;
-		Object obj = null;
+		String key;
+		Object obj;
 
 		for (Method method : methods) {
 
@@ -72,7 +77,6 @@ public class JsonDTOToolBox {
 					throw new ApiFitException(e);
 				}
 				if (obj != null && key != "getClass" && key != "getJsonNodeLevel") {
-					value = obj.toString();
 					key = key + "_" + level;
 					hashTable.put(extractFieldNameFromGetterMethodName(key), obj);
 				}

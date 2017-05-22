@@ -1,14 +1,18 @@
 package apifit.common;
 
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class TestSessionCache {
 
 	private TestSessionCache() {
 	}
 
-	private Hashtable<String, Object> hashTable;
+	private ConcurrentHashMap<String, Object> hashTable;
 
 	/** Instance unique non préinitialisée */
 	private static TestSessionCache INSTANCE = null;
@@ -23,7 +27,7 @@ public class TestSessionCache {
 	}
 
 	private void initCache() {
-		hashTable = new Hashtable<String, Object>();
+		hashTable = new ConcurrentHashMap<String, Object>();
 	}
 	public void addObjectInTestSession(String key, Object obj) {
 		hashTable.put(key, obj);
@@ -39,11 +43,14 @@ public class TestSessionCache {
 		hashTable.remove(key);
 	}
 	public void removeAllObjectInTestSessionStartingWithKey(String startingKey) {
-		Enumeration en = hashTable.keys();
-		while (en.hasMoreElements()) {
-			String key = (String) en.nextElement();
-			if (key.startsWith(startingKey)) hashTable.remove(key);
+		Set<String> set = hashTable.keySet();
+		for (Iterator<String> iterator = set.iterator(); iterator.hasNext();) {
+				String key = (String) iterator.next();
+				if (key.startsWith(startingKey)) {
+					hashTable.remove(key);
+				}
 		}
+
 	}
 	public Object getObjectInTestSession(String key) {
 		return hashTable.get(key);

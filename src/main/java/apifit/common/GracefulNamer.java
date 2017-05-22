@@ -61,7 +61,7 @@ public class GracefulNamer {
     return namer.finalName.toString();
   }
 
-  private StringBuffer finalName = new StringBuffer();
+  private StringBuilder finalName = new StringBuilder();
 
   private GracefulNameState currentState = new OutOfWordState();
 

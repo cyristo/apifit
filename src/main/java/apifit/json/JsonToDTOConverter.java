@@ -42,7 +42,7 @@ public class JsonToDTOConverter {
 		try {
 			lines = FileUtils.readLines(file, "utf-8");
 		} catch (IOException e) {
-			ApiFitLogger.log(e.getMessage());
+			ApiFitLogger.log(e);
 		}
 		
 		Iterator iter = lines.iterator();

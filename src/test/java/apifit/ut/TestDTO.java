@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 
 import org.junit.Test;
@@ -37,7 +38,7 @@ public class TestDTO {
 		JsonDTOToolBox dtoToolBox = new JsonDTOToolBox();
 		
 		//Act
-		Hashtable<String, Object> hashTable = new Hashtable<String, Object>();
+		HashMap<String, Object> hashTable = new HashMap<String, Object>();
 		try {
 			hashTable = dtoToolBox.getValueFieldsFromDTO(dto);
 		} catch (ApiFitException e) {

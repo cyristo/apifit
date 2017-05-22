@@ -14,4 +14,9 @@ public class ApiFitLogger {
 		}
 	}
 	*/
+
+	public static void log(Exception e) {
+		System.out.println(e);
+		
+	}
 }

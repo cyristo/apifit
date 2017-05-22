@@ -20,10 +20,12 @@ import java.security.cert.X509Certificate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.net.ssl.SSLContext;
 
@@ -78,7 +80,7 @@ public class APIClient implements IAPIClient {
 	private long requestTime;
 	private ArrayListMultimap<String, String> responseHeaders = null;
 	private ArrayListMultimap<String, String> requestHeaders = null;
-	private StringBuffer requestFlow;
+	private StringBuilder requestFlow;
 	private CookieStore cookieStore = null;
 	private CredentialsProvider credsProvider = null;
 
@@ -86,15 +88,18 @@ public class APIClient implements IAPIClient {
 		this.requestType = requestType;
 	}
 
-	public void setRequestHeaders(Hashtable<String, String> requestHeaderTable) {
+	public void setRequestHeaders(HashMap<String, String> requestHeaderTable) {
 		if (requestHeaderTable == null) return;
-		Enumeration enumer = requestHeaderTable.keys();
+		//Enumeration enumer = requestHeaderTable.keys();
+		Set<String> enumer  = requestHeaderTable.keySet();
 		requestHeaders = ArrayListMultimap.create();
-		while (enumer.hasMoreElements()) {
-			String key = (String) enumer.nextElement();
+		for (Iterator<String> iterator = enumer.iterator(); iterator.hasNext();) {
+			String key = (String) iterator.next();
 			String value = requestHeaderTable.get(key);
 			requestHeaders.put(key, value);
+			
 		}
+
 	}
 	
 	public void setRequestHeaders(ArrayListMultimap<String, String> requestHeaders) {
@@ -118,8 +123,8 @@ public class APIClient implements IAPIClient {
 		Map<String, String> cookiesInResponse = null;
 		List<String> cookies = getResponseHeader("Set-Cookie");
 		if (cookies != null && !cookies.isEmpty()) {
-			cookiesInResponse = new Hashtable<String, String>();
-			Iterator iter = cookies.iterator();
+			cookiesInResponse = new HashMap<String, String>();
+			Iterator<String> iter = cookies.iterator();
 			while (iter.hasNext()) {
 				String cookie = (String) iter.next();
 				String name = StringUtils.substringBefore(cookie, "=");
@@ -129,28 +134,30 @@ public class APIClient implements IAPIClient {
 		}
 		return cookiesInResponse;
 	}
-	public void setCookies(Hashtable<String, String> cookies) {
+	public void setCookies(HashMap<String, String> cookies) {
 		if (cookies != null) {
 			cookieStore = new BasicCookieStore();
 			// Populate cookies if needed
-			Enumeration<String> enumer = cookies.keys();
+			Set<String> set = cookies.keySet();
 			BasicClientCookie cookie = null;
-			StringBuffer cookieString = new StringBuffer();
-			while (enumer.hasMoreElements()) {
-				String name = (String) enumer.nextElement();
+			StringBuilder cookieString = new StringBuilder();
+			for (Iterator<String> iterator = set.iterator(); iterator.hasNext();) {
+				String name = (String) iterator.next();
+				//String name = (String) enumer.nextElement();
 				String value = cookies.get(name);
 				cookie = new BasicClientCookie(name, value);
 				cookie.setDomain(".domain.ws");
 				cookie.setPath("/");
 				cookieStore.addCookie(cookie);
 				cookieString.append(name).append("=").append(value);
-				if (enumer.hasMoreElements()) cookieString.append("; ");
+				if (iterator.hasNext()) cookieString.append("; ");
 			}
+			
 			addRequestHeader("Cookie", cookieString.toString());
 		}
 	}
 	
-	public void setAuthParams(Hashtable<String, String> authParams) {
+	public void setAuthParams(HashMap<String, String> authParams) {
 		if (authParams != null) {
 			credsProvider = new BasicCredentialsProvider();
 			credsProvider.setCredentials(
@@ -247,7 +254,7 @@ public class APIClient implements IAPIClient {
 		return requestTime;
 	}
 	
-	public StringBuffer getRequestFlow() {
+	public StringBuilder getRequestFlow() {
 		return requestFlow;
 	}
 	
@@ -332,7 +339,7 @@ public class APIClient implements IAPIClient {
 	private HttpUriRequest addHeadersToRequest(HttpUriRequest request) {
 		if (requestHeaders != null) {
 			Collection<Map.Entry<String, String>> coll = requestHeaders.entries();
-			Iterator iter = coll.iterator();
+			Iterator<Entry<String, String>> iter = coll.iterator();
 			while (iter.hasNext()) {
 				Map.Entry<String, String> entry = (Map.Entry<String, String>) iter.next();
 				request.addHeader(entry.getKey(), entry.getValue());
@@ -341,7 +348,7 @@ public class APIClient implements IAPIClient {
 		return request;
 	}
 	private void parseRequestEntity(HttpUriRequest httpRequest, String payload) {
-		requestFlow = new StringBuffer().append("=================> API EXECUTION FLOW AT ").append(LocalDateTime.now()).append(" <=================");
+		requestFlow = new StringBuilder().append("=================> API EXECUTION FLOW AT ").append(LocalDateTime.now()).append(" <=================");
 		requestFlow.append(LINE_SEPARATOR).append("REQUEST ACTION   : ").append(requestType).append(" ").append(httpRequest.getURI());
 		if (requestHeaders != null) {
 			Header[] headers = httpRequest.getAllHeaders();

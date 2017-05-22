@@ -32,8 +32,6 @@ public class JsonToolBox {
 
 	public Object getJsonParamValue(String jsonPayload, String name) {
 		Object obj = null;
-		System.out.println(jsonPayload);
-		System.out.println(name);
 		try {
 			if (name.startsWith("$")) {
 				obj = JsonPath.read(jsonPayload, name);
@@ -56,6 +54,7 @@ public class JsonToolBox {
 
 	public String getNodeFromPayload(String jsonPayload, String fieldName, int level) throws ApiFitException {
 
+		
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode rootNode = null;
 
@@ -70,18 +69,17 @@ public class JsonToolBox {
 	}
 
 	public String updateJsonAttribute(String jsonPayload, String fieldPath, Object newValue) throws ApiFitException {
-		Object valueToUpdate = newValue.toString();
 		
-		valueToUpdate = StringUtils.replace(newValue.toString(), "\"", "");
+		Object valueToUpdate = StringUtils.replace(newValue.toString(), "\"", "");
 		/*
 		if (!StringUtils.startsWith(valueToUpdate.toString(), "[") && !StringUtils.endsWith(valueToUpdate.toString(), "]")) {
 			valueToUpdate = new String(newValue.toString());
 		}
 		*/
 		if (ApiFitUtils.isInteger(newValue.toString())) {
-			valueToUpdate = new Integer(Integer.parseInt(newValue.toString()));
+			valueToUpdate = Integer.parseInt(newValue.toString());
 		} else if (ApiFitUtils.isDouble(newValue.toString())) {
-			valueToUpdate = new Double(Double.parseDouble(newValue.toString()));
+			valueToUpdate = Double.parseDouble(newValue.toString());
 		}
 
 		JsonNode updatedJson = JsonPath.using(configuration).parse(jsonPayload).set(fieldPath, valueToUpdate).json();
@@ -149,17 +147,17 @@ public class JsonToolBox {
 		if (parent.has(fieldName) && (levelOfUpdate == 0 || levelOfUpdate == payLoadlevel)) {
 			ObjectNode node = (ObjectNode) parent;
 			if (newValue.getClass().equals(Integer.class)) {
-				node.put(fieldName, new Integer((Integer) newValue));
+				node.put(fieldName, (Integer) newValue);
 			} else if (newValue.getClass().equals(Float.class)) {
-				node.put(fieldName, new Float((Float) newValue));
+				node.put(fieldName, (Float) newValue);
 			} else if (newValue.getClass().equals(Double.class)) {
-				node.put(fieldName, new Double((Double) newValue));
+				node.put(fieldName, (Double) newValue);
 			} else if (newValue.getClass().equals(ArrayList.class)) {
 				ObjectMapper mapper = new ObjectMapper();
 				ArrayNode array = mapper.valueToTree(newValue);
 				node.putArray(fieldName).addAll(array);
 			} else if (newValue.getClass().equals(Boolean.class)) {
-				node.put(fieldName, new Boolean((Boolean) newValue));
+				node.put(fieldName, (Boolean) newValue);
 			} else {
 				if (node.get(fieldName).getNodeType().equals(JsonNodeType.NUMBER)) {
 					if (ApiFitUtils.isInteger(newValue.toString()))  {
@@ -179,40 +177,6 @@ public class JsonToolBox {
 			change(child, fieldName, newValue, levelOfUpdate);
 		}
 	}
-	private void change2(JsonNode parent, String fieldPath, Object newValue) {
-
-		JsonNode node = ((ObjectNode) parent).findParent(fieldPath);
-		System.out.println(node);
-		/*
-			ObjectNode node = (ObjectNode) parent;
-			if (newValue.getClass().equals(Integer.class)) {
-				node.put(fieldName, new Integer((Integer) newValue));
-			} else if (newValue.getClass().equals(Float.class)) {
-				node.put(fieldName, new Float((Float) newValue));
-			} else if (newValue.getClass().equals(Double.class)) {
-				node.put(fieldName, new Double((Double) newValue));
-			} else if (newValue.getClass().equals(ArrayList.class)) {
-				ObjectMapper mapper = new ObjectMapper();
-				ArrayNode array = mapper.valueToTree(newValue);
-				node.putArray(fieldName).addAll(array);
-			} else if (newValue.getClass().equals(Boolean.class)) {
-				node.put(fieldName, new Boolean((Boolean) newValue));
-			} else {
-				if (node.get(fieldName).getNodeType().equals(JsonNodeType.NUMBER)) {
-					if (ApiFitUtils.isInteger(newValue.toString()))  {
-						node.put(fieldName, new Integer(newValue.toString()));
-					} else {
-						node.put(fieldName, new Double(newValue.toString()));
-					}
-				} else {
-					node.put(fieldName, new String((String) newValue));					
-				}
-			}
-			*/
-			return;
-	}
-	
-	
 	private void remove(JsonNode parent, String fieldName) {
 
 		if (parent.has(fieldName)) {

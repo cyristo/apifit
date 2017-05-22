@@ -77,7 +77,7 @@ LevensteinDistance - the number of changes needed to change one String into anot
 		if (pattern.equals("TODAY") || pattern.equals("NOW")) {
 			returnedDate = LocalDateTime.now();
 		} else if (pattern.contains("TODAY")) {
-			String days = "0";
+			String days;
 			if (pattern.contains("+")) {
 				days = StringUtils.substringAfterLast(pattern, "+");
 				LocalDateTime time = LocalDateTime.now();

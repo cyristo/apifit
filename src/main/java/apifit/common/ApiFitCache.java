@@ -1,12 +1,13 @@
 package apifit.common;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 
 import apifit.api.APIHost;
 
 public class ApiFitCache {
 
-	private Hashtable<String, String> config;
+	private HashMap<String, String> config;
 	private String baseURL;
 	private APIHost proxy;
 
@@ -27,7 +28,7 @@ public class ApiFitCache {
 	}
 
 	private void initConfig() {
-		config = new Hashtable<String, String>();
+		config = new HashMap<String, String>();
 	}
 
 	public String getConfigProperty(String key) {
